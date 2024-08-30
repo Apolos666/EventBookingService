@@ -22,6 +22,7 @@ public class StoreEventEndpoint : ICarterModule
         .Produces<StoreEventResponse>(StatusCodes.Status201Created)
         .ProducesProblem(StatusCodes.Status400BadRequest)
         .WithSummary("Create Product")
-        .WithDescription("Creates a new product.");
+        .WithDescription("Creates a new product.")
+        .WithTags(nameof(Models.Event));
     }
 }

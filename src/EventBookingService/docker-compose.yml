@@ -4,12 +4,16 @@ services:
   eventdb:
     image: postgres
 
-  # eventbooking.event:
-  #   image: ${DOCKER_REGISTRY-}eventbookingevent
-  #   build:
-  #     context: .
-  #     dockerfile: EventBooking.Event/Dockerfile
+  distributedcache:
+    image: redis
+
+  eventbooking.event:
+    image: ${DOCKER_REGISTRY-}eventbookingevent
+    build:
+      context: .
+      dockerfile: EventBooking.Event/Dockerfile
 
 volumes:
   postgres_event:    
   
+
