@@ -22,6 +22,7 @@ public class DeleteEventEndpoint : ICarterModule
         .ProducesProblem(StatusCodes.Status404NotFound)
         .WithSummary("Delete Event")
         .WithDescription("Deletes an event.")
-        .WithTags(nameof(Models.Event));
+        .WithTags(nameof(Models.Event))
+        .RequireAuthorization(nameof(EventBookingPolicy.UserOnly));
     }
 }

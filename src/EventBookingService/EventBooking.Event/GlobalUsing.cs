@@ -16,3 +16,7 @@ global using EventBooking.Event.Extensions;
 global using Microsoft.Extensions.Caching.Distributed;
 global using EventBooking.Event.Data;
 global using System.Text.Json;
+global using Keycloak.AuthServices.Authentication;
+global using Keycloak.AuthServices.Authorization;
+global using EventBooking.Event.Enums;
+global using Microsoft.AspNetCore.Authorization;

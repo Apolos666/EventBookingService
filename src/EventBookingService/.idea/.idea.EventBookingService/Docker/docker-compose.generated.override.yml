@@ -1,0 +1,21 @@
+# This is a generated file. Not intended for manual editing.
+version: "3.4"
+services:
+  eventbooking.event:
+    build:
+      context: "C:\\Projects\\EventBookingService\\src\\EventBookingService"
+      dockerfile: "EventBooking.Event/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net8.0/EventBooking.Event.dll"
+    environment:
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "eventbookingevent:dev"
+    ports: []
+    volumes:
+    - "C:\\Users\\quang\\.nuget\\packages:/home/app/.nuget/packages"
+    - "C:\\Projects\\EventBookingService\\src\\EventBookingService\\EventBooking.Event:/app:rw"
+    - "C:\\Projects\\EventBookingService\\src\\EventBookingService:/src:rw"
+    working_dir: "/app"

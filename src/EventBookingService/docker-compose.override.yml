@@ -26,12 +26,51 @@ services:
       - ASPNETCORE_HTTPS_PORTS=8081
       - ConnectionStrings__Database=Server=eventdb;Port=5432;Database=EventDb;User Id=postgres;Password=postgres;Include Error Detail=true
       - ConnectionStrings__Redis=distributedcache:6379
+      - Keycloak__realm=Event-Booking-Service
+      - Keycloak__auth-server-url=http://keycloak:8080/
+      - Keycloak__ssl-required=none
+      - Keycloak__resource=event-booking-service-webapp
+      - Keycloak__verify-token-audience=false
+      - Keycloak__credentials__secret=JoAQXYAImeyFibPiK7hTeOxBo6kLkHei
+      - Keycloak__confidential-port=0
     depends_on:
       - eventdb
       - distributedcache
+      - keycloak 
     ports:
       - "6001:8080"
       - "6061:8081"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+  
+  keycloakdb:
+    container_name: keycloakdb
+    environment:
+      - POSTGRES_DB=keycloak
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    restart: always
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_keycloak:/var/lib/postgresql/data
+
+  keycloak:
+    container_name: keycloak
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+      - KC_DB=postgres
+      - KC_DB_URL_HOST=keycloakdb
+      - KC_DB_DATABASE=keycloak
+      - KC_DB_USERNAME=postgres
+      - KC_DB_PASSWORD=postgres
+    restart: always
+    depends_on:
+      - keycloakdb
+    command: "start-dev --import-realm"
+    ports:
+      - "8181:8080"
+    volumes:
+      - keycloak:/opt/keycloak/data/import

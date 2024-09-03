@@ -23,6 +23,7 @@ public class StoreEventEndpoint : ICarterModule
         .ProducesProblem(StatusCodes.Status400BadRequest)
         .WithSummary("Create Product")
         .WithDescription("Creates a new product.")
-        .WithTags(nameof(Models.Event));
+        .WithTags(nameof(Models.Event))
+        .RequireAuthorization(nameof(EventBookingPolicy.UserOnly));
     }
 }

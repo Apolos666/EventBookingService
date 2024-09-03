@@ -1,5 +1,3 @@
-using EventBooking.Event.Data;
-
 var builder = WebApplication.CreateBuilder(args);
 
 var assembly = typeof(Program).Assembly;
@@ -33,7 +31,19 @@ builder.Services.AddStackExchangeRedisCache(config =>
 // Validators
 builder.Services.AddValidatorsFromAssembly(assembly);
 
+// Authentication and Authorization services
+builder.Services.AddKeycloakWebApiAuthentication(builder.Configuration);
+
+builder.Services
+    .AddAuthorization()
+    .AddKeycloakAuthorization()
+    .AddAuthorizationBuilder()
+    .AddCustomAuthorizationPolicies();
+
 var app = builder.Build();
 
+app.UseAuthentication();
+app.UseAuthorization();
 app.MapCarter();
+
 app.Run();
