@@ -9,10 +9,11 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["EventBooking.Event/EventBooking.Event.csproj", "EventBooking.Event/"]
-RUN dotnet restore "./EventBooking.Event/EventBooking.Event.csproj"
+COPY ["Services/Event/EventBooking.Event/EventBooking.Event.csproj", "Services/Event/EventBooking.Event/"]
+COPY ["BuildingBlocks/BuildingBlocks/BuildingBlocks.csproj", "BuildingBlocks/BuildingBlocks/"]
+RUN dotnet restore "./Services/Event/EventBooking.Event/EventBooking.Event.csproj"
 COPY . .
-WORKDIR "/src/EventBooking.Event"
+WORKDIR "/src/Services/Event/EventBooking.Event"
 RUN dotnet build "./EventBooking.Event.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish

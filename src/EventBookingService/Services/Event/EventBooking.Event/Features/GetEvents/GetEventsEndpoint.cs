@@ -8,8 +8,10 @@ public class GetEventsEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapGet("/events", async ([AsParameters] GetEventsRequest request, ISender sender) =>
+        app.MapGet("/events", async ([AsParameters] GetEventsRequest request, ISender sender, HttpContext httpContext) =>
             {
+                var dada = httpContext;
+
                 var query = request.Adapt<GetEventsQuery>();
 
                 var result = await sender.Send(query);
@@ -24,6 +26,7 @@ public class GetEventsEndpoint : ICarterModule
             .ProducesProblem(StatusCodes.Status404NotFound)
             .WithSummary("Get Orders")
             .WithDescription("Gets a list of orders.")
-            .WithTags(nameof(Models.Event));
+            .WithTags(nameof(Models.Event))
+            .RequireAuthorization();
     }
 }

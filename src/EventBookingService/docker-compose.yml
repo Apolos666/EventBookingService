@@ -11,7 +11,7 @@ services:
     image: ${DOCKER_REGISTRY-}eventbookingevent
     build:
       context: .
-      dockerfile: EventBooking.Event/Dockerfile
+      dockerfile: Services/Event/EventBooking.Event/Dockerfile
 
   keycloakdb:
     image: postgres:16
@@ -19,7 +19,16 @@ services:
   keycloak:
     image: quay.io/keycloak/keycloak:25.0.4
 
+  eventbooking.web:
+    image: ${DOCKER_REGISTRY-}eventbookingweb
+    build:
+      context: ./WebApps/EventBooking.Web
+      dockerfile: Dockerfile
+    env_file:
+      - ./WebApps/EventBooking.Web/.env
+
 volumes:
   postgres_event:    
   postgres_keycloak:
   keycloak:
+

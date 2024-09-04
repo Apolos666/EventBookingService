@@ -8,7 +8,7 @@ public class DeleteEventEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapDelete("/events/{eventId}", async (Guid eventId, ISender sender ) =>
+        app.MapDelete("/events/{eventId}", async (Guid eventId, ISender sender) =>
         {
             var result = await sender.Send(new DeleteEventCommand(eventId));
 

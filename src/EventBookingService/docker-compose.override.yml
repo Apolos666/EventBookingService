@@ -20,6 +20,7 @@ services:
       - "6379:6379"
 
   eventbooking.event:
+    container_name: eventbooking.event
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
@@ -27,7 +28,7 @@ services:
       - ConnectionStrings__Database=Server=eventdb;Port=5432;Database=EventDb;User Id=postgres;Password=postgres;Include Error Detail=true
       - ConnectionStrings__Redis=distributedcache:6379
       - Keycloak__realm=Event-Booking-Service
-      - Keycloak__auth-server-url=http://keycloak:8080/
+      - Keycloak__auth-server-url=http://keycloak:8090/
       - Keycloak__ssl-required=none
       - Keycloak__resource=event-booking-service-webapp
       - Keycloak__verify-token-audience=false
@@ -66,11 +67,33 @@ services:
       - KC_DB_DATABASE=keycloak
       - KC_DB_USERNAME=postgres
       - KC_DB_PASSWORD=postgres
+      - KC_HTTP_PORT=8090
+      # - KC_FEATURES=hostname:v2
+      # - KC_HOSTNAME=https://keycloak.example.com
+      # - KC_HTTP_ENABLED=true
+      # - KC_HOSTNAME_ADMIN=https://admin.keycloak.example.com
     restart: always
     depends_on:
       - keycloakdb
     command: "start-dev --import-realm"
     ports:
-      - "8181:8080"
+      - "8090:8090"
     volumes:
       - keycloak:/opt/keycloak/data/import
+   
+  eventbooking.web:
+    container_name: eventbooking.web
+    environment:
+      - NODE_ENV=development
+      - VITE_AUTHORITY=http://keycloak:8090/realms/Event-Booking-Service
+      - VITE_REDIRECT_URI=http://localhost:3000/signin-callback.html
+    restart: always
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./WebApps/EventBooking.Web:/app
+      - /app/node_modules 
+    depends_on:
+      - eventdb
+      - distributedcache
+      - keycloak
