@@ -5,7 +5,8 @@
       "commandVersion": "1.0",
       "serviceActions": {
         "eventbooking.event": "StartDebugging",
-        "eventbooking.basket": "StartDebugging"
+        "eventbooking.basket": "StartDebugging",
+        "eventbooking.discount": "StartDebugging"
       }
     }
   }

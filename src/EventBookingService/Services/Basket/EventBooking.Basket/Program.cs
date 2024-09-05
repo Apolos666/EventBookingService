@@ -1,3 +1,5 @@
+using EventBooking.Discount.Protos;
+
 var builder = WebApplication.CreateBuilder(args);
 
 var assembly = typeof(Program).Assembly;
@@ -25,6 +27,20 @@ builder.Services.Decorate<IBasketRepository, CachedBasketRepository>();
 builder.Services.AddStackExchangeRedisCache(config =>
 {
     config.Configuration = builder.Configuration.GetConnectionString("Redis")!;
+});
+
+// GRPC Services
+builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(options =>
+{
+    options.Address = new Uri(builder.Configuration["GrpcSettings:DiscountUrl"]);
+}).ConfigurePrimaryHttpMessageHandler(_ =>
+{
+    var handler = new HttpClientHandler
+    {
+        ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+    };
+    
+    return handler;
 });
 
 // Validators

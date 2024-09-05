@@ -13,7 +13,7 @@ global using EventBooking.Basket.Data;
 global using EventBooking.Basket.Exceptions;
 global using Microsoft.Extensions.Caching.Distributed;
 global using System.Text.Json;
-
+global using EventBooking.Discount.Protos;
 
 
 
