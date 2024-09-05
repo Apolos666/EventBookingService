@@ -19,7 +19,8 @@ public static class EventExtension
         return new Models.EventLocation
         {
             Location = eventLocationDto.Location.ToLocation(),
-            MaxAttendees = eventLocationDto.MaxAttendees
+            MaxAttendees = eventLocationDto.MaxAttendees,
+            Price = eventLocationDto.Price
         };
     }
 
@@ -51,7 +52,8 @@ public static class EventExtension
     {
         return new EventLocationDto(
             eventLocation.Location.ToLocationDto(),
-            eventLocation.MaxAttendees
+            eventLocation.MaxAttendees,
+            eventLocation.Price
         );
     }
 

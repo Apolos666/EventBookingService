@@ -2,7 +2,6 @@
 
 namespace EventBooking.Event.Models;
 
-
 public sealed class Event
 {
     public Guid Id { get; set; }

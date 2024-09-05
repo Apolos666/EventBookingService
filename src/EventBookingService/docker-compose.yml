@@ -4,6 +4,9 @@ services:
   eventdb:
     image: postgres
 
+  basketdb:
+    image: postgres
+
   distributedcache:
     image: redis
 
@@ -12,6 +15,12 @@ services:
     build:
       context: .
       dockerfile: Services/Event/EventBooking.Event/Dockerfile
+   
+  eventbooking.basket:
+    image: ${DOCKER_REGISTRY-}eventbookingbasket
+    build:
+      context: .
+      dockerfile: Services/Basket/EventBooking.Basket/Dockerfile
 
   keycloakdb:
     image: postgres:16
@@ -28,7 +37,10 @@ services:
       - ./WebApps/EventBooking.Web/.env
 
 volumes:
-  postgres_event:    
+  postgres_event:
+  postgres_basket:  
   postgres_keycloak:
   keycloak:
+
+
 
