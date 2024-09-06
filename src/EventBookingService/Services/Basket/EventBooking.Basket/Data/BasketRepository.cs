@@ -1,15 +1,17 @@
-﻿namespace EventBooking.Basket.Data;
+﻿using BuildingBlocks.Services.HttpAccessor;
+
+namespace EventBooking.Basket.Data;
 
 public class BasketRepository
-    (IDocumentSession session)
+    (IDocumentSession session, IUserIdentityAccessor userIdentityAccessor)
     : IBasketRepository       
 {
-    public async Task<EventCart> GetBasketAsync(Guid userId, CancellationToken cancellationToken)
+    public async Task<EventCart> GetBasketAsync(CancellationToken cancellationToken)
     {
-        var eventCart = await session.LoadAsync<EventCart>(userId, cancellationToken);
+        var eventCart = await session.LoadAsync<EventCart>(Guid.Parse(userIdentityAccessor.UserId), cancellationToken);
 
         if (eventCart is null)
-            throw new BasketNotFoundException(userId);
+            throw new BasketNotFoundException(Guid.Parse(userIdentityAccessor.UserId));
         
         return eventCart;
     }
@@ -17,6 +19,7 @@ public class BasketRepository
     public async Task<Guid> StoreBasketAsync(EventCartDto cartDto, CancellationToken cancellationToken)
     {
         var eventCart = cartDto.ToEventCart();
+        eventCart.UserId = Guid.Parse(userIdentityAccessor.UserId);
         
         session.Store(eventCart);
         await session.SaveChangesAsync(cancellationToken);
@@ -24,9 +27,9 @@ public class BasketRepository
         return eventCart.UserId;
     }
 
-    public async Task<bool> DeleteBasketAsync(Guid userId, CancellationToken cancellationToken)
+    public async Task<bool> DeleteBasketAsync(CancellationToken cancellationToken)
     {
-        session.Delete<EventCart>(userId);
+        session.Delete<EventCart>(Guid.Parse(userIdentityAccessor.UserId));
         await session.SaveChangesAsync(cancellationToken);
         return true;
     }

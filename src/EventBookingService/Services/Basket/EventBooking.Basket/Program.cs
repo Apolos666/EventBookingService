@@ -1,4 +1,4 @@
-using EventBooking.Discount.Protos;
+using BuildingBlocks.Services.HttpAccessor;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +12,9 @@ builder.Services.AddMediatR(config =>
     config.AddOpenBehavior(typeof(ValidationBehavior<,>));
     config.AddOpenBehavior(typeof(LoggingBehavior<,>));
 });
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<IUserIdentityAccessor, HttpUserIdentityAccessor>();
 
 // Data Services
 builder.Services.AddMarten(config =>
@@ -32,7 +35,7 @@ builder.Services.AddStackExchangeRedisCache(config =>
 // GRPC Services
 builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(options =>
 {
-    options.Address = new Uri(builder.Configuration["GrpcSettings:DiscountUrl"]);
+    options.Address = new Uri(builder.Configuration["GrpcSettings:DiscountUrl"]!);
 }).ConfigurePrimaryHttpMessageHandler(_ =>
 {
     var handler = new HttpClientHandler
@@ -45,6 +48,15 @@ builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(
 
 // Validators
 builder.Services.AddValidatorsFromAssembly(assembly);
+
+// Authentication and Authorization services
+builder.Services.AddKeycloakWebApiAuthentication(builder.Configuration);
+
+builder.Services
+    .AddAuthorization()
+    .AddKeycloakAuthorization()
+    .AddAuthorizationBuilder()
+    .AddCustomAuthorizationPolicies();
 
 var app = builder.Build();
 

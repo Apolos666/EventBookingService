@@ -8,9 +8,9 @@ public class GetBasketEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapGet("/basket/{userId:guid}", async (Guid userId, ISender sender) =>
+        app.MapGet("/basket", async (ISender sender) =>
         {
-            var result = await sender.Send(new GetBasketQuery(userId));
+            var result = await sender.Send(new GetBasketQuery());
 
             var response = result.Adapt<GetBasketResponse>();
 
@@ -22,6 +22,7 @@ public class GetBasketEndpoint : ICarterModule
         .ProducesProblem(StatusCodes.Status404NotFound)
         .WithSummary("Get Basket")
         .WithDescription("Get the basket for the user.")
-        .WithTags(nameof(EventCart));
+        .WithTags(nameof(EventCart))
+        .RequireAuthorization(nameof(EventBookingPolicy.UserOnly));
     }
 }

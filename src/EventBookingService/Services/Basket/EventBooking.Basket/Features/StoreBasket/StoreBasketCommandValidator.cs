@@ -7,9 +7,6 @@ public class StoreBasketCommandValidator : AbstractValidator<StoreBasketCommand>
         RuleFor(x => x.Cart)
             .NotNull()
             .WithMessage("Cart cannot be null");
-        RuleFor(x => x.Cart.UserId)
-            .NotEmpty()
-            .WithMessage("UserId cannot be empty");
         RuleFor(x => x.Cart.Items)
             .NotNull()
             .WithMessage("Items cannot be null");

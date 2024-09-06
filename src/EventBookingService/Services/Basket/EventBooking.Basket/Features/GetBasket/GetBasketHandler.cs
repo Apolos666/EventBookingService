@@ -1,6 +1,6 @@
 ﻿namespace EventBooking.Basket.Features.GetBasket;
 
-public record GetBasketQuery(Guid UserId) : IQuery<GetBasketResult>;
+public record GetBasketQuery() : IQuery<GetBasketResult>;
 
 public record GetBasketResult(EventCart Cart);
 
@@ -10,7 +10,7 @@ public class GetBasketQueryHandler
 {
     public async Task<GetBasketResult> Handle(GetBasketQuery query, CancellationToken cancellationToken)
     {
-        var result = await repository.GetBasketAsync(query.UserId, cancellationToken);
+        var result = await repository.GetBasketAsync(cancellationToken);
         
         return new GetBasketResult(result);
     }

@@ -66,6 +66,13 @@ services:
       - ConnectionStrings__Database=Server=basketdb;Port=5432;Database=BasketDb;User Id=postgres;Password=postgres;Include Error Detail=true
       - ConnectionStrings__Redis=distributedcache:6379
       - GrpcSettings__DiscountUrl=https://eventbooking.discount:8081
+      - Keycloak__realm=Event-Booking-Service
+      - Keycloak__auth-server-url=http://keycloak:8090/
+      - Keycloak__ssl-required=none
+      - Keycloak__resource=event-booking-service-webapp
+      - Keycloak__verify-token-audience=false
+      - Keycloak__credentials__secret=JoAQXYAImeyFibPiK7hTeOxBo6kLkHei
+      - Keycloak__confidential-port=0 
     depends_on:
       - basketdb
       - distributedcache

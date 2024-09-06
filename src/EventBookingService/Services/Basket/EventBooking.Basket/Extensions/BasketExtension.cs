@@ -6,7 +6,6 @@ public static class BasketExtension
     {
         var eventCart = new EventCart
         {
-            UserId = eventCartDto.UserId,
             CreatedAt = eventCartDto.CreatedAt,
             UpdatedAt = eventCartDto.UpdatedAt,
             Items = eventCartDto.Items.Select(ToEventCartItem).ToList()

@@ -4,8 +4,8 @@ public class DeleteBasketCommandValidator : AbstractValidator<DeleteBasketComman
 {
     public DeleteBasketCommandValidator()
     {
-        RuleFor(x => x.UserId)
-            .NotEmpty()
-            .WithMessage("UserId cannot be empty");
+        // RuleFor(x => x.UserId)
+        //     .NotEmpty()
+        //     .WithMessage("UserId cannot be empty");
     }
 }

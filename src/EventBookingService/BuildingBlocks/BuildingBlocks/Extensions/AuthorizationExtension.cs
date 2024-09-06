@@ -1,4 +1,8 @@
-﻿namespace EventBooking.Event.Extensions;
+﻿using BuildingBlocks.Enums;
+using Keycloak.AuthServices.Authorization;
+using Microsoft.AspNetCore.Authorization;
+
+namespace EventBooking.Event.Extensions;
 
 public static class AuthorizationExtension
 {

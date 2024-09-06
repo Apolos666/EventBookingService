@@ -2,7 +2,6 @@
 
 public record EventCartDto
 {
-    public Guid UserId { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
     public List<EventCartItemDto> Items { get; set; } = [];

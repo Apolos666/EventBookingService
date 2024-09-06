@@ -14,6 +14,11 @@ global using EventBooking.Basket.Exceptions;
 global using Microsoft.Extensions.Caching.Distributed;
 global using System.Text.Json;
 global using EventBooking.Discount.Protos;
+global using Keycloak.AuthServices.Authentication;
+global using EventBooking.Event.Extensions;
+global using Keycloak.AuthServices.Authorization;
+global using BuildingBlocks.Enums;
+
 
 
 

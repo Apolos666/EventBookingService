@@ -1,4 +1,6 @@
-﻿namespace EventBooking.Event.Features.DeleteEvent;
+﻿using BuildingBlocks.Enums;
+
+namespace EventBooking.Event.Features.DeleteEvent;
 
 // public record DeleteEventRequest(Guid EventId);
 

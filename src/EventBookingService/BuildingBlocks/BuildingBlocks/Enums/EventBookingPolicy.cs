@@ -1,4 +1,4 @@
-﻿namespace EventBooking.Event.Enums;
+﻿namespace BuildingBlocks.Enums;
 
 public enum EventBookingPolicy
 {

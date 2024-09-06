@@ -23,7 +23,8 @@ public class StoreBasketEndpoint : ICarterModule
         .ProducesProblem(StatusCodes.Status400BadRequest)
         .WithSummary("Store Basket")
         .WithDescription("Store the basket for the user.")
-        .WithTags(nameof(EventCart));
+        .WithTags(nameof(EventCart))
+        .RequireAuthorization(nameof(EventBookingPolicy.UserOnly));
     }
 }
 

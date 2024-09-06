@@ -1,6 +1,3 @@
-using BuildingBlocks.Services;
-using BuildingBlocks.Services.HttpAccessor;
-
 var builder = WebApplication.CreateBuilder(args);
 
 var assembly = typeof(Program).Assembly;

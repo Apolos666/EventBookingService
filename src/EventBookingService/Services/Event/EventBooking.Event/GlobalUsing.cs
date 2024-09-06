@@ -18,7 +18,8 @@ global using EventBooking.Event.Data;
 global using System.Text.Json;
 global using Keycloak.AuthServices.Authentication;
 global using Keycloak.AuthServices.Authorization;
-global using EventBooking.Event.Enums;
 global using Microsoft.AspNetCore.Authorization;
 global using System.Security.Principal;
 global using BuildingBlocks.Exceptions;
+global using BuildingBlocks.Services.HttpAccessor;
+

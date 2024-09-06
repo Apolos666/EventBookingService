@@ -8,9 +8,9 @@ public class DeleteBasketEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapDelete("/basket/{id:guid}", async (Guid id, ISender sender) =>
+        app.MapDelete("/basket", async (ISender sender) =>
         {
-            var result = await sender.Send(new DeleteBasketCommand(id));
+            var result = await sender.Send(new DeleteBasketCommand());
 
             var response = result.Adapt<DeleteBasketResponse>();
 
@@ -22,6 +22,7 @@ public class DeleteBasketEndpoint : ICarterModule
         .ProducesProblem(StatusCodes.Status404NotFound)
         .WithSummary("Delete Basket")
         .WithDescription("Delete the basket for the user.")
-        .WithTags(nameof(EventCart));
+        .WithTags(nameof(EventCart))
+        .RequireAuthorization(nameof(EventBookingPolicy.UserOnly));
     }
 }
