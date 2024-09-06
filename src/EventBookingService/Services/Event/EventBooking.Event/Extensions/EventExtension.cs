@@ -14,7 +14,7 @@ public static class EventExtension
         };
     }
 
-    public static Models.EventLocation ToEventLocation(this EventLocationDto eventLocationDto)
+    private static Models.EventLocation ToEventLocation(this EventLocationDto eventLocationDto)
     {
         return new Models.EventLocation
         {
@@ -24,7 +24,7 @@ public static class EventExtension
         };
     }
 
-    public static Models.Location ToLocation(this LocationDto locationDto)
+    private static Models.Location ToLocation(this LocationDto locationDto)
     {
         return new Models.Location
         {
@@ -48,7 +48,7 @@ public static class EventExtension
         );
     }
 
-    public static EventLocationDto ToEventLocationDto(this Models.EventLocation eventLocation)
+    private static EventLocationDto ToEventLocationDto(this Models.EventLocation eventLocation)
     {
         return new EventLocationDto(
             eventLocation.Location.ToLocationDto(),
@@ -57,7 +57,7 @@ public static class EventExtension
         );
     }
 
-    public static LocationDto ToLocationDto(this Models.Location location)
+    private static LocationDto ToLocationDto(this Models.Location location)
     {
         return new LocationDto(
             location.Name,

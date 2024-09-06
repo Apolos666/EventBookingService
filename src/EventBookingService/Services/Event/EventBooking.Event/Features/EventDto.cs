@@ -1,6 +1,4 @@
-﻿using EventBooking.Event.Models;
-
-namespace EventBooking.Event.Features;
+﻿namespace EventBooking.Event.Features;
 
 public sealed record EventDto(string Name, string Description, DateTime StartDateTime, DateTime EndDateTime, List<EventLocationDto> EventLocationDtos);
 

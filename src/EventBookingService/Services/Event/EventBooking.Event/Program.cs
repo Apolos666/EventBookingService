@@ -1,3 +1,6 @@
+using BuildingBlocks.Services;
+using BuildingBlocks.Services.HttpAccessor;
+
 var builder = WebApplication.CreateBuilder(args);
 
 var assembly = typeof(Program).Assembly;
@@ -12,6 +15,9 @@ builder.Services.AddMediatR(config =>
     config.AddOpenBehavior(typeof(ValidationBehavior<,>));
     config.AddOpenBehavior(typeof(LoggingBehavior<,>));
 });
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<IUserIdentityAccessor, HttpUserIdentityAccessor>();
 
 // Data services
 builder.Services.AddMarten(config =>
