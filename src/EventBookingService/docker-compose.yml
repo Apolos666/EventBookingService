@@ -6,6 +6,9 @@ services:
 
   basketdb:
     image: postgres
+    
+  bookingdb:
+    image: mysql
 
   distributedcache:
     image: redis
@@ -45,6 +48,7 @@ services:
 volumes:
   postgres_event:
   postgres_basket:  
+  mysql_booking:  
   postgres_keycloak:
   keycloak:
 

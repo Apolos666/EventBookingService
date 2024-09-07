@@ -24,6 +24,17 @@ services:
       - "5434:5432"
     volumes:
       - postgres_basket:/var/lib/postgresql/data      
+        
+  bookingdb:
+    container_name: bookingdb
+    restart: always
+    environment:
+        - MYSQL_ROOT_PASSWORD=root
+        - MYSQL_DATABASE=BookingDb
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_booking:/var/lib/mysql
 
   distributedcache:
     container_name: distributedcache
