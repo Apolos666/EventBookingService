@@ -2,7 +2,8 @@
 
 public enum BookingStatus
 {
-    Pending = 1,
-    Confirmed = 2,
-    Cancelled = 3
+    Draft = 1,
+    Pending = 2,
+    Confirmed = 3,
+    Cancelled = 4
 }

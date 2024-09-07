@@ -2,8 +2,8 @@
 
 public class Booking : Aggregate<BookingId>
 {
-    public UserId UserId { get; private set; }
-    public BookingStatus BookingStatus { get; private set; }
+    public UserId UserId { get; private set; } = default!;
+    public BookingStatus BookingStatus { get; private set; } = default!;
     public int TotalQuantity { 
         get => _bookingItems.Sum(x => x.Quantity); 
         private set {} 
@@ -43,7 +43,7 @@ public class Booking : Aggregate<BookingId>
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(quantity);
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(price);
         
-        var bookingItem = new BookingItem(eventId, eventLocationId, eventName, quantity, price);
+        var bookingItem = new BookingItem(Id, eventId, eventLocationId, eventName, quantity, price);
         _bookingItems.Add(bookingItem);
     }
     
@@ -55,5 +55,18 @@ public class Booking : Aggregate<BookingId>
             throw new DomainException("Booking item not found.");
         
         _bookingItems.Remove(bookingItem);
+    }
+    
+    // Todo: Call this method when user confirms payment
+    public void ConfirmPayment()
+    {
+        if (BookingStatus != BookingStatus.Pending)
+            throw new DomainException("Cannot confirm payment for a booking that is not pending.");
+
+        BookingStatus = BookingStatus.Confirmed;
+
+        // Todo: Generate confirmation code for each booking item
+        
+        // Todo: Add domain event
     }
 }

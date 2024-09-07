@@ -7,9 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Data\Configurations\" />
     <Folder Include="Data\Extensions\" />
-    <Folder Include="Data\Interceptors\" />
     <Folder Include="Data\Migrations\" />
   </ItemGroup>
 
@@ -19,6 +17,10 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="MySql.EntityFrameworkCore" Version="8.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Booking.Application\Booking.Application.csproj" />
   </ItemGroup>
 
 </Project>
