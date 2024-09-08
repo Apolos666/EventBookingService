@@ -30,6 +30,12 @@ services:
     build:
       context: .
       dockerfile: Services/Discount/EventBooking.Discount/Dockerfile
+      
+  booking.api:
+    image: ${DOCKER_REGISTRY-}bookingapi
+    build:
+      context: .
+      dockerfile: Services/Booking/Booking.API/Dockerfile    
 
   keycloakdb:
     image: postgres:16
@@ -44,6 +50,9 @@ services:
       dockerfile: Dockerfile
     env_file:
       - ./WebApps/EventBooking.Web/.env
+        
+  messagebroker:
+    image: rabbitmq:management
 
 volumes:
   postgres_event:
@@ -51,6 +60,7 @@ volumes:
   mysql_booking:  
   postgres_keycloak:
   keycloak:
+
 
 
 

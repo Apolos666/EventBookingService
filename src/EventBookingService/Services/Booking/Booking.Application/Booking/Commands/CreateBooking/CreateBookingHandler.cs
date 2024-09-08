@@ -1,6 +1,4 @@
-﻿using Booking.Domain.ValueObjects;
-
-namespace Booking.Application.Booking.Commands.CreateBooking;
+﻿namespace Booking.Application.Booking.Commands.CreateBooking;
 
 public class CreateBookingCommandHandler
     (IApplicationDbContext context)
@@ -25,7 +23,7 @@ public class CreateBookingCommandHandler
         foreach (var bookingItem in bookingDto.BookingItems)
         {
             newBooking.Add(
-                EventId.Of(bookingItem.EventId), 
+                DomainEventId.Of(bookingItem.EventId), 
                 EventLocationId.Of(bookingItem.EventLocationId),
                 EventName.Of(bookingItem.EventName),
                 quantity: bookingItem.Quantity,

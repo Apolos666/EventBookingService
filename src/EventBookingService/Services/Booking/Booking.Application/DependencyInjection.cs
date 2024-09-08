@@ -13,6 +13,8 @@ public static class DependencyInjection
         });
 
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
+        services.AddMessageBroker(configuration, Assembly.GetExecutingAssembly());
         
         return services;
     }

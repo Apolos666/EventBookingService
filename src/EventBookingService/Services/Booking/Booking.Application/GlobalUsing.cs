@@ -9,12 +9,17 @@ global using Booking.Application.Dtos;
 global using BuildingBlocks.CQRS;
 global using Booking.Application.Data;
 global using FluentValidation;
-global using Booking.Domain.ValueObjects;
 global using Booking.Application.Exceptions;
 global using BuildingBlocks.Pagination;
 global using Booking.Application.Extensions;
 global using Booking.Domain.Events;
 global using MediatR;
-
+global using BuildingBlocks.Messaging.MassTransit; 
+global using BuildingBlocks.Messaging.Events; 
+global using MassTransit;
+global using Booking.Application.Booking.Commands.CreateBooking;
+global using Booking.Domain.ValueObjects;
+global using DomainEventId = Booking.Domain.ValueObjects.EventId;
+global using Microsoft.Extensions.Logging;
 
 

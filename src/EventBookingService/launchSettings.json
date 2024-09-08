@@ -6,7 +6,8 @@
       "serviceActions": {
         "eventbooking.event": "StartDebugging",
         "eventbooking.basket": "StartDebugging",
-        "eventbooking.discount": "StartDebugging"
+        "eventbooking.discount": "StartDebugging",
+        "booking.api": "StartDebugging"
       }
     }
   }

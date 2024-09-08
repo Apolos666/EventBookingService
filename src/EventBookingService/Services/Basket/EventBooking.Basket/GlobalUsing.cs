@@ -18,6 +18,11 @@ global using Keycloak.AuthServices.Authentication;
 global using EventBooking.Event.Extensions;
 global using Keycloak.AuthServices.Authorization;
 global using BuildingBlocks.Enums;
+global using BuildingBlocks.Messaging.MassTransit;
+global using BuildingBlocks.Services.HttpAccessor;
+global using MassTransit;
+global using BuildingBlocks.Messaging.Events;
+
 
 
 
