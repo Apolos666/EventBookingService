@@ -1,7 +1,7 @@
 ﻿namespace BuildingBlocks.Pagination;
 
 public class PaginatedResult<TEntity>
-    (int pageIndex, int pageSize, long count, bool hasNextPage, bool hasPreviousPage,IEnumerable<TEntity> data)
+    (int pageIndex, int pageSize, long count, bool hasNextPage, bool hasPreviousPage, IEnumerable<TEntity> data)
     where TEntity : class
 {
     public int PageIndex => pageIndex;

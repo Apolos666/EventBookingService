@@ -17,6 +17,8 @@ public static class DependencyInjection
             config.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
             config.UseMySQL(connectionString);
         });
+
+        service.AddScoped<IApplicationDbContext, ApplicationDbContext>();
         
         return service;
     }

@@ -7,13 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Booking\Commands\" />
-    <Folder Include="Booking\EventHandlers\" />
-    <Folder Include="Booking\Queries\" />
-    <Folder Include="Data\" />
-    <Folder Include="Dtos\" />
-    <Folder Include="Exceptions\" />
-    <Folder Include="Extensions\" />
+    <Folder Include="Booking\EventHandlers\Integrations\" />
   </ItemGroup>
 
   <ItemGroup>

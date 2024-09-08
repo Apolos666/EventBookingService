@@ -12,6 +12,7 @@ global using Booking.Infrastructure.Data.Interceptors;
 global using Microsoft.EntityFrameworkCore.Metadata.Builders;
 global using Booking.Domain.ValueObjects;
 global using Booking.Domain.Enums;
+global using Booking.Application.Data;
 
 
 
