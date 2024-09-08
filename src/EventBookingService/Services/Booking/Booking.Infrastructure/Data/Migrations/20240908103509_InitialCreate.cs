@@ -45,7 +45,7 @@ namespace Booking.Infrastructure.Data.Migrations
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Code = table.Column<string>(type: "longtext", nullable: false),
+                    Code = table.Column<string>(type: "longtext", nullable: true),
                     EventName = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     CreatedBy = table.Column<string>(type: "longtext", nullable: true),

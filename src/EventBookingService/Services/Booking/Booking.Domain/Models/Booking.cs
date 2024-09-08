@@ -3,7 +3,7 @@
 public class Booking : Aggregate<BookingId>
 {
     public UserId UserId { get; private set; } = default!;
-    public BookingStatus BookingStatus { get; private set; } = default!;
+    public BookingStatus BookingStatus { get; private set; } = BookingStatus.Pending;
     public int TotalQuantity { 
         get => _bookingItems.Sum(x => x.Quantity); 
         private set {} 
@@ -38,7 +38,7 @@ public class Booking : Aggregate<BookingId>
     
     // public void Update();
     
-    public void AddBookingItem(EventId eventId, EventLocationId eventLocationId, EventName eventName, int quantity, decimal price)
+    public void Add(EventId eventId, EventLocationId eventLocationId, EventName eventName, int quantity, decimal price)
     {
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(quantity);
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(price);
@@ -47,7 +47,7 @@ public class Booking : Aggregate<BookingId>
         _bookingItems.Add(bookingItem);
     }
     
-    public void RemoveBookingItem(BookingItemId bookingItemId)
+    public void Remove(BookingItemId bookingItemId)
     {
         var bookingItem = _bookingItems.FirstOrDefault(x => x.Id == bookingItemId);
         

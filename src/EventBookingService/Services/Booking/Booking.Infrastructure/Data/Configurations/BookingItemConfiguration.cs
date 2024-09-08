@@ -49,7 +49,8 @@ public class BookingItemConfiguration : IEntityTypeConfiguration<BookingModel.Bo
             bi => bi.Code, codeBuilder =>
             {
                 codeBuilder.Property(c => c.Value)
-                    .HasColumnName(nameof(BookingModel.BookingItem.Code));
+                    .HasColumnName(nameof(BookingModel.BookingItem.Code))
+                    .IsRequired(false);
             });
     }
 }

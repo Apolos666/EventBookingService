@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Booking.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240907162008_InitialCreate")]
+    [Migration("20240908103509_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -99,7 +99,6 @@ namespace Booking.Infrastructure.Data.Migrations
                             b1.IsRequired();
 
                             b1.Property<string>("Value")
-                                .IsRequired()
                                 .HasColumnType("longtext")
                                 .HasColumnName("Code");
                         });

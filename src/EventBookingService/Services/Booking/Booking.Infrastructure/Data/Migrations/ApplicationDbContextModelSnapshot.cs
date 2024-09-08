@@ -96,7 +96,6 @@ namespace Booking.Infrastructure.Data.Migrations
                             b1.IsRequired();
 
                             b1.Property<string>("Value")
-                                .IsRequired()
                                 .HasColumnType("longtext")
                                 .HasColumnName("Code");
                         });

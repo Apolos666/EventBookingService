@@ -7,6 +7,6 @@ public class BookingCreateEventHandler
 {
     public Task Handle(BookingCreatedEvent notification, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return Task.CompletedTask;
     }
 }

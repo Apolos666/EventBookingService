@@ -10,12 +10,11 @@ public static class DependencyInjection
         service.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
         service.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
         
-        
         service.AddDbContext<ApplicationDbContext>((sp, config) =>
         {
             // Add Interceptors
             config.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
-            config.UseMySQL(connectionString);
+            config.UseMySQL(connectionString!);
         });
 
         service.AddScoped<IApplicationDbContext, ApplicationDbContext>();

@@ -31,6 +31,7 @@ public class BookingItem : Entity<BookingItemId>
         EventName = eventName;
         Quantity = quantity;
         Price = price;
+        Code = ConfirmationCode.Of("------");
     }
     
     public void GenerateConfirmationCode()

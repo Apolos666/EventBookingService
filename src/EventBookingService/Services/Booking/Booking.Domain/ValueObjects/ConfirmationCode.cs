@@ -6,6 +6,8 @@ public record ConfirmationCode
     
     private ConfirmationCode(string value) => Value = value;
     
+    public static ConfirmationCode Of(string value) => new ConfirmationCode(value);
+    
     public static ConfirmationCode Generate()
     {
         var bytes = new byte[4];
