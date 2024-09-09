@@ -9,22 +9,22 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Services/Booking/Booking.API/EventBooking.API.csproj", "Services/Booking/Booking.API/"]
-COPY ["Services/Booking/Booking.Application/EventBooking.Application.csproj", "Services/Booking/Booking.Application/"]
+COPY ["Services/Booking/Booking.API/Booking.API.csproj", "Services/Booking/Booking.API/"]
+COPY ["Services/Booking/Booking.Application/Booking.Application.csproj", "Services/Booking/Booking.Application/"]
 COPY ["BuildingBlocks/BuildingBlocks.Messaging/BuildingBlocks.Messaging.csproj", "BuildingBlocks/BuildingBlocks.Messaging/"]
 COPY ["BuildingBlocks/BuildingBlocks/BuildingBlocks.csproj", "BuildingBlocks/BuildingBlocks/"]
-COPY ["Services/Booking/Booking.Domain/EventBooking.Domain.csproj", "Services/Booking/Booking.Domain/"]
-COPY ["Services/Booking/Booking.Infrastructure/EventBooking.Infrastructure.csproj", "Services/Booking/Booking.Infrastructure/"]
-RUN dotnet restore "./Services/Booking/Booking.API/EventBooking.API.csproj"
+COPY ["Services/Booking/Booking.Domain/Booking.Domain.csproj", "Services/Booking/Booking.Domain/"]
+COPY ["Services/Booking/Booking.Infrastructure/Booking.Infrastructure.csproj", "Services/Booking/Booking.Infrastructure/"]
+RUN dotnet restore "./Services/Booking/Booking.API/Booking.API.csproj"
 COPY . .
 WORKDIR "/src/Services/Booking/Booking.API"
-RUN dotnet build "./EventBooking.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./Booking.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./EventBooking.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./Booking.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "EventBooking.API.dll"]
+ENTRYPOINT ["dotnet", "Booking.API.dll"]

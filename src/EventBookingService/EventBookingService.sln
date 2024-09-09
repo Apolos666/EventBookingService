@@ -33,15 +33,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBooking.Basket", "Serv
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBooking.Discount", "Services\Discount\EventBooking.Discount\EventBooking.Discount.csproj", "{AEA62F98-2C11-4C5E-8568-2CF496990BD1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Booking.Domain", "Services\Booking\Booking.Domain\Booking.Domain.csproj", "{17D645CC-F7A9-4F07-A201-5803C87767F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBooking.Domain", "Services\Booking\Booking.Domain\EventBooking.Domain.csproj", "{17D645CC-F7A9-4F07-A201-5803C87767F2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Booking.Application", "Services\Booking\Booking.Application\Booking.Application.csproj", "{3D9DDD6E-463F-471C-9C3A-5D06CDA1F2CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBooking.Application", "Services\Booking\Booking.Application\EventBooking.Application.csproj", "{3D9DDD6E-463F-471C-9C3A-5D06CDA1F2CF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Booking.Infrastructure", "Services\Booking\Booking.Infrastructure\Booking.Infrastructure.csproj", "{96E312D8-BD85-4147-ACC6-91215262AC35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBooking.Infrastructure", "Services\Booking\Booking.Infrastructure\EventBooking.Infrastructure.csproj", "{96E312D8-BD85-4147-ACC6-91215262AC35}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Booking.API", "Services\Booking\Booking.API\Booking.API.csproj", "{7253E7FD-15D9-4FED-B3D8-AA6EDF68F088}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBooking.API", "Services\Booking\Booking.API\EventBooking.API.csproj", "{7253E7FD-15D9-4FED-B3D8-AA6EDF68F088}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlocks.Messaging", "BuildingBlocks\BuildingBlocks.Messaging\BuildingBlocks.Messaging.csproj", "{990B1D0C-C38A-4DCA-B2E7-EA311BC0F91E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingBlocks.Messaging", "BuildingBlocks\BuildingBlocks.Messaging\BuildingBlocks.Messaging.csproj", "{990B1D0C-C38A-4DCA-B2E7-EA311BC0F91E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBooking.Notification", "Services\Notification\EventBooking.Notification\EventBooking.Notification.csproj", "{E5B8E222-DF41-4D5B-9F3D-D6F234DF903A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -95,6 +97,10 @@ Global
 		{990B1D0C-C38A-4DCA-B2E7-EA311BC0F91E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{990B1D0C-C38A-4DCA-B2E7-EA311BC0F91E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{990B1D0C-C38A-4DCA-B2E7-EA311BC0F91E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5B8E222-DF41-4D5B-9F3D-D6F234DF903A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5B8E222-DF41-4D5B-9F3D-D6F234DF903A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5B8E222-DF41-4D5B-9F3D-D6F234DF903A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5B8E222-DF41-4D5B-9F3D-D6F234DF903A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -116,6 +122,7 @@ Global
 		{96E312D8-BD85-4147-ACC6-91215262AC35} = {461CF5B4-1C26-4652-BBC6-536983440FB9}
 		{7253E7FD-15D9-4FED-B3D8-AA6EDF68F088} = {461CF5B4-1C26-4652-BBC6-536983440FB9}
 		{990B1D0C-C38A-4DCA-B2E7-EA311BC0F91E} = {3E387C30-EA0F-4C39-9015-E5F6C786D869}
+		{E5B8E222-DF41-4D5B-9F3D-D6F234DF903A} = {715E9E1F-18EF-4D11-ACF3-4671320848F6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4760481A-0EA1-4A3E-B920-13764682225D}

@@ -1,5 +1,6 @@
 import { useAuth } from 'react-oidc-context';
 import './App.css'
+import Notification from "./components/notification";
 
 function App() {
   const auth = useAuth();
@@ -23,6 +24,7 @@ function App() {
         return (
         <div>
             <button onClick={() => console.log(auth.user?.access_token)}>access_token</button>
+            <Notification />
 
             <button onClick={() => void auth.removeUser()}>Log out</button>
         </div>
