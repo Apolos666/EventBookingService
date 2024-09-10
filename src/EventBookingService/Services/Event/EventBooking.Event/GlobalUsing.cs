@@ -27,5 +27,7 @@ global using BuildingBlocks.Messaging.Events.Notifications;
 global using System.Reflection; 
 global using BuildingBlocks.Messaging.MassTransit;
 global using BuildingBlocks.Messaging.Events.Bookings;
+global using EventBooking.Event.Features.EventStartDateChecker;
+
 
 

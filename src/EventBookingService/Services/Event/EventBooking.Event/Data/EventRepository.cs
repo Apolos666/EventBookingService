@@ -1,6 +1,4 @@
-﻿using BuildingBlocks.Services.HttpAccessor;
-
-namespace EventBooking.Event.Data;
+﻿namespace EventBooking.Event.Data;
 
 public class EventRepository
     (IDocumentSession session, IUserIdentityAccessor userIdentityAccessor)

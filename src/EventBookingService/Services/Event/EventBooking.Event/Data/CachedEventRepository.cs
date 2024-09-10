@@ -1,12 +1,12 @@
 ﻿namespace EventBooking.Event.Data;
 
-public class CachedEventRepository
-    (IEventRepository eventRepository, IDistributedCache cache)
+public class CachedEventRepository(IEventRepository eventRepository, IDistributedCache cache)
     : IEventRepository
 {
     private const string VERSION_KEY = "events_version";
     private static readonly TimeSpan DefaultExpiration = TimeSpan.FromMinutes(30);
 
+    // Retrieves or creates a version key for cache invalidation
     private async Task<string> GetOrCreateVersionAsync(CancellationToken cancellationToken = default)
     {
         var version = await cache.GetStringAsync(VERSION_KEY, cancellationToken);
@@ -16,14 +16,13 @@ public class CachedEventRepository
         return version;
     }
 
-    /// <summary>
-    /// Set a new version key to invalidate the cache
-    /// </summary>
+    // Sets a new version key to invalidate the cache
     private async Task InvalidateCacheAsync(CancellationToken cancellationToken = default)
     {
         await SetCacheAsync(VERSION_KEY, Guid.NewGuid().ToString(), cancellationToken);
     }
 
+    // Sets a value in the cache with a specified expiration time
     private Task SetCacheAsync(string key, string value, CancellationToken cancellationToken = default)
     {
         var options = new DistributedCacheEntryOptions
@@ -33,7 +32,9 @@ public class CachedEventRepository
         return cache.SetStringAsync(key, value, options, cancellationToken);
     }
 
-    public async Task<IEnumerable<Models.Event>> GetEventsAsync(int? pageNumber, int? pageSize, CancellationToken cancellationToken = default)
+    // Retrieves events from the cache or the repository if not cached
+    public async Task<IEnumerable<Models.Event>> GetEventsAsync(int? pageNumber, int? pageSize,
+        CancellationToken cancellationToken = default)
     {
         var version = await GetOrCreateVersionAsync(cancellationToken);
         var cachedKey = $"events_{version}_{pageNumber}_{pageSize}";
@@ -47,6 +48,7 @@ public class CachedEventRepository
         return events;
     }
 
+    // Retrieves a specific event by ID from the cache or the repository if not cached
     public async Task<Models.Event> GetEventById(Guid eventId)
     {
         var cachedKey = $"event_{eventId}";
@@ -59,6 +61,7 @@ public class CachedEventRepository
         return @event;
     }
 
+    // Stores an event and invalidates the cache
     public async Task<Guid> StoreEventAsync(EventDto eventDto, CancellationToken cancellationToken = default)
     {
         var result = await eventRepository.StoreEventAsync(eventDto, cancellationToken);
@@ -70,6 +73,7 @@ public class CachedEventRepository
         return result;
     }
 
+    // Deletes an event and invalidates the cache
     public async Task<bool> DeleteEventAsync(Guid eventId, CancellationToken cancellationToken = default)
     {
         var cachedKey = $"event_{eventId}";
