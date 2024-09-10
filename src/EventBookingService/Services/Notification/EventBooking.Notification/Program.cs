@@ -1,11 +1,6 @@
 var builder = WebApplication.CreateBuilder(args);
 
-// 
-builder.Services.AddCarter();
-builder.Services.AddSignalR();
-
-// Security services
-builder.Services.AddCors();
+builder.Services.AddNotificationServices(builder.Configuration);
 
 var app = builder.Build();
 
@@ -20,8 +15,11 @@ if (app.Environment.IsDevelopment())
     });    
 }
 
+app.UseAuthentication();
+app.UseAuthorization();
+
 // Register the hubs
-app.MapHub<NotificationHub>("/notifications");
+app.MapCustomHubs();
 
 app.MapCarter();
 

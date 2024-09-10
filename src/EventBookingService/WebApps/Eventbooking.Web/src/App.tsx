@@ -1,9 +1,10 @@
 import { useAuth } from 'react-oidc-context';
 import './App.css'
-import Notification from "./components/notification";
+import Notification from "./components/Notification";
+import Group from './components/Group';
 
 function App() {
-  const auth = useAuth();
+    const auth = useAuth();
 
     switch (auth.activeNavigator) {
         case "signinSilent":
@@ -22,12 +23,13 @@ function App() {
 
     if (auth.isAuthenticated) {
         return (
-        <div>
-            <button onClick={() => console.log(auth.user?.access_token)}>access_token</button>
-            <Notification />
+            <div>
+                <button onClick={() => console.log(auth.user?.access_token)}>access_token</button>
+                <Notification />
+                {/* <Group /> */}
 
-            <button onClick={() => void auth.removeUser()}>Log out</button>
-        </div>
+                <button onClick={() => void auth.removeUser()}>Log out</button>
+            </div>
         );
     }
 

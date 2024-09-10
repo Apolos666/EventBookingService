@@ -61,5 +61,8 @@ builder.Services.AddMessageBroker(builder.Configuration);
 
 var app = builder.Build();
 
+app.UseAuthentication(); 
+app.UseAuthorization(); 
+
 app.MapCarter();
 app.Run();

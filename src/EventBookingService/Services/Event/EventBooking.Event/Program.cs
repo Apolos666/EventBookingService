@@ -1,3 +1,5 @@
+using BuildingBlocks.Messaging.MassTransit;
+
 var builder = WebApplication.CreateBuilder(args);
 
 var assembly = typeof(Program).Assembly;
@@ -42,6 +44,9 @@ builder.Services
     .AddKeycloakAuthorization()
     .AddAuthorizationBuilder()
     .AddCustomAuthorizationPolicies();
+
+// Async Communication Services
+builder.Services.AddMessageBroker(builder.Configuration);
 
 var app = builder.Build();
 
