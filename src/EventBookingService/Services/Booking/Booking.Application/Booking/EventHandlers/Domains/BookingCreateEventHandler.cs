@@ -1,13 +1,20 @@
-﻿namespace Booking.Application.Booking.EventHandlers.Domains;
+﻿using BookingCreatedEventObject = BuildingBlocks.Messaging.Events.Bookings.BookingCreatedEvent;
+    
+namespace Booking.Application.Booking.EventHandlers.Domains;
 
-// TODO: Implement the BookingCreateEventHandler
 public class BookingCreateEventHandler
-    ()
+    (IPublishEndpoint publishEndpoint)
     : INotificationHandler<BookingCreatedEvent>
 {
     // Todo: Add Send Email Notification (In Email Service or Something)
-    public Task Handle(BookingCreatedEvent notification, CancellationToken cancellationToken)
+    public async Task Handle(BookingCreatedEvent message, CancellationToken cancellationToken)
     {
-        return Task.CompletedTask;
+        var bookingCreatedEvent = new BookingCreatedEventObject
+        {
+            EventId = message.Booking.BookingItems.Select(x => x.EventId.Value).ToList(),
+            UserId = message.Booking.UserId.Value
+        };
+        
+        await publishEndpoint.Publish(bookingCreatedEvent, cancellationToken);
     }
 }

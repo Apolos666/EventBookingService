@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.Tracing;
-
-namespace EventBooking.Event.Models;
+﻿namespace EventBooking.Event.Models;
 
 public sealed class Event
 {
@@ -11,4 +9,5 @@ public sealed class Event
     public DateTime StartDateTime { get; set; } = default!;
     public DateTime EndDateTime { get; set; } = default!;
     public List<EventLocation> EventLocations { get; set; } = [];
+    public List<Guid> UserRegistedId { get; set; } = [];
 }

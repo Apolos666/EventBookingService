@@ -1,6 +1,4 @@
-﻿using BuildingBlocks.Services.HttpAccessor;
-
-namespace EventBooking.Basket.Data;
+﻿namespace EventBooking.Basket.Data;
 
 public class BasketRepository
     (IDocumentSession session, IUserIdentityAccessor userIdentityAccessor)

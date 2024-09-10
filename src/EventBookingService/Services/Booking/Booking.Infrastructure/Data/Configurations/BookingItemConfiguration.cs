@@ -19,6 +19,8 @@ public class BookingItemConfiguration : IEntityTypeConfiguration<BookingModel.Bo
                 eventId => eventId.Value,
                 dbId => EventId.Of(dbId)
             );
+
+        builder.Property(bi => bi.StartDateTime);
         
         builder.Property(bi => bi.EventLocationId)
             .HasConversion(

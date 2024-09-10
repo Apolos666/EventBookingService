@@ -10,6 +10,7 @@ public static class BookingExtension
             BookingItems: booking.BookingItems.Select(bookingItem => new BookingItemDto(
                 BookingId: bookingItem.BookingId.Value,
                 EventId: bookingItem.EventId.Value,
+                StartDateTime: bookingItem.StartDateTime,
                 EventLocationId: bookingItem.EventLocationId.Value,
                 EventName: bookingItem.EventName.Value,
                 Quantity: bookingItem.Quantity,

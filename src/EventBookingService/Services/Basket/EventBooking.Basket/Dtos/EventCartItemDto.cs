@@ -3,6 +3,7 @@
 public record EventCartItemDto
 {
     public Guid EventId { get; set; }
+    public DateTime StartDateTime { get; set; }
     public Guid EventLocationId { get; set; }
     public string EventName { get; set; } = default!;
     public int Quantity { get; set; }

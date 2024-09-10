@@ -23,5 +23,9 @@ global using System.Security.Principal;
 global using BuildingBlocks.Exceptions;
 global using BuildingBlocks.Services.HttpAccessor;
 global using MassTransit;
-global using BuildingBlocks.Messaging.Events.Notifications;
+global using BuildingBlocks.Messaging.Events.Notifications; 
+global using System.Reflection; 
+global using BuildingBlocks.Messaging.MassTransit;
+global using BuildingBlocks.Messaging.Events.Bookings;
+
 

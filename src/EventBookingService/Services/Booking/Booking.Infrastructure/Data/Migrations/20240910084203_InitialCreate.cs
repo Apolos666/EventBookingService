@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Booking.Infrastructure.Data.Migrations
+namespace EventBooking.Infrastructure.Data.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration
@@ -41,6 +41,7 @@ namespace Booking.Infrastructure.Data.Migrations
                     Id = table.Column<Guid>(type: "char(36)", nullable: false),
                     BookingId = table.Column<Guid>(type: "char(36)", nullable: false),
                     EventId = table.Column<Guid>(type: "char(36)", nullable: false),
+                    StartDateTime = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     EventLocationId = table.Column<Guid>(type: "char(36)", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),

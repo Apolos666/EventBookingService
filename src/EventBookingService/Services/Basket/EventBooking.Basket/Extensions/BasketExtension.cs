@@ -20,6 +20,7 @@ public static class BasketExtension
         {
             Id = Guid.NewGuid(),
             EventId = eventCartItemDto.EventId,
+            StartDateTime = eventCartItemDto.StartDateTime,
             EventLocationId = eventCartItemDto.EventLocationId,
             EventName = eventCartItemDto.EventName,
             Quantity = eventCartItemDto.Quantity,

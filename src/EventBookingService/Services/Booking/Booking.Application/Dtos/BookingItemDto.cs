@@ -3,6 +3,7 @@
 public record BookingItemDto(
     Guid BookingId,
     Guid EventId,
+    DateTime StartDateTime,
     Guid EventLocationId,
     string EventName,
     int Quantity,

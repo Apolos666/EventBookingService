@@ -23,7 +23,8 @@ public class CreateBookingCommandHandler
         foreach (var bookingItem in bookingDto.BookingItems)
         {
             newBooking.Add(
-                DomainEventId.Of(bookingItem.EventId), 
+                DomainEventId.Of(bookingItem.EventId),
+                bookingItem.StartDateTime,
                 EventLocationId.Of(bookingItem.EventLocationId),
                 EventName.Of(bookingItem.EventName),
                 quantity: bookingItem.Quantity,

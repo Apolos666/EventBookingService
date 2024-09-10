@@ -27,11 +27,13 @@ const Notification = () => {
         };
     }, []);
 
+    const test = () => connectionRef.current?.send("Test");
+
     return (
         <>            
             <div className="flex gap-4">
-                {/* <button className="bg-yellow-300 p-4 text-black" onClick={test}>Test</button>
-                <button className="bg-yellow-300 p-4 text-black" onClick={testEndpoint}>test endpoint</button> */}
+                <button className="bg-yellow-300 p-4 text-black" onClick={test}>Test</button>
+                {/* <button className="bg-yellow-300 p-4 text-black" onClick={testEndpoint}>test endpoint</button> */}
             </div>
         </>
     );

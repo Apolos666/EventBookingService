@@ -50,6 +50,9 @@ services:
       - ASPNETCORE_HTTPS_PORTS=8081
       - ConnectionStrings__Database=Server=eventdb;Port=5432;Database=EventDb;User Id=postgres;Password=postgres;Include Error Detail=true
       - ConnectionStrings__Redis=distributedcache:6379
+      - MessageBroker__Host=amqp://eventbooking-mq:5672
+      - MessageBroker__UserName=guest
+      - MessageBroker__Password=guest 
       - Keycloak__realm=Event-Booking-Service
       - Keycloak__auth-server-url=http://keycloak:8090/
       - Keycloak__ssl-required=none
@@ -61,6 +64,7 @@ services:
       - eventdb
       - distributedcache
       - keycloak 
+      - messagebroker
     ports:
       - "6001:8080"
       - "6061:8081"
@@ -92,6 +96,7 @@ services:
       - distributedcache
       - keycloak
       - eventbooking.event
+      - messagebroker
     ports:
       - "6002:8080"
       - "6062:8081"

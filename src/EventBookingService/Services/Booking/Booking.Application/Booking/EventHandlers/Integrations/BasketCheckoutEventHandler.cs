@@ -22,6 +22,7 @@ public class BasketCheckoutEventHandler
             basketCheckoutEvent.BasketCheckoutEventItems.Select(bi => new BookingItemDto(
                 bookingId,
                 bi.EventId,
+                bi.StartDateTime,
                 bi.EventLocationId,
                 bi.EventName,
                 bi.Quantity,

@@ -1,4 +1,4 @@
-﻿namespace EventBooking.Notification.Features.Notifications;
+﻿namespace EventBooking.Notification.Features.CreateEventNotification;
 
 public class CreateEventHandler
     (IHubContext<NotificationHub, INotificationClient> hub, ILogger<CreateEventHandler> logger)

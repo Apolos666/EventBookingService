@@ -1,10 +1,6 @@
-using BuildingBlocks.Messaging.MassTransit;
-
 var builder = WebApplication.CreateBuilder(args);
 
 var assembly = typeof(Program).Assembly;
-
-// Add services to the container.
 
 // Application services
 builder.Services.AddCarter();
@@ -46,7 +42,7 @@ builder.Services
     .AddCustomAuthorizationPolicies();
 
 // Async Communication Services
-builder.Services.AddMessageBroker(builder.Configuration);
+builder.Services.AddMessageBroker(builder.Configuration, Assembly.GetExecutingAssembly());
 
 var app = builder.Build();
 

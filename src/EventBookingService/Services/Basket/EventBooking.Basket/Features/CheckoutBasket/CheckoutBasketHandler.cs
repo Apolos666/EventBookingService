@@ -21,6 +21,7 @@ public class CheckoutBasketCommandHandler
             BasketCheckoutEventItems = basket.Items.Select(bi => new BasketCheckoutEventItem
             {
                 EventId = bi.EventId,
+                StartDateTime = bi.StartDateTime,
                 EventLocationId = bi.EventLocationId,
                 EventName = bi.EventName,
                 Quantity = bi.Quantity,
