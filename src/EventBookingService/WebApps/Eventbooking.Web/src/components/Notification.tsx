@@ -11,8 +11,8 @@ const Notification = () => {
             .withUrl("https://localhost:5055/notifications", { accessTokenFactory: () => auth.user?.access_token || "" })
             .build();
 
-        connection.on("ReceiveNotification", (data) => {
-            console.log(data);
+        connection.on("ReceiveNotification", (title, message) => {
+            console.log(title, message);
         });  
     
         connection.start()
