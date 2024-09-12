@@ -133,12 +133,65 @@ services:
     depends_on:
       - bookingdb
       - messagebroker
+      - keycloak
     ports:
       - "6004:8080"
       - "6064:8081"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro      
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro     
+      
+  eventbooking.notification:
+    container_name: eventbooking.notification
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - MessageBroker__Host=amqp://eventbooking-mq:5672
+      - MessageBroker__UserName=guest
+      - MessageBroker__Password=guest
+      - Keycloak__realm=Event-Booking-Service
+      - Keycloak__auth-server-url=http://keycloak:8090/
+      - Keycloak__ssl-required=none
+      - Keycloak__resource=event-booking-service-webapp
+      - Keycloak__verify-token-audience=false
+      - Keycloak__public-client=true
+      - Keycloak__confidential-port=0
+    depends_on:
+      - eventbooking.event
+      - distributedcache
+      - messagebroker
+      - keycloak
+      - eventbooking.basket
+    ports:
+      - "6005:8080"
+      - "6065:8081"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro    
+        
+  eventbooking.web:
+    container_name: eventbooking.web
+    environment:
+      - NODE_ENV=development
+      - VITE_AUTHORITY=http://keycloak:8090/realms/Event-Booking-Service
+      - VITE_REDIRECT_URI=http://localhost:3000/signin-callback.html
+      - VITE_NOTIFICATIONS_API=https://localhost:6065/notifications 
+    restart: always
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./WebApps/EventBooking.Web:/app
+      - /app/node_modules
+    depends_on:
+      - eventdb
+      - distributedcache
+      - keycloak
+      - eventbooking.event
+      - eventbooking.basket
+      - eventbooking.discount
+      - eventbooking.notification
+      - booking.api
   
   keycloakdb:
     container_name: keycloakdb
@@ -175,23 +228,6 @@ services:
       - "8090:8090"
     volumes:
       - keycloak:/opt/keycloak/data/import
-   
-  eventbooking.web:
-    container_name: eventbooking.web
-    environment:
-      - NODE_ENV=development
-      - VITE_AUTHORITY=http://keycloak:8090/realms/Event-Booking-Service
-      - VITE_REDIRECT_URI=http://localhost:3000/signin-callback.html
-    restart: always
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./WebApps/EventBooking.Web:/app
-      - /app/node_modules 
-    depends_on:
-      - eventdb
-      - distributedcache
-      - keycloak
   
   messagebroker:
     container_name: messagebroker
@@ -202,4 +238,4 @@ services:
     restart: always
     ports:
       - "5672:5672"
-      - "15672:15672" 
+      - "15672:15672"

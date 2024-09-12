@@ -7,7 +7,8 @@
         "eventbooking.event": "StartDebugging",
         "eventbooking.basket": "StartDebugging",
         "eventbooking.discount": "StartDebugging",
-        "booking.api": "StartDebugging"
+        "booking.api": "StartDebugging",
+        "eventbooking.notification": "StartDebugging"
       }
     }
   }

@@ -8,7 +8,7 @@ const Notification = () => {
 
     useEffect(() => {
         const connection = new HubConnectionBuilder()
-            .withUrl("https://localhost:5055/notifications", { accessTokenFactory: () => auth.user?.access_token || "" })
+            .withUrl(import.meta.env.VITE_NOTIFICATIONS_API, { accessTokenFactory: () => auth.user?.access_token || "" })
             .build();
 
         connection.on("ReceiveNotification", (title, message) => {
