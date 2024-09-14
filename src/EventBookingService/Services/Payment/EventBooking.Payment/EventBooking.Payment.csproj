@@ -26,4 +26,8 @@
     <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocks\BuildingBlocks.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Infrastructures\Payment\" />
+  </ItemGroup>
+
 </Project>

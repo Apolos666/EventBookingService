@@ -8,6 +8,7 @@ public class HttpUserIdentityAccessor
     (IHttpContextAccessor httpContextAccessor)
     : IUserIdentityAccessor
 {
+    public HttpContext HttpContext => httpContextAccessor.HttpContext;
     public IIdentity UserIdentity => httpContextAccessor.HttpContext?.User.Identity;
     public string UserId => GetClaimValue(ClaimTypes.NameIdentifier);
     public string UserName => GetClaimValue("preferred_username");

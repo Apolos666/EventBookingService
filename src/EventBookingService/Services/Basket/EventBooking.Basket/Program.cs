@@ -49,7 +49,6 @@ builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(
 builder.Services.AddValidatorsFromAssembly(assembly);
 
 // Authentication and Authorization services
-// builder.Services.AddKeycloakWebApiAuthentication(builder.Configuration);
 
 builder.Services.AddAuthentication("webapp")
     .AddJwtBearer("webapp", options =>

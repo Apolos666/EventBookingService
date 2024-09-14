@@ -1,6 +1,4 @@
-﻿using BuildingBlocks.Services.HttpAccessor;
-
-namespace EventBooking.Basket.Data;
+﻿namespace EventBooking.Basket.Data;
 
 public class CachedBasketRepository
     (IBasketRepository repository, IDistributedCache cache, IUserIdentityAccessor userIdentityAccessor)
