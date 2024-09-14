@@ -57,8 +57,19 @@ builder.Services.AddAuthentication("web_app")
 
 builder.Services.AddAuthorization();
 
-var app = builder.Build();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyHeader();
+        builder.AllowAnyMethod();
+        builder.AllowAnyOrigin();
+    });
+});
 
+var app = builder.Build();
+    
+app.UseCors("AllowAll");
 app.UseAuthentication();
 app.UseAuthorization();
 

@@ -2,6 +2,7 @@ import { useAuth } from 'react-oidc-context';
 import './App.css'
 import Notification from "./components/Notification";
 import Group from './components/Group';
+import CheckoutTest from './components/CheckoutTest';
 
 function App() {
     const auth = useAuth();
@@ -29,6 +30,7 @@ function App() {
                 {/* <Group /> */}
 
                 <button onClick={() => void auth.removeUser()}>Log out</button>
+                <CheckoutTest />
             </div>
         );
     }
