@@ -22,6 +22,16 @@ global using BuildingBlocks.Messaging.MassTransit;
 global using BuildingBlocks.Services.HttpAccessor;
 global using MassTransit;
 global using BuildingBlocks.Messaging.Events;
+global using System.Security.Claims;
+global using Microsoft.IdentityModel.Tokens;
+global using EventBooking.Basket.Protos;
+global using Grpc.Core;
+global using EventCart = EventBooking.Basket.Models.EventCart;
+global using EventCartItem = EventBooking.Basket.Models.EventCartItem;
+global using Microsoft.AspNetCore.Authorization;
+global using EventBooking.Basket.Services;
+
+
 
 
 

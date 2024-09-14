@@ -31,6 +31,7 @@ builder.Services.AddStackExchangeRedisCache(config =>
 });
 
 // GRPC Services
+builder.Services.AddGrpc();
 builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(options =>
 {
     options.Address = new Uri(builder.Configuration["GrpcSettings:DiscountUrl"]!);
@@ -48,12 +49,46 @@ builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(
 builder.Services.AddValidatorsFromAssembly(assembly);
 
 // Authentication and Authorization services
-builder.Services.AddKeycloakWebApiAuthentication(builder.Configuration);
+// builder.Services.AddKeycloakWebApiAuthentication(builder.Configuration);
+
+builder.Services.AddAuthentication("webapp")
+    .AddJwtBearer("webapp", options =>
+    {
+        options.Authority = "http://localhost:8090/realms/Event-Booking-Service";
+        options.MetadataAddress = "http://localhost:8090/realms/Event-Booking-Service/.well-known/openid-configuration";
+        options.RequireHttpsMetadata = false;
+        options.Audience = "basket_service"; 
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            NameClaimType = ClaimTypes.Name,
+            RoleClaimType = ClaimTypes.Role,
+            ValidateIssuer = true,
+            ValidIssuers = ["http://localhost:8090/auth/realms/Event-Booking-Service"],
+            ValidateAudience = true,
+            ValidAudiences = ["basket_service"]   
+        };
+    })
+    .AddJwtBearer("basket_service", options =>
+    {
+        options.Authority = "http://localhost:8090/realms/Event-Booking-Service";
+        options.MetadataAddress = "http://localhost:8090/realms/Event-Booking-Service/.well-known/openid-configuration";
+        options.RequireHttpsMetadata = false;
+        options.Audience = "payment_service";
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            NameClaimType = ClaimTypes.Name,
+            RoleClaimType = ClaimTypes.Role,
+            ValidateIssuer = true,
+            ValidIssuers = ["http://localhost:8090/auth/realms/Event-Booking-Service"],
+            ValidateAudience = true,
+            ValidAudiences = ["payment_service"]    
+        };
+    });
 
 builder.Services
     .AddAuthorization()
     .AddKeycloakAuthorization()
-    .AddAuthorizationBuilder()
+    .AddAuthorizationBuilder()  
     .AddCustomAuthorizationPolicies();
 
 // Async Communication Services
@@ -65,4 +100,5 @@ app.UseAuthentication();
 app.UseAuthorization(); 
 
 app.MapCarter();
+app.MapGrpcService<BasketService>();
 app.Run();

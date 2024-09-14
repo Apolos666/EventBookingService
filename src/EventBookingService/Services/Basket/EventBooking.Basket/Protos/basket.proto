@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+option csharp_namespace = "EventBooking.Basket.Protos";
+
+package basket;
+
+service BasketProtoService {
+  rpc GetEventCart(GetEventCartRequest) returns (EventCart);
+}
+
+message GetEventCartRequest {
+  string user_id = 1;
+}
+
+message EventCart {
+  string user_id = 1;
+  repeated EventCartItem items = 2;
+  double total_price = 3;
+}
+
+message EventCartItem {
+  string id = 1;
+  string event_id = 2;
+  string start_date_time = 3;
+  string event_location_id = 4;
+  string event_name = 5;
+  int32 quantity = 6; 
+  double price = 7;   
+}

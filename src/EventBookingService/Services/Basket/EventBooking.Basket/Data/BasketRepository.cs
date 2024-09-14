@@ -14,6 +14,16 @@ public class BasketRepository
         return eventCart;
     }
 
+    public async Task<EventCart> GetBasketAsync(Guid userId, CancellationToken cancellationToken)
+    {
+        var eventCart = await session.LoadAsync<EventCart>(userId, cancellationToken);
+
+        if (eventCart is null)
+            throw new BasketNotFoundException(userId);
+        
+        return eventCart;
+    }
+
     public async Task<Guid> StoreBasketAsync(EventCartDto cartDto, CancellationToken cancellationToken)
     {
         var eventCart = cartDto.ToEventCart();

@@ -11,10 +11,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Protos\basket.proto" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Carter" Version="8.2.1" />
     <PackageReference Include="Grpc.AspNetCore" Version="2.49.0" />
     <PackageReference Include="Marten" Version="7.26.5" />
@@ -32,7 +28,12 @@
     <Protobuf Include="..\..\Discount\EventBooking.Discount\Protos\discount.proto" GrpcServices="Client">
       <Link>Protos\discount.proto</Link>
     </Protobuf>
-    <Protobuf Include="Protos\basket.proto" GrpcServices="Server" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\..\Discount\EventBooking.Discount\Protos\basket.proto">
+      <Link>Protos\basket.proto</Link>
+    </Content>
   </ItemGroup>
 
 </Project>
