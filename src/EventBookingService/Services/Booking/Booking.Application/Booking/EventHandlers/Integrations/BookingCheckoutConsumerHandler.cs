@@ -1,7 +1,7 @@
 ﻿namespace Booking.Application.Booking.EventHandlers.Integrations;
 
-public class SuccessCheckoutEventHandler
-    (ILogger<SuccessCheckoutEventHandler> logger, ISender sender)
+public class BookingCheckoutConsumerHandler
+    (ILogger<BookingCheckoutConsumerHandler> logger, ISender sender)
     : IConsumer<SuccessCheckoutEvent>
 {
     public async Task Consume(ConsumeContext<SuccessCheckoutEvent> context)

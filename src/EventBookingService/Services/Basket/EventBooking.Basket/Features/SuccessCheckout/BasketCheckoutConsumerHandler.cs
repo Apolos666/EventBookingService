@@ -1,7 +1,7 @@
 ﻿namespace EventBooking.Basket.Features.SuccessCheckout;
 
-public class SucessCheckoutEventHandler
-    (ILogger<SucessCheckoutEventHandler> logger, IBasketRepository repository)
+public class BasketCheckoutConsumerHandler
+    (ILogger<BasketCheckoutConsumerHandler> logger, IBasketRepository repository)
     : IConsumer<SuccessCheckoutEvent>
 {
     public async Task Consume(ConsumeContext<SuccessCheckoutEvent> context)

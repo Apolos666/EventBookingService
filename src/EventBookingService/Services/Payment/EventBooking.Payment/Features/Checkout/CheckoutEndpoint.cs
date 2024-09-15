@@ -19,10 +19,10 @@ public class CheckoutEndpoint : ICarterModule
                     CustomerId = userIdentityAccessor.UserId,
                     LineItems = eventCart.Items.Select(item => new StripeLineItem
                     {
-                        EventId = item.EventId,
                         EventName = item.EventName,
                         UnitAmount = (decimal)item.Price,
                         Quantity = item.Quantity,
+                        EventId = item.EventId,
                         StartDateTime = item.StartDateTime,
                         EventLocationId = item.EventLocationId
                     }).ToList(),
