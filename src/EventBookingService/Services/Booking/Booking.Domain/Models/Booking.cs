@@ -57,16 +57,16 @@ public class Booking : Aggregate<BookingId>
         _bookingItems.Remove(bookingItem);
     }
     
-    // Todo: Call this method when user confirms payment
     public void ConfirmPayment()
     {
         if (BookingStatus != BookingStatus.Pending)
             throw new DomainException("Cannot confirm payment for a booking that is not pending.");
 
         BookingStatus = BookingStatus.Confirmed;
-
-        // Todo: Generate confirmation code for each booking item
         
-        // Todo: Add domain event
+        foreach (var bookingItem in _bookingItems)
+        {
+            bookingItem.GenerateConfirmationCode();
+        }
     }
 }

@@ -7,6 +7,13 @@ builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IUserIdentityAccessor, HttpUserIdentityAccessor>();
+builder.Services.AddScoped<IPaymentService<StripeCheckoutRequest, StripeCheckoutResponse>>(serviceProvider =>
+{
+    var publisher = serviceProvider.GetRequiredService<IPublishEndpoint>();
+    return new StripePaymentService(
+        "sk_test_51PcP70RoqHqSv3QAWHTPNVCVkcxDwZ5L3MQM1zPTjjJMMvozvzcmJTOlBT1EW9XkEt51ozXRYfIPhcuQnZn0obhj00kvvEcFZp",
+        publisher);
+});
 
 // HttpClients
 builder.Services.AddClientCredentialsTokenManagement()
@@ -66,6 +73,9 @@ builder.Services.AddCors(options =>
         builder.AllowAnyOrigin();
     });
 });
+
+// Async Communication Services
+builder.Services.AddMessageBroker(builder.Configuration, Assembly.GetExecutingAssembly());
 
 var app = builder.Build();
     

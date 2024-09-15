@@ -31,6 +31,8 @@ public class CreateBookingCommandHandler
                 price: bookingItem.Price);
         }
         
+        newBooking.ConfirmPayment();
+        
         return newBooking;
     }
 }

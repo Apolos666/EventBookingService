@@ -30,6 +30,7 @@ global using EventCart = EventBooking.Basket.Models.EventCart;
 global using EventCartItem = EventBooking.Basket.Models.EventCartItem;
 global using Microsoft.AspNetCore.Authorization;
 global using EventBooking.Basket.Services;
+global using BuildingBlocks.Messaging.Events.Payments;
 
 
 

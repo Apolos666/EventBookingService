@@ -21,5 +21,6 @@ global using Booking.Application.Booking.Commands.CreateBooking;
 global using Booking.Domain.ValueObjects;
 global using DomainEventId = Booking.Domain.ValueObjects.EventId;
 global using Microsoft.Extensions.Logging;
+global using BuildingBlocks.Messaging.Events.Payments;
 
 

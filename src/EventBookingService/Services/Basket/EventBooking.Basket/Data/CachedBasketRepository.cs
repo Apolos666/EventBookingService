@@ -66,4 +66,15 @@ public class CachedBasketRepository
         
         return result;
     }
+
+    public async Task<bool> DeleteBasketAsync(Guid userId, CancellationToken cancellationToken)
+    {
+        var result = await repository.DeleteBasketAsync(userId, cancellationToken);
+        
+        var cacheKey = $"basket_{userId}";
+        
+        await cache.RemoveAsync(cacheKey, cancellationToken);
+        
+        return result;
+    }
 }

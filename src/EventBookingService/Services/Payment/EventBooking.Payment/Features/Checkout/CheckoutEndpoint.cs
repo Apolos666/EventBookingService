@@ -4,41 +4,41 @@ public class CheckoutEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPost("/checkout", async 
-            (BasketProtoService.BasketProtoServiceClient basketProtoClient, 
-                IUserIdentityAccessor userIdentityAccessor, 
+        app.MapPost("/checkout", async
+            (BasketProtoService.BasketProtoServiceClient basketProtoClient,
+                IPaymentService<StripeCheckoutRequest, StripeCheckoutResponse> paymentService,
+                IUserIdentityAccessor userIdentityAccessor,
                 CancellationToken cancellationToken = default) =>
-        {
-            var eventCart = await basketProtoClient.GetEventCartAsync(new GetEventCartRequest {UserId = userIdentityAccessor.UserId}, cancellationToken: cancellationToken);
-
-            StripeConfiguration.ApiKey =
-                "sk_test_51PcP70RoqHqSv3QAWHTPNVCVkcxDwZ5L3MQM1zPTjjJMMvozvzcmJTOlBT1EW9XkEt51ozXRYfIPhcuQnZn0obhj00kvvEcFZp";
-
-            var checkoutSessionOptions = new SessionCreateOptions
             {
-                LineItems = eventCart.Items.Select(item => new SessionLineItemOptions
-                {
-                    PriceData = new SessionLineItemPriceDataOptions
-                    {
-                        Currency = "USD",
-                        ProductData = new SessionLineItemPriceDataProductDataOptions
-                        {
-                            Name = item.EventName,
-                            Description = item.StartDateTime
-                        },
-                        UnitAmountDecimal = (decimal)item.Price
-                    },
-                    Quantity = item.Quantity
-                }).ToList(),
-                Mode = "payment",
-                SuccessUrl = "http://localhost:3000/" + "?success=true",
-                CancelUrl = "http://localhost:3000/" + "?canceled=true"
-            };
+                var eventCart = await basketProtoClient.GetEventCartAsync(
+                    new GetEventCartRequest { UserId = userIdentityAccessor.UserId },
+                    cancellationToken: cancellationToken);
 
-            var service = new SessionService();
-            var session = await service.CreateAsync(checkoutSessionOptions, cancellationToken: cancellationToken);
-            
-            return Results.Ok(session.Id);
-        }).RequireAuthorization();
+                var checkoutRequest = new StripeCheckoutRequest
+                {
+                    CustomerId = userIdentityAccessor.UserId,
+                    LineItems = eventCart.Items.Select(item => new StripeLineItem
+                    {
+                        EventId = item.EventId,
+                        EventName = item.EventName,
+                        UnitAmount = (decimal)item.Price,
+                        Quantity = item.Quantity,
+                        StartDateTime = item.StartDateTime,
+                        EventLocationId = item.EventLocationId
+                    }).ToList(),
+                    SuccessUrl = "http://localhost:3000/?success=true",
+                    CancelUrl = "http://localhost:3000/?canceled=true"
+                };
+                
+                var response = await paymentService.CreateCheckoutSessionAsync(checkoutRequest, cancellationToken);
+                return Results.Ok(response.SessionId);
+            })
+            .WithName("Checkout")
+            .Produces(StatusCodes.Status200OK)
+            .ProducesProblem(StatusCodes.Status400BadRequest)
+            .WithSummary("Checkout")
+            .WithDescription("Checkout")
+            .WithTags("Checkout")
+            .RequireAuthorization();
     }
 }

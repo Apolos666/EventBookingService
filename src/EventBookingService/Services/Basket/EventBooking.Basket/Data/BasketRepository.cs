@@ -41,4 +41,11 @@ public class BasketRepository
         await session.SaveChangesAsync(cancellationToken);
         return true;
     }
+
+    public async Task<bool> DeleteBasketAsync(Guid userId, CancellationToken cancellationToken)
+    {
+        session.Delete<EventCart>(userId);
+        await session.SaveChangesAsync(cancellationToken);
+        return true;
+    }
 }
