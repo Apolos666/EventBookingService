@@ -41,7 +41,16 @@ services:
     image: ${DOCKER_REGISTRY-}eventbookingnotification
     build:
       context: .
-      dockerfile: Services/Notification/EventBooking.Notification/Dockerfile    
+      dockerfile: Services/Notification/EventBooking.Notification/Dockerfile  
+      
+  eventbooking.payment:
+    image: ${DOCKER_REGISTRY-}eventbookingpayment
+    build:
+      context: .
+      dockerfile: Services/Payment/EventBooking.Payment/Dockerfile 
+      
+  stripe.cli: 
+    image: stripe/stripe-cli
       
   eventbooking.web:
     image: ${DOCKER_REGISTRY-}eventbookingweb
@@ -66,6 +75,9 @@ volumes:
   mysql_booking:  
   postgres_keycloak:
   keycloak:
+
+
+
 
 
 

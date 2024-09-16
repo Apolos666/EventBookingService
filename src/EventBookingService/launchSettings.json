@@ -8,7 +8,17 @@
         "eventbooking.basket": "StartDebugging",
         "eventbooking.discount": "StartDebugging",
         "booking.api": "StartDebugging",
-        "eventbooking.notification": "StartDebugging"
+        "eventbooking.notification": "StartDebugging",
+        "eventbooking.payment": "StartDebugging",
+        "basketdb": "StartWithoutDebugging",
+        "bookingdb": "StartWithoutDebugging",
+        "distributedcache": "StartWithoutDebugging",
+        "eventbooking.web": "StartWithoutDebugging",
+        "eventdb": "StartWithoutDebugging",
+        "keycloak": "StartWithoutDebugging",
+        "keycloakdb": "StartWithoutDebugging",
+        "messagebroker": "StartWithoutDebugging",
+        "stripe.cli": "StartWithoutDebugging"
       }
     }
   }

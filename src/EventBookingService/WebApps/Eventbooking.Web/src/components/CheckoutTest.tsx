@@ -9,7 +9,7 @@ const CheckoutTest = () => {
     const accessToken = auth.user?.access_token;
 
     const checkout = async () => {
-        const res = await fetch('https://localhost:5056/checkout', {
+        const res = await fetch(import.meta.env.VITE_CHECKOUT_API, {
             method: 'POST', 
             headers: {
                 'Authorization': `Bearer ${accessToken}`,

@@ -84,13 +84,14 @@ services:
       - MessageBroker__Host=amqp://eventbooking-mq:5672
       - MessageBroker__UserName=guest
       - MessageBroker__Password=guest
-      - Keycloak__realm=Event-Booking-Service
-      - Keycloak__auth-server-url=http://keycloak:8090/
-      - Keycloak__ssl-required=none
-      - Keycloak__resource=event-booking-service-webapp
-      - Keycloak__verify-token-audience=false
-      - Keycloak__credentials__secret=JoAQXYAImeyFibPiK7hTeOxBo6kLkHei
-      - Keycloak__confidential-port=0 
+      - Keycloak__Authority=http://keycloak:8090/realms/Event-Booking-Service
+      - Keycloak__MetadataAddress=http://keycloak:8090/realms/Event-Booking-Service/.well-known/openid-configuration
+      - Keycloak__RequireHttpsMetadata=false
+      - Keycloak__ValidIssuers=["http://keycloak:8090/realms/Event-Booking-Service"]
+      - Keycloak__Audience__webapp=basket_service
+      - Keycloak__Audience__basket_service=payment_service
+      - Keycloak__ValidAudiences__webapp=["basket_service"]
+      - Keycloak__ValidAudiences__basket_service=["payment_service"]
     depends_on:
       - basketdb
       - distributedcache
@@ -168,7 +169,46 @@ services:
       - "6065:8081"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+      
+  eventbooking.payment:
+    container_name: eventbooking.payment
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - MessageBroker__Host=amqp://eventbooking-mq:5672
+      - MessageBroker__UserName=guest
+      - MessageBroker__Password=guest
+      - Keycloak__Authority=http://keycloak:8090/realms/Event-Booking-Service
+      - Keycloak__MetadataAddress=http://keycloak:8090/realms/Event-Booking-Service/.well-known/openid-configuration
+      - Keycloak__RequireHttpsMetadata=false
+      - Keycloak__ValidIssuers=["http://keycloak:8090/realms/Event-Booking-Service"]
+      - Keycloak__Audience=payment_service
+      - Keycloak__ValidAudiences=["payment_service"]
+      - Keycloak__ClientId=event-booking-service-basket
+      - Keycloak__ClientSecret=T74fx6zXr4cOCmujRQ9Pdk3eR595LIJA
+      - Keycloak__TokenEndpoint=http://keycloak:8090/realms/Event-Booking-Service/protocol/openid-connect/token
+      - GrpcSettings__BasketUrl=https://eventbooking.basket:8081
+    depends_on:
+      - eventbooking.basket
+      - messagebroker
+      - keycloak
+    ports:
+      - "6006:8080"
+      - "6066:8081"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro    
+        
+  stripe.cli:
+    container_name: stripe.cli
+    network_mode: host
+    depends_on:
+      - eventbooking.payment
+    environment:
+      - STRIPE_API_KEY=sk_test_51PcP70RoqHqSv3QAWHTPNVCVkcxDwZ5L3MQM1zPTjjJMMvozvzcmJTOlBT1EW9XkEt51ozXRYfIPhcuQnZn0obhj00kvvEcFZp
+    command: listen --forward-to http://localhost:6006/fullfilment
         
   eventbooking.web:
     container_name: eventbooking.web
@@ -176,7 +216,8 @@ services:
       - NODE_ENV=development
       - VITE_AUTHORITY=http://keycloak:8090/realms/Event-Booking-Service
       - VITE_REDIRECT_URI=http://localhost:3000/signin-callback.html
-      - VITE_NOTIFICATIONS_API=https://localhost:6065/notifications 
+      - VITE_NOTIFICATIONS_API=https://localhost:6065/notifications
+      - VITE_CHECKOUT_API=https://localhost:6066/checkout 
     restart: always
     ports:
       - "3000:3000"

@@ -53,34 +53,34 @@ builder.Services.AddValidatorsFromAssembly(assembly);
 builder.Services.AddAuthentication("webapp")
     .AddJwtBearer("webapp", options =>
     {
-        options.Authority = "http://localhost:8090/realms/Event-Booking-Service";
-        options.MetadataAddress = "http://localhost:8090/realms/Event-Booking-Service/.well-known/openid-configuration";
-        options.RequireHttpsMetadata = false;
-        options.Audience = "basket_service"; 
+        options.Authority = builder.Configuration["Keycloak:Authority"];
+        options.MetadataAddress = builder.Configuration["Keycloak:MetadataAddress"];
+        options.RequireHttpsMetadata = builder.Configuration.GetValue<bool>("Keycloak:RequireHttpsMetadata");
+        options.Audience = builder.Configuration["Keycloak:Audience:webapp"]; 
         options.TokenValidationParameters = new TokenValidationParameters
         {
             NameClaimType = ClaimTypes.Name,
             RoleClaimType = ClaimTypes.Role,
             ValidateIssuer = true,
-            ValidIssuers = ["http://localhost:8090/auth/realms/Event-Booking-Service"],
+            ValidIssuers = builder.Configuration.GetValue<IEnumerable<string>>("Keycloak:ValidIssuers"),
             ValidateAudience = true,
-            ValidAudiences = ["basket_service"]   
+            ValidAudiences = builder.Configuration.GetValue<IEnumerable<string>>("Keycloak:ValidAudiences:webapp")
         };
     })
     .AddJwtBearer("basket_service", options =>
     {
-        options.Authority = "http://localhost:8090/realms/Event-Booking-Service";
-        options.MetadataAddress = "http://localhost:8090/realms/Event-Booking-Service/.well-known/openid-configuration";
-        options.RequireHttpsMetadata = false;
-        options.Audience = "payment_service";
+        options.Authority = builder.Configuration["Keycloak:Authority"];
+        options.MetadataAddress = builder.Configuration["Keycloak:MetadataAddress"];
+        options.RequireHttpsMetadata = builder.Configuration.GetValue<bool>("Keycloak:RequireHttpsMetadata");
+        options.Audience = builder.Configuration["Keycloak:Audience:basket_service"];
         options.TokenValidationParameters = new TokenValidationParameters
         {
             NameClaimType = ClaimTypes.Name,
             RoleClaimType = ClaimTypes.Role,
             ValidateIssuer = true,
-            ValidIssuers = ["http://localhost:8090/auth/realms/Event-Booking-Service"],
+            ValidIssuers = builder.Configuration.GetValue<IEnumerable<string>>("Keycloak:ValidIssuers"),
             ValidateAudience = true,
-            ValidAudiences = ["payment_service"]    
+            ValidAudiences = builder.Configuration.GetValue<IEnumerable<string>>("Keycloak:ValidAudiences:basket_service")    
         };
     });
 
