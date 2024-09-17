@@ -14,6 +14,7 @@ global using Booking.Application.Booking.Queries.GetBookingsByUserId;
 global using BuildingBlocks.Services.HttpAccessor;
 global using Microsoft.AspNetCore.Mvc;
 global using Booking.Infrastructure.Data.Extensions;
-
+global using System.Security.Claims;
+global using Microsoft.IdentityModel.Tokens;
 
 

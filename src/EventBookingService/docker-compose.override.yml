@@ -130,6 +130,12 @@ services:
       - MessageBroker__Host=amqp://eventbooking-mq:5672
       - MessageBroker__UserName=guest
       - MessageBroker__Password=guest
+      - Keycloak__Authority=http://keycloak:8090/realms/Event-Booking-Service
+      - Keycloak__MetadataAddress=http://keycloak:8090/realms/Event-Booking-Service/.well-known/openid-configuration
+      - Keycloak__RequireHttpsMetadata=false
+      - Keycloak__ValidIssuers=["http://keycloak:8090/realms/Event-Booking-Service"]
+      - Keycloak__Audience=booking_service
+      - Keycloak__ValidAudiences=["booking_service"]
     depends_on:
       - bookingdb
       - messagebroker
