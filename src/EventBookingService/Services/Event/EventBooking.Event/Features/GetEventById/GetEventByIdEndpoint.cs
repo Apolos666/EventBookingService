@@ -24,6 +24,7 @@ public class GetEventByIdEndpoint : ICarterModule
         .ProducesProblem(StatusCodes.Status404NotFound)
         .WithSummary("Get Event By Id")
         .WithDescription("Gets an event by its id.")
-        .WithTags(nameof(Models.Event));
+        .WithTags(nameof(Models.Event))
+        .RequireAuthorization();
     }
 }

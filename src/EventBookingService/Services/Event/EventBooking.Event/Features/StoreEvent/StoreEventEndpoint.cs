@@ -1,6 +1,4 @@
-﻿using BuildingBlocks.Enums;
-
-namespace EventBooking.Event.Features.StoreEvent;
+﻿namespace EventBooking.Event.Features.StoreEvent;
 
 public record StoreEventRequest(EventDto Event);
 

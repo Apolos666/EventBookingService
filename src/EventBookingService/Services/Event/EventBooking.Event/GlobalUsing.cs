@@ -28,6 +28,9 @@ global using System.Reflection;
 global using BuildingBlocks.Messaging.MassTransit;
 global using BuildingBlocks.Messaging.Events.Bookings;
 global using EventBooking.Event.Features.EventStartDateChecker;
+global using System.Security.Claims;
+global using Microsoft.IdentityModel.Tokens;
+global using BuildingBlocks.Enums;
 
 
 

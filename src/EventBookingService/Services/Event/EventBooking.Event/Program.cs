@@ -33,7 +33,23 @@ builder.Services.AddStackExchangeRedisCache(config =>
 builder.Services.AddValidatorsFromAssembly(assembly);
 
 // Authentication and Authorization services
-builder.Services.AddKeycloakWebApiAuthentication(builder.Configuration);
+builder.Services.AddAuthentication("webapp")
+    .AddJwtBearer("webapp", options =>
+    {
+        options.Authority = builder.Configuration["Keycloak:Authority"];
+        options.MetadataAddress = builder.Configuration["Keycloak:MetadataAddress"];
+        options.RequireHttpsMetadata = builder.Configuration.GetValue<bool>("Keycloak:RequireHttpsMetadata");
+        options.Audience = builder.Configuration["Keycloak:Audience"];
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            NameClaimType = ClaimTypes.Name,
+            RoleClaimType = ClaimTypes.Role,
+            ValidateIssuer = true,
+            ValidIssuers = builder.Configuration.GetValue<IEnumerable<string>>("Keycloak:ValidIssuers"),
+            ValidateAudience = true,
+            ValidAudiences = builder.Configuration.GetValue<IEnumerable<string>>("Keycloak:ValidAudiences")
+        };
+    });
 
 builder.Services
     .AddAuthorization()

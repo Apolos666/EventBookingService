@@ -27,6 +27,6 @@ public class GetEventsEndpoint : ICarterModule
             .WithSummary("Get Orders")
             .WithDescription("Gets a list of orders.")
             .WithTags(nameof(Models.Event))
-            .RequireAuthorization();
+            .AllowAnonymous();
     }
 }
