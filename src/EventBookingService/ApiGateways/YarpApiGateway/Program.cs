@@ -11,7 +11,7 @@ builder.Services.AddAuthentication()
         {
             NameClaimType = ClaimTypes.Name,
             RoleClaimType = ClaimTypes.Role,
-            ValidateIssuer = true,
+            ValidateIssuer = false,
             ValidIssuers = builder.Configuration.GetValue<IEnumerable<string>>("Keycloak:ValidIssuers"),
             ValidateAudience = true,
             ValidAudiences = builder.Configuration.GetValue<IEnumerable<string>>("Keycloak:ValidAudiences:webapp")
@@ -24,10 +24,22 @@ builder.Services.AddAuthorizationBuilder()
         builder.RequireAuthenticatedUser();
     });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
+
 builder.Services.AddReverseProxy()
     .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));   
 
 var app = builder.Build();
+
+app.UseCors();
 
 app.UseAuthentication();
 app.UseAuthorization();

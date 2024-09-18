@@ -1,19 +1,23 @@
 ﻿namespace EventBooking.Payment.Infrastructures.Payment;
 
-public class StripePaymentService 
+public class StripePaymentService
     : IPaymentService<StripeCheckoutRequest, StripeCheckoutResponse>
 {
     private readonly IPublishEndpoint _publishEndpoint;
+    private readonly ILogger<StripePaymentService> _logger;
 
-    public StripePaymentService(string apiKey, IPublishEndpoint publisherEndpoint)
+    public StripePaymentService(string apiKey, IPublishEndpoint publisherEndpoint, ILogger<StripePaymentService> logger)
     {
         StripeConfiguration.ApiKey = apiKey;
         _publishEndpoint = publisherEndpoint;
+        _logger = logger;
     }
 
     
     public async Task<StripeCheckoutResponse> CreateCheckoutSessionAsync(StripeCheckoutRequest request, CancellationToken cancellationToken)
     {
+        _logger.LogInformation("Creating checkout session for customer {CustomerId}", request.CustomerId);
+        
         var checkoutOptions = new SessionCreateOptions
         {
             LineItems = request.LineItems.ConvertAll(item => new SessionLineItemOptions
@@ -55,6 +59,8 @@ public class StripePaymentService
 
     public async Task FullfillCheckoutSessionAsync(string sessionId, CancellationToken cancellationToken)
     {
+        _logger.LogInformation("Fullfilling checkout session {SessionId}", sessionId);
+        
         #region Retrieve checkout session
 
         var getSessionOptions = new SessionGetOptions

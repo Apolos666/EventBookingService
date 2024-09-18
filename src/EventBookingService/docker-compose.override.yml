@@ -156,13 +156,12 @@ services:
       - MessageBroker__Host=amqp://eventbooking-mq:5672
       - MessageBroker__UserName=guest
       - MessageBroker__Password=guest
-      - Keycloak__realm=Event-Booking-Service
-      - Keycloak__auth-server-url=http://keycloak:8090/
-      - Keycloak__ssl-required=none
-      - Keycloak__resource=event-booking-service-webapp
-      - Keycloak__verify-token-audience=false
-      - Keycloak__public-client=true
-      - Keycloak__confidential-port=0
+      - Keycloak__Authority=http://keycloak:8090/realms/Event-Booking-Service
+      - Keycloak__MetadataAddress=http://keycloak:8090/realms/Event-Booking-Service/.well-known/openid-configuration
+      - Keycloak__RequireHttpsMetadata=false
+      - Keycloak__ValidIssuers=["http://keycloak:8090/realms/Event-Booking-Service"]
+      - Keycloak__Audience=notification_service
+      - Keycloak__ValidAudiences=["notification_service"]
     depends_on:
       - eventbooking.event
       - distributedcache
@@ -192,7 +191,7 @@ services:
       - Keycloak__Audience=payment_service
       - Keycloak__ValidAudiences=["payment_service"]
       - Keycloak__ClientId=event-booking-service-basket
-      - Keycloak__ClientSecret=T74fx6zXr4cOCmujRQ9Pdk3eR595LIJA
+      - Keycloak__ClientSecret=SdxYSONTBRPka1SjHw4DAFiPbCh45V4x
       - Keycloak__TokenEndpoint=http://keycloak:8090/realms/Event-Booking-Service/protocol/openid-connect/token
       - GrpcSettings__BasketUrl=https://eventbooking.basket:8081
     depends_on:
@@ -217,12 +216,15 @@ services:
         
   eventbooking.web:
     container_name: eventbooking.web
+    build:
+      context: ./WebApps/EventBooking.Web
+      dockerfile: Dockerfile
     environment:
       - NODE_ENV=development
-      - VITE_AUTHORITY=http://keycloak:8090/realms/Event-Booking-Service
+      - VITE_AUTHORITY=http://localhost:8090/realms/Event-Booking-Service
       - VITE_REDIRECT_URI=http://localhost:3000/signin-callback.html
       - VITE_NOTIFICATIONS_API=https://localhost:6065/notifications
-      - VITE_CHECKOUT_API=https://localhost:6066/checkout 
+      - VITE_CHECKOUT_API=https://localhost:6067/payment-service/checkout
     restart: always
     ports:
       - "3000:3000"
@@ -285,3 +287,31 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+
+  yarpapigateway:
+    container_name: yarpapigateway
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - Keycloak__Authority=http://keycloak:8090/realms/Event-Booking-Service
+      - Keycloak__MetadataAddress=http://keycloak:8090/realms/Event-Booking-Service/.well-known/openid-configuration
+      - Keycloak__RequireHttpsMetadata=false
+      - Keycloak__ValidIssuers=["http://keycloak:8090/realms/Event-Booking-Service"]
+      - Keycloak__Audience__webapp=api_gateway
+      - Keycloak__ValidAudiences__webapp=["api_gateway"]
+      - ReverseProxy__Clusters__event-cluster__Destinations__destination1__Address=http://eventbooking.event:8080
+      - ReverseProxy__Clusters__basket-cluster__Destinations__destination1__Address=http://eventbooking.basket:8080
+      - ReverseProxy__Clusters__booking-cluster__Destinations__destination1__Address=http://booking.api:8080
+      - ReverseProxy__Clusters__payment-cluster__Destinations__destination1__Address=http://eventbooking.payment:8080
+    depends_on:
+      - eventbooking.event
+      - eventbooking.basket
+      - eventbooking.payment
+      - booking.api
+    ports:
+      - "6007:8080"
+      - "6067:8081"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro

@@ -18,7 +18,6 @@ const CheckoutTest = () => {
         });
 
         const body = await res.json();
-        console.log(body);
         stripe?.redirectToCheckout({sessionId: body});
     }
 

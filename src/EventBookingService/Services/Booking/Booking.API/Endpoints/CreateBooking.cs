@@ -22,6 +22,7 @@ public class CreateBooking : ICarterModule
         .ProducesProblem(StatusCodes.Status400BadRequest)
         .WithSummary("Create a new booking")
         .WithDescription("Create a new booking")
-        .WithTags(nameof(BookingModel.Booking));
+        .WithTags(nameof(BookingModel.Booking))
+        .RequireAuthorization();
     }
 }

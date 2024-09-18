@@ -4,21 +4,22 @@
       "commandName": "DockerCompose",
       "commandVersion": "1.0",
       "serviceActions": {
-        "eventbooking.event": "StartDebugging",
-        "eventbooking.basket": "StartDebugging",
-        "eventbooking.discount": "StartDebugging",
-        "booking.api": "StartDebugging",
-        "eventbooking.notification": "StartDebugging",
         "eventbooking.payment": "StartDebugging",
         "basketdb": "StartWithoutDebugging",
+        "booking.api": "StartDebugging",
         "bookingdb": "StartWithoutDebugging",
         "distributedcache": "StartWithoutDebugging",
+        "eventbooking.basket": "StartDebugging",
+        "eventbooking.discount": "StartDebugging",
+        "eventbooking.event": "StartDebugging",
+        "eventbooking.notification": "StartDebugging",
         "eventbooking.web": "StartWithoutDebugging",
         "eventdb": "StartWithoutDebugging",
         "keycloak": "StartWithoutDebugging",
         "keycloakdb": "StartWithoutDebugging",
         "messagebroker": "StartWithoutDebugging",
-        "stripe.cli": "StartWithoutDebugging"
+        "stripe.cli": "StartWithoutDebugging",
+        "yarpapigateway": "StartDebugging"
       }
     }
   }

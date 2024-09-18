@@ -61,7 +61,7 @@ builder.Services.AddAuthentication("webapp")
         {
             NameClaimType = ClaimTypes.Name,
             RoleClaimType = ClaimTypes.Role,
-            ValidateIssuer = true,
+            ValidateIssuer = false,
             ValidIssuers = builder.Configuration.GetValue<IEnumerable<string>>("Keycloak:ValidIssuers"),
             ValidateAudience = true,
             ValidAudiences = builder.Configuration.GetValue<IEnumerable<string>>("Keycloak:ValidAudiences:webapp")

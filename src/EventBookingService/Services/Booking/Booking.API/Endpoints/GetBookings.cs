@@ -22,6 +22,7 @@ public class GetBookings : ICarterModule
         .ProducesProblem(StatusCodes.Status404NotFound)
         .WithSummary("Get bookings")
         .WithDescription("Get bookings")
-        .WithTags(nameof(BookingModel.Booking));
+        .WithTags(nameof(BookingModel.Booking))
+        .RequireAuthorization();
     }
 }

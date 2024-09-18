@@ -20,7 +20,7 @@ public static class DependencyInjections
                 {
                     NameClaimType = ClaimTypes.Name,
                     RoleClaimType = ClaimTypes.Role,
-                    ValidateIssuer = true,
+                    ValidateIssuer = false,
                     ValidIssuers = configuration.GetValue<IEnumerable<string>>("Keycloak:ValidIssuers"),
                     ValidateAudience = true,
                     ValidAudiences = configuration.GetValue<IEnumerable<string>>("Keycloak:ValidAudiences")

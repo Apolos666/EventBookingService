@@ -1,6 +1,5 @@
 ﻿namespace EventBooking.Notification.Hubs;
 
-[Authorize]
 public class NotificationHub
     (ILogger<NotificationHub> logger)
     : Hub<INotificationClient>

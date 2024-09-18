@@ -69,18 +69,16 @@ services:
   messagebroker:
     image: rabbitmq:management
 
+  yarpapigateway:
+    image: ${DOCKER_REGISTRY-}yarpapigateway
+    build:
+      context: .
+      dockerfile: ApiGateways/YarpApiGateway/Dockerfile
+
 volumes:
   postgres_event:
   postgres_basket:  
   mysql_booking:  
   postgres_keycloak:
   keycloak:
-
-
-
-
-
-
-
-
 

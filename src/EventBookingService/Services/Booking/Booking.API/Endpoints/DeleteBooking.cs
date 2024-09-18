@@ -22,6 +22,7 @@ public class DeleteBooking : ICarterModule
         .ProducesProblem(StatusCodes.Status404NotFound)
         .WithSummary("Delete a booking")
         .WithDescription("Delete a booking")
-        .WithTags(nameof(BookingModel.Booking));
+        .WithTags(nameof(BookingModel.Booking))
+        .RequireAuthorization();
     }
 }

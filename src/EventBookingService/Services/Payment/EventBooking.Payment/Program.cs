@@ -10,9 +10,11 @@ builder.Services.AddScoped<IUserIdentityAccessor, HttpUserIdentityAccessor>();
 builder.Services.AddScoped<IPaymentService<StripeCheckoutRequest, StripeCheckoutResponse>>(serviceProvider =>
 {
     var publisher = serviceProvider.GetRequiredService<IPublishEndpoint>();
+    var logger = serviceProvider.GetRequiredService<ILogger<StripePaymentService>>();
     return new StripePaymentService(
         builder.Configuration["Stripe:Secret"],
-        publisher);
+        publisher,
+        logger);
 });
 
 // HttpClients
@@ -31,7 +33,11 @@ builder.Services.AddGrpcClient<BasketProtoService.BasketProtoServiceClient>(opti
 }).AddCallCredentials(async (context, metadata, serviceProvider) =>
 {
     var provider = serviceProvider.GetRequiredService<IClientCredentialsTokenManagementService>();
+    var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
     var response = provider.GetAccessTokenAsync("basket.client");
+
+    logger.LogInformation("Access token: {accessToken}", response.Result.AccessToken);
+    
     metadata.Add("Authorization", $"Bearer {response.Result.AccessToken}");
 }).ConfigurePrimaryHttpMessageHandler(_ =>
 {
@@ -55,7 +61,7 @@ builder.Services.AddAuthentication("web_app")
         {
             NameClaimType = ClaimTypes.Name,
             RoleClaimType = ClaimTypes.Role,
-            ValidateIssuer = true,
+            ValidateIssuer = false,
             ValidIssuers = builder.Configuration.GetValue<IEnumerable<string>>("Keycloak:ValidIssuers"),
             ValidateAudience = true,
             ValidAudiences = builder.Configuration.GetValue<IEnumerable<string>>("Keycloak:ValidAudiences")

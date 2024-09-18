@@ -4,7 +4,6 @@
 
 public record GetBookingsByUserIdResponse(IEnumerable<BookingDto> Bookings);
 
-// Todo: Add authorization
 public class GetBookingsByUserId : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
@@ -25,6 +24,7 @@ public class GetBookingsByUserId : ICarterModule
         .ProducesProblem(StatusCodes.Status404NotFound)
         .WithSummary("Get bookings by user id")
         .WithDescription("Get bookings by user id")
-        .WithTags(nameof(BookingModel.Booking));
+        .WithTags(nameof(BookingModel.Booking))
+        .RequireAuthorization();
     }
 }
