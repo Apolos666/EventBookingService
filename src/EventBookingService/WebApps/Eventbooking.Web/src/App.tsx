@@ -1,40 +1,23 @@
-import { useAuth } from 'react-oidc-context';
-import './App.css'
-import Notification from "./components/Notification";
-import CheckoutTest from './components/CheckoutTest';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Header from './layouts/Header';
+import Footer from './layouts/Footer';
+import Homepage from './pages/HomePage';
+import ViewMoreEvents from './pages/ViewMoreEvents';
 
-function App() {
-    const auth = useAuth();
-
-    switch (auth.activeNavigator) {
-        case "signinSilent":
-            return <div>Signing you in...</div>;
-        case "signoutRedirect":
-            return <div>Signing you out...</div>;
-    }
-
-    if (auth.isLoading) {
-        return <div>Loading...</div>;
-    }
-
-    if (auth.error) {
-        return <div>Oops... {auth.error.message}</div>;
-    }
-
-    if (auth.isAuthenticated) {
-        return (
-            <div>
-                <button onClick={() => console.log(auth.user?.access_token)}>access_token</button>
-                <Notification />
-                {/* <Group /> */}
-
-                <button onClick={() => void auth.removeUser()}>Log out</button>
-                <CheckoutTest />
+const App: React.FC = () => {
+    return (
+        <Router>
+            <div className="min-h-screen bg-white text-gray-900">
+                <Header />
+                <Routes>
+                    <Route path="/" element={<Homepage />} />
+                    <Route path="/events" element={<ViewMoreEvents />} />
+                </Routes>
+                <Footer />
             </div>
-        );
-    }
+        </Router>
+    );
+};
 
-    return <button onClick={() => void auth.signinRedirect()}>Log in</button>;
-}
-
-export default App
+export default App;
