@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { MenuIcon } from "lucide-react";
-import UserPopover from '../features/users/components/UserPopover';
-import AddEventDialog from '../features/events/components/AddEventDialog';
-import CartDropdown from '@/features/shopping-cart/components/CartDropdown';
+import UserPopover from '../features/users/avatar-profile-popover/UserPopover';
+import AddEventDialog from '../features/events/add-event/AddEventDialog';
+import CartDropdown from '@/features/shopping-cart/CartDropdown';
 
 const Header: React.FC = () => {
   return (

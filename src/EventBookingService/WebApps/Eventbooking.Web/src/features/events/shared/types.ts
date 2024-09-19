@@ -5,8 +5,3 @@ export interface Event {
     location: string;
     description: string;
 }
-
-export interface User {
-    id: string;
-    name: string;
-}

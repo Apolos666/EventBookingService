@@ -1,5 +1,5 @@
 import React from 'react';
-import { CartItem as CartItemType } from '../types/cart';
+import { CartItem as CartItemType } from './types';
 
 interface CartItemProps {
   item: CartItemType;

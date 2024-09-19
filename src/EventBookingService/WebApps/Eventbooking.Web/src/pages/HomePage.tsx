@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { SearchIcon } from "lucide-react";
-import EventCard from '../features/events/components/EventCard';
-import { Event } from '../types';
+import EventCard from '../features/events/shared/EventCard';
 import { Link } from 'react-router-dom';
-
+import { Event } from '../features/events/shared/types';
 
 const Homepage: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);

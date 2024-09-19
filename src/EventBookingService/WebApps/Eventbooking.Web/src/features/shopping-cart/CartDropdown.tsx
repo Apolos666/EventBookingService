@@ -9,7 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useCart } from '../hooks/useCart';
+import { useCart } from './useCart';
 import CartItem from './CartItem';
 
 const CartDropdown: React.FC = () => {

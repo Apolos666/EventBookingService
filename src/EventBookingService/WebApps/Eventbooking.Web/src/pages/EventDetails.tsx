@@ -1,8 +1,8 @@
+import EventContent from '@/features/events/event-detail/EventContent';
+import EventHeader from '@/features/events/event-detail/EventHeader';
+import EventSidebar from '@/features/events/event-detail/EventSidebar';
+import RelatedEvents from '@/features/events/event-detail/RelatedEvents';
 import React from 'react';
-import EventHeader from '@/features/events/components/EventHeader';
-import EventContent from '@/features/events/components/EventContent';
-import EventSidebar from '@/features/events/components/EventSidebar';
-import RelatedEvents from '@/features/events/components/RelatedEvents';
 
 const EventDetails: React.FC = () => {
   return (

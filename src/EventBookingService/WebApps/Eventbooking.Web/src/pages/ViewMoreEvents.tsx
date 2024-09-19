@@ -1,9 +1,9 @@
 // src/pages/ViewMoreEvents.tsx
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import EventCard from '../features/events/components/EventCard';
+import EventCard from '../features/events/shared/EventCard';
 import Pagination from '../components/Pagination';
-import EventFilters from '@/features/events/components/EventFilters';
+import EventFilters from '@/features/events/browsing-event/EventFilters';
 
 const ViewMoreEvents: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
