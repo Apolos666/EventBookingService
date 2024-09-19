@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { SearchIcon } from "lucide-react";
-import EventCard from '../components/EventCard';
+import EventCard from '../features/events/components/EventCard';
 import { Event } from '../types';
 import { Link } from 'react-router-dom';
 

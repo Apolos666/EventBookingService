@@ -1,7 +1,7 @@
 // src/pages/ViewMoreEvents.tsx
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import EventCard from '../components/EventCard';
+import EventCard from '../features/events/components/EventCard';
 import Pagination from '../components/Pagination';
 import EventFilters from '@/features/events/components/EventFilters';
 
