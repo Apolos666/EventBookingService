@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { CalendarIcon, MapPinIcon } from "lucide-react";
+import { Link } from 'react-router-dom';
 
 interface EventCardProps {
   id: number;
@@ -12,7 +13,7 @@ interface EventCardProps {
 
 const EventCard: React.FC<EventCardProps> = ({ id, title, date, location, description }) => {
   return (
-    <div className="border rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+    <Link to={"/events/1"} className="border rounded-lg overflow-hidden hover:shadow-md transition-shadow">
       <div className="relative h-48">
         <img
           src={`/placeholder.svg?height=200&width=400&text=Event+Image+${id}`}
@@ -33,7 +34,7 @@ const EventCard: React.FC<EventCardProps> = ({ id, title, date, location, descri
         <p className="text-sm text-gray-500 mb-4">{description}</p>
         <Button variant="outline" className="w-full">Book Now</Button>
       </div>
-    </div>
+    </Link>
   );
 };
 
