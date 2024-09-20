@@ -3,7 +3,6 @@ import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 import { AuthProvider } from 'react-oidc-context'
-import { User } from 'oidc-client-ts'
 
 const oidcConfig = {
   authority: import.meta.env.VITE_AUTHORITY,
@@ -13,17 +12,17 @@ const oidcConfig = {
   scope: "openid profile",
 }
 
-const onSigninCallback = (_user: User | void): void => {
-  window.history.replaceState(
-      {},
-      document.title,
-      window.location.pathname
-  )
-}
+// const onSigninCallback = (_user: User | void): void => {
+//   window.history.replaceState(
+//       {},
+//       document.title,
+//       window.location.pathname
+//   )
+// }
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <AuthProvider {...oidcConfig} onSigninCallback={onSigninCallback}>
+    <AuthProvider {...oidcConfig}>
       <App />
     </AuthProvider>,
   </StrictMode>,

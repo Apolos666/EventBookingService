@@ -314,6 +314,27 @@ services:
       - eventbooking.payment
       - booking.api
     ports:
+      - "6008:8080"
+      - "6068:8081"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+
+  eventbooking.storage:
+    container_name: eventbooking.storage
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - Keycloak__Authority=http://keycloak:8090/realms/Event-Booking-Service
+      - Keycloak__MetadataAddress=http://keycloak:8090/realms/Event-Booking-Service/.well-known/openid-configuration
+      - Keycloak__RequireHttpsMetadata=false
+      - Keycloak__ValidIssuers=["http://keycloak:8090/realms/Event-Booking-Service"]
+      - Keycloak__Audience=event_service
+      - Keycloak__ValidAudiences=["event_service"]
+    depends_on:
+      - keycloak
+    ports:
       - "6007:8080"
       - "6067:8081"
     volumes:

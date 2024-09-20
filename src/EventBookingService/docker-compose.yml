@@ -75,10 +75,17 @@ services:
       context: .
       dockerfile: ApiGateways/YarpApiGateway/Dockerfile
 
+  eventbooking.storage:
+    image: ${DOCKER_REGISTRY-}eventbookingstorage
+    build:
+      context: .
+      dockerfile: Services/Storage/EventBooking.Storage/Dockerfile
+
 volumes:
   postgres_event:
   postgres_basket:  
   mysql_booking:  
   postgres_keycloak:
   keycloak:
+
 

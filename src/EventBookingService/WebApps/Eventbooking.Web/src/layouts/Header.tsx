@@ -5,7 +5,7 @@ import { MenuIcon } from "lucide-react";
 import UserPopover from '@/features/users/avatar-profile-popover/UserPopover';
 import AddEventDialog from '@/features/events/add-event/AddEventDialog';
 import CartDropdown from '@/features/shopping-cart/CartDropdown';
-import NotificationDropdown from '@/features/notification/NotificationDropDown';
+import NotificationDropdown from '@/features/notification/NotificationDropdown';
 
 const Header: React.FC = () => {
   return (
@@ -20,7 +20,7 @@ const Header: React.FC = () => {
             <Link to="/contact" className="hover:underline">Contact</Link>
           </nav>
           <AddEventDialog />
-          <CartDropdown />
+          <CartDropdown />  
           <NotificationDropdown />
           <UserPopover />
           <Button variant="ghost" size="icon" className="md:hidden">

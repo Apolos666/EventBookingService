@@ -19,7 +19,8 @@
         "keycloakdb": "StartWithoutDebugging",
         "messagebroker": "StartWithoutDebugging",
         "stripe.cli": "StartWithoutDebugging",
-        "yarpapigateway": "StartDebugging"
+        "yarpapigateway": "StartDebugging",
+        "eventbooking.storage": "StartDebugging"
       }
     }
   }

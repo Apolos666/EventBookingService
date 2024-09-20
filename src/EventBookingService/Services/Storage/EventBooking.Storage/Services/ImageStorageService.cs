@@ -6,7 +6,7 @@ public class ImageStorageService
     : ImageStorage.ImageStorageBase
 {
     private const string StaticFilesPath = "StaticFiles";
-    private const string BaseUrl = "https://localhost:5057";
+    private const string BaseUrl = "https://localhost:6067";
     
     public override async Task<UploadImageResponse> UploadImage(UploadImageRequest request, ServerCallContext context)
     {
