@@ -2,9 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { MenuIcon } from "lucide-react";
-import UserPopover from '../features/users/avatar-profile-popover/UserPopover';
-import AddEventDialog from '../features/events/add-event/AddEventDialog';
+import UserPopover from '@/features/users/avatar-profile-popover/UserPopover';
+import AddEventDialog from '@/features/events/add-event/AddEventDialog';
 import CartDropdown from '@/features/shopping-cart/CartDropdown';
+import NotificationDropdown from '@/features/notification/NotificationDropDown';
 
 const Header: React.FC = () => {
   return (
@@ -20,6 +21,7 @@ const Header: React.FC = () => {
           </nav>
           <AddEventDialog />
           <CartDropdown />
+          <NotificationDropdown />
           <UserPopover />
           <Button variant="ghost" size="icon" className="md:hidden">
             <MenuIcon className="h-6 w-6" />

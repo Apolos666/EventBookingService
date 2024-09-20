@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { SearchIcon } from "lucide-react";
 import EventCard from '../features/events/shared/EventCard';
 import { Link } from 'react-router-dom';
-import { Event } from '../features/events/shared/types';
+import { Event } from '../features/events/shared/event.types';
 
 const Homepage: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);

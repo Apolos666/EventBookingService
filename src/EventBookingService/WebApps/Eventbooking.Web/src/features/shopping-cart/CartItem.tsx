@@ -1,5 +1,5 @@
 import React from 'react';
-import { CartItem as CartItemType } from './types';
+import { CartItem as CartItemType } from './shopping-cart.types';
 
 interface CartItemProps {
   item: CartItemType;
@@ -28,8 +28,8 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
       <div className="text-sm text-gray-500">
         Quantity: {item.quantity}
       </div>
-      <div className="text-xs text-gray-400">
-        Added: {formatDate(item.creationTime)}
+      <div className="text-sm text-gray-500">
+        Price: {item.price}$
       </div>
     </div>
   );

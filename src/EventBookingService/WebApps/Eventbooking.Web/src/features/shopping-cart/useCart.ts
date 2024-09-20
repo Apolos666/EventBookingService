@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CartItem } from './types';
+import { CartItem } from './shopping-cart.types';
 
 export const useCart = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([
@@ -39,11 +39,16 @@ export const useCart = () => {
     return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
   };
 
+  const getCartItemsCount = () => {
+    return cartItems.reduce((total, item) => total + item.quantity, 0);
+  };
+
   return {
     cartItems,
     addToCart,
     removeFromCart,
     updateQuantity,
     getTotalPrice,
+    getCartItemsCount,
   };
 };
