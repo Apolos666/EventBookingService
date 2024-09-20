@@ -36,36 +36,4 @@ public static class EventExtension
             Country = locationDto.Country
         };
     }
-
-    public static EventDto ToEventDto(this Models.Event @event)
-    {
-        return new EventDto(
-            @event.Name,
-            @event.Description,
-            @event.StartDateTime,
-            @event.EndDateTime,
-            @event.EventLocations.Select(el => el.ToEventLocationDto()).ToList()
-        );
-    }
-
-    private static EventLocationDto ToEventLocationDto(this Models.EventLocation eventLocation)
-    {
-        return new EventLocationDto(
-            eventLocation.Location.ToLocationDto(),
-            eventLocation.MaxAttendees,
-            eventLocation.Price
-        );
-    }
-
-    private static LocationDto ToLocationDto(this Models.Location location)
-    {
-        return new LocationDto(
-            location.Name,
-            location.Address,
-            location.City,
-            location.State,
-            location.ZipCode,
-            location.Country
-        );
-    }
 }

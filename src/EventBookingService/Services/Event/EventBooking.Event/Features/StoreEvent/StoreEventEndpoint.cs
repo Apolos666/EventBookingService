@@ -1,6 +1,36 @@
 ﻿namespace EventBooking.Event.Features.StoreEvent;
 
-public record StoreEventRequest(EventDto Event);
+public record StoreEventRequest(EventDto Event)
+{
+    private static readonly JsonSerializerOptions JsonSerializerOptions = new JsonSerializerOptions
+    {
+        PropertyNameCaseInsensitive = true,
+        Converters = { new JsonStringEnumConverter() }
+    };
+
+    public static async ValueTask<StoreEventRequest> BindAsync(HttpContext httpContext, ParameterInfo parameterInfo)
+    {
+        if (!httpContext.Request.HasFormContentType)
+        {
+            throw new InvalidOperationException("Request content type is not multipart/form-data.");
+        }
+
+        var form = await httpContext.Request.ReadFormAsync();
+        var eventJson = form["event"].ToString();
+
+        var eventDto = JsonSerializer.Deserialize<EventDto>(eventJson, JsonSerializerOptions);
+
+        if (eventDto is null)
+        {
+            throw new InvalidOperationException("Failed to deserialize EventDto.");
+        }
+
+        var imageFile = form.Files["Image"];
+        eventDto = eventDto with { EventImage = imageFile };
+
+        return new StoreEventRequest(eventDto);
+    }
+};
 
 public record StoreEventResponse(Guid Id);
 
@@ -10,7 +40,7 @@ public class StoreEventEndpoint : ICarterModule
     {
         app.MapPost("/events", async (StoreEventRequest request, ISender sender) =>
         {
-            var command = request.Adapt<StoreEventCommand>();
+            var command = new StoreEventCommand(request.Event);
 
             var result = await sender.Send(command);
 
@@ -27,3 +57,4 @@ public class StoreEventEndpoint : ICarterModule
         .RequireAuthorization(nameof(EventBookingPolicy.UserOnly));
     }
 }
+

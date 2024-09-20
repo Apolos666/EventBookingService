@@ -22,11 +22,12 @@ public class EventRepository
         return @event;
     }
 
-    public async Task<Guid> StoreEventAsync(EventDto eventDto, CancellationToken cancellationToken = default)
+    public async Task<Guid> StoreEventAsync(EventDto eventDto, string imageUrl, CancellationToken cancellationToken = default)
     {
         var @event = eventDto.ToEvent();
 
         @event.HostId = Guid.Parse(userIdentityAccessor.UserId);
+        @event.EventImageUrl = imageUrl;
 
         session.Store(@event);
         await session.SaveChangesAsync(cancellationToken);

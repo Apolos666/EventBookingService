@@ -6,6 +6,7 @@ public sealed class Event
     public Guid HostId { get; set; }
     public string Name { get; set; } = default!;
     public string Description { get; set; } = default!;
+    public string EventImageUrl { get; set; }
     public DateTime StartDateTime { get; set; } = default!;
     public DateTime EndDateTime { get; set; } = default!;
     public List<EventLocation> EventLocations { get; set; } = [];

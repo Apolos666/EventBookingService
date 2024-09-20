@@ -32,6 +32,8 @@ global using System.Security.Claims;
 global using Microsoft.IdentityModel.Tokens;
 global using BuildingBlocks.Enums;
 global using Duende.AccessTokenManagement;
-global using EventBooking.Storage.Protos;
+global using EventBooking.Storage.Protos; 
+global using System.Text.Json.Serialization;
+
 
 
