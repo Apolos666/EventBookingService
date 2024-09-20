@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option csharp_namespace = "EventBooking.Storage.Protos";
+
+package imagestorage;
+
+service ImageStorage {
+    rpc UploadImage(UploadImageRequest) returns (UploadImageResponse);
+}
+
+message UploadImageRequest {
+    bytes image_data = 1;
+    string file_name = 2;
+    string category = 3;
+}
+
+message UploadImageResponse {
+    string image_url = 1;
+}

@@ -53,7 +53,7 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Storage", "Storage", "{33492E81-5D08-43D1-9263-823B4E68FAF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBooking.Storage", "Services\Storage\EventBooking.Storage\EventBooking.Storage.csproj", "{6BA8D013-497D-4373-BBA8-87001EFFAD86}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBooking.Storage", "Services\Storage\EventBooking.Storage\EventBooking.Storage.csproj", "{6BA8D013-497D-4373-BBA8-87001EFFAD86}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
