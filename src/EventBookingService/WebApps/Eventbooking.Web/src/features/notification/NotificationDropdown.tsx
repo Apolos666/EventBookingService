@@ -12,19 +12,10 @@ import { BellIcon } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useNotifications } from './useNotifications';
+import { formatDate } from '@/utils/dateUtils';
 
 const NotificationDropdown: React.FC = () => {
   const { notifications, markNotificationAsRead, getUnreadNotificationsCount } = useNotifications();
-
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-    });
-  };
 
   return (
     <DropdownMenu>

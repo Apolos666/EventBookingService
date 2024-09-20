@@ -1,21 +1,12 @@
 import React from 'react';
 import { CartItem as CartItemType } from './shopping-cart.types';
+import { formatDate } from '@/utils/dateUtils';
 
 interface CartItemProps {
   item: CartItemType;
 }
 
 const CartItem: React.FC<CartItemProps> = ({ item }) => {
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-    });
-  };
-
   return (
     <div className="flex flex-col items-start p-2 w-full">
       <div className="flex justify-between w-full">
