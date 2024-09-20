@@ -1,5 +1,3 @@
-using EventBooking.Storage.Protos;
-
 var builder = WebApplication.CreateBuilder(args);
 
 var assembly = typeof(Program).Assembly;
@@ -59,19 +57,40 @@ builder.Services
     .AddAuthorizationBuilder()
     .AddCustomAuthorizationPolicies();
 
+// HttpClients
+builder.Services.AddClientCredentialsTokenManagement()
+    .AddClient("storage.client", client =>
+    {
+        client.TokenEndpoint = builder.Configuration["Keycloak:TokenEndpoint"];
+        client.ClientId = builder.Configuration["Keycloak:ClientIdStorage"];
+        client.ClientSecret = builder.Configuration["Keycloak:ClientSecretStorage"];
+    });
+
 // Grpc Clients
 builder.Services.AddGrpcClient<ImageStorage.ImageStorageClient>(options =>
-{
-    options.Address = new Uri("https://localhost:5057");
-}).ConfigurePrimaryHttpMessageHandler(_ =>
-{
-    var handler = new HttpClientHandler
     {
-        ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
-    };
+        options.Address = new Uri(builder.Configuration["GrpcSettings:StorageUrl"]);
+    })
+    .AddCallCredentials(async (context, metadata, serviceProvider) =>
+    {
+        var provider = serviceProvider.GetRequiredService<IClientCredentialsTokenManagementService>();
+        var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
+        
+        var response = provider.GetAccessTokenAsync("storage.client");
+
+        logger.LogInformation("Access token: {accessToken}", response.Result.AccessToken);
     
-    return handler;
-});
+        metadata.Add("Authorization", $"Bearer {response.Result.AccessToken}");
+    })
+    .ConfigurePrimaryHttpMessageHandler(_ =>
+    {
+        var handler = new HttpClientHandler
+        {
+            ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+        };
+        
+        return handler;
+    });
 
 // Async Communication Services
 builder.Services.AddMessageBroker(builder.Configuration, Assembly.GetExecutingAssembly());

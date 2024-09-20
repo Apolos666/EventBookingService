@@ -31,6 +31,7 @@ global using EventBooking.Event.Features.EventStartDateChecker;
 global using System.Security.Claims;
 global using Microsoft.IdentityModel.Tokens;
 global using BuildingBlocks.Enums;
-
+global using Duende.AccessTokenManagement;
+global using EventBooking.Storage.Protos;
 
 

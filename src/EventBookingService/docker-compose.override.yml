@@ -59,6 +59,10 @@ services:
       - Keycloak__ValidIssuers=["http://keycloak:8090/realms/Event-Booking-Service"]
       - Keycloak__Audience=event_service
       - Keycloak__ValidAudiences=["event_service"]
+      - Keycloak__ClientIdStorage=event-booking-service-storage
+      - Keycloak__ClientSecretStorage=MUvacGIi9xvCaz3G0iWq4YoKA9Gwo6EG
+      - Keycloak__TokenEndpoint=http://keycloak:8090/realms/Event-Booking-Service/protocol/openid-connect/token
+      - GrpcSettings__StorageUrl=https://eventbooking.storage:8081
     depends_on:
       - eventdb
       - distributedcache
