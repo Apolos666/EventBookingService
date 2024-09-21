@@ -12,14 +12,6 @@ const oidcConfig = {
   scope: "openid profile",
 }
 
-// const onSigninCallback = (_user: User | void): void => {
-//   window.history.replaceState(
-//       {},
-//       document.title,
-//       window.location.pathname
-//   )
-// }
-
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <AuthProvider {...oidcConfig}>

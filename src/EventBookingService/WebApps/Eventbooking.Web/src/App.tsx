@@ -5,7 +5,6 @@ import Footer from './layouts/Footer';
 import Homepage from './pages/HomePage';
 import ViewMoreEvents from './pages/ViewMoreEvents';
 import EventDetails from './pages/EventDetails';
-import Test from './test';
 
 const App: React.FC = () => {
     return (
@@ -13,8 +12,7 @@ const App: React.FC = () => {
             <div className="min-h-screen bg-white text-gray-900">
                 <Header />
                 <Routes>
-                    {/* <Route path="/" element={<Homepage />} /> */}
-                    <Route path="/" element={<Test />} />
+                    <Route path="/" element={<Homepage />} />
                     <Route path="/events" element={<ViewMoreEvents />} />
                     <Route path="/events/:id" element={<EventDetails />} />
                 </Routes>
