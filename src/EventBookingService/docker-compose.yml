@@ -87,5 +87,6 @@ volumes:
   mysql_booking:  
   postgres_keycloak:
   keycloak:
+  storage_files:  
 
 

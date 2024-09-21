@@ -77,8 +77,6 @@ builder.Services.AddGrpcClient<ImageStorage.ImageStorageClient>(options =>
         var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
         
         var response = provider.GetAccessTokenAsync("storage.client");
-
-        logger.LogInformation("Access token: {accessToken}", response.Result.AccessToken);
     
         metadata.Add("Authorization", $"Bearer {response.Result.AccessToken}");
     })
