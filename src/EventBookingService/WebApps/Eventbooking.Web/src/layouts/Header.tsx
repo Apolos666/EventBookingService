@@ -27,7 +27,7 @@ const Header: React.FC = () => {
               <AddEventDialog />
               <CartDropdown />
               <NotificationDropdown />
-            </>
+            </> 
           )}
           {auth.isAuthenticated && auth.user ? (
             <UserPopover profile={auth.user.profile} onSignOut={() => void auth.removeUser()} />
