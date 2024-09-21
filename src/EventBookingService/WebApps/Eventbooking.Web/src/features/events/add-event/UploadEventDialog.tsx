@@ -7,6 +7,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { PlusIcon, XIcon, ImageIcon } from "lucide-react";
 import { EventDto, EventLocationDto, LocationDto } from '@/services/apis/events/uploadEvent';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { useUploadEvent } from './useUploadEvent';
 
 const UploadEventDialog: React.FC = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -22,10 +23,13 @@ const UploadEventDialog: React.FC = () => {
     maxAttendees: 0,
     price: 0
   }]);
+  const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const uploadEvent = useUploadEvent();
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const eventData: EventDto = {
@@ -35,8 +39,18 @@ const UploadEventDialog: React.FC = () => {
       endDateTime: new Date(formData.get('endDate') as string),
       eventLocationDtos: locations
     };
-    console.log(eventData);
-    setIsDialogOpen(false);
+
+    if (imageFile) {
+      try {
+        await uploadEvent.mutateAsync({ event: eventData, image: imageFile });
+        console.log('Event uploaded successfully');
+        setIsDialogOpen(false);
+      } catch (error) {
+        console.error('Failed to upload event:', error);
+      }
+    } else {
+      console.error('No image file selected');
+    }
   };
 
   const addLocation = () => {
@@ -71,6 +85,7 @@ const UploadEventDialog: React.FC = () => {
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
+      setImageFile(file);
       const reader = new FileReader();
       reader.onloadend = () => {
         setImagePreview(reader.result as string);
@@ -99,7 +114,7 @@ const UploadEventDialog: React.FC = () => {
           </DialogDescription>
         </DialogHeader>
         <ScrollArea className="flex-grow px-6 py-4">
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} id="add-event-form" className="space-y-4">
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="name" className="text-right">
                 Event Name
@@ -209,6 +224,7 @@ const UploadEventDialog: React.FC = () => {
                   className="hidden"
                   onChange={handleImageUpload}
                   ref={fileInputRef}
+                  required
                 />
                 <div className="flex items-center space-x-2">
                   <Button type="button" onClick={triggerFileInput} variant="outline">
@@ -230,7 +246,13 @@ const UploadEventDialog: React.FC = () => {
           </form>
         </ScrollArea>
         <DialogFooter className="px-6 py-4 border-t">
-          <Button type="submit" form="add-event-form">Save Event</Button>
+          <Button
+            type="submit"
+            form="add-event-form"
+            disabled={uploadEvent.isPending}
+          >
+            {uploadEvent.isPending ? 'Uploading...' : 'Save Event'}
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
