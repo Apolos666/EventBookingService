@@ -4,16 +4,13 @@ import { Link } from 'react-router-dom';
 import EventCard from '../features/events/shared/EventCard';
 import Pagination from '../components/Pagination';
 import EventFilters from '@/features/events/browsing-event/EventFilters';
+import { useEvents } from '@/features/events/shared/queries/useEvents';
 
 const ViewMoreEvents: React.FC = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 5; // This should be calculated based on the total number of events
+  const { data } = useEvents({ pageNumber: 1, pageSize: 6 });
 
-  const events = [
-    { id: 1, title: "Event Title 1", date: "June 15, 2023", location: "Event Location", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." },
-    { id: 2, title: "Event Title 2", date: "June 16, 2023", location: "Event Location", description: "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." },
-    // ... add more events as needed
-  ];
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 5;
 
   return (
     <main className="container mx-auto px-4 py-8">
@@ -42,8 +39,15 @@ const ViewMoreEvents: React.FC = () => {
 
         <div className="w-full md:w-3/4">
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {events.map((event) => (
-              <EventCard key={event.id} {...event} />
+            {data?.events && data.events.map((event) => (
+              <EventCard
+                key={event.id}
+                startDate={new Date(event.startDateTime)}
+                endDate={new Date(event.endDateTime)}
+                location={`${event.eventLocations[0].location.address}, ${event.eventLocations[0].location.city}, ${event.eventLocations[0].location.country}`}
+                imageUrl={event.eventImageUrl}
+                {...event}
+              />
             ))}
           </div>
 

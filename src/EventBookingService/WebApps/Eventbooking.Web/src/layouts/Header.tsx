@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { MenuIcon, LogInIcon } from "lucide-react";
 import UserPopover from '@/features/users/avatar-profile-popover/UserPopover';
-import AddEventDialog from '@/features/events/add-event/AddEventDialog';
 import CartDropdown from '@/features/shopping-cart/CartDropdown';
+import AddEventDialog from '@/features/events/add-event/UploadEventDialog';
 import NotificationDropdown from '@/features/notification/NotificationDropdown';
 import { useAuth } from 'react-oidc-context';
 
