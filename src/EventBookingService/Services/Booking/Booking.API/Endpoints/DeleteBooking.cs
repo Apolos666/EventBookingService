@@ -8,7 +8,7 @@ public class DeleteBooking : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapDelete("/booking/{id:guid}", async ([FromRoute] Guid id, [FromServices] ISender sender) =>
+        app.MapDelete("/bookings/{id:guid}", async ([FromRoute] Guid id, [FromServices] ISender sender) =>
         {
             var result = await sender.Send(new DeleteBookingCommand(id));
 

@@ -40,7 +40,7 @@ public class GetBookingsQueryHandler
             var items = bookingItems.Where(bi => bi.BookingId.Value == booking.Id.Value).ToList();
             foreach (var item in items)
             {
-                booking.Add(item.EventId, item.StartDateTime, item.EventLocationId, item.EventName, item.Quantity, item.Price);
+                booking.Add(item.EventId, item.StartDateTime, item.EventLocationId, item.EventLocationName, item.EventName, item.Quantity, item.Price);
             }
         }
         

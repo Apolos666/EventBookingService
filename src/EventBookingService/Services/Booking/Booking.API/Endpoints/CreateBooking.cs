@@ -7,7 +7,7 @@ public class CreateBooking : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPost("/booking", async ([FromBody] CreateBookingRequest request, [FromServices] ISender sender) =>
+        app.MapPost("/bookings", async ([FromBody] CreateBookingRequest request, [FromServices] ISender sender) =>
         {
             var command = request.Adapt<CreateBookingCommand>();
             

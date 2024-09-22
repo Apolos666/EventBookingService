@@ -24,6 +24,7 @@ public class BasketService
                 {
                     EventId = item.EventId.ToString(),
                     EventLocationId = item.EventLocationId.ToString(),
+                    EventLocationName = item.EventLocationName,
                     EventName = item.EventName,
                     Id = item.Id.ToString(),
                     Price = (double)item.Price,

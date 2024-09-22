@@ -38,12 +38,12 @@ public class Booking : Aggregate<BookingId>
     
     // public void Update();
     
-    public void Add(EventId eventId, DateTime startDateTime, EventLocationId eventLocationId, EventName eventName, int quantity, decimal price)
+    public void Add(EventId eventId, DateTime startDateTime, EventLocationId eventLocationId, string eventLocatioName, EventName eventName, int quantity, decimal price)
     {
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(quantity);
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(price);
         
-        var bookingItem = new BookingItem(Id, eventId, startDateTime, eventLocationId, eventName, quantity, price);
+        var bookingItem = new BookingItem(Id, eventId, startDateTime, eventLocationId, eventLocatioName, eventName, quantity, price);
         _bookingItems.Add(bookingItem);
     }
     

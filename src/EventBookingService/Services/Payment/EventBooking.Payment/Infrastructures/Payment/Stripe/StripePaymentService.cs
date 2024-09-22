@@ -32,7 +32,8 @@ public class StripePaymentService
                         {
                             {StripePaymentConstant.EventId, item.EventId},
                             {StripePaymentConstant.StartDateTime, item.StartDateTime},
-                            {StripePaymentConstant.EventLocationId, item.EventLocationId}
+                            {StripePaymentConstant.EventLocationId, item.EventLocationId},
+                            {StripePaymentConstant.EventLocationName, item.EventLocationName}
                         }
                     },
                     UnitAmountDecimal = item.UnitAmount
@@ -83,6 +84,7 @@ public class StripePaymentService
                 EventId = Guid.Parse(li.Price.Product.Metadata[StripePaymentConstant.EventId]),
                 StartDateTime = DateTime.Parse(li.Price.Product.Metadata[StripePaymentConstant.StartDateTime]),
                 EventLocationId = Guid.Parse(li.Price.Product.Metadata[StripePaymentConstant.EventLocationId]),
+                EventLocationName = li.Price.Product.Metadata[StripePaymentConstant.EventLocationName],
                 EventName = li.Price.Product.Name,
                 Quantity = (int)(li.Quantity ?? 0),
                 Price = li.Price.UnitAmountDecimal ?? 0

@@ -7,18 +7,28 @@ public class StoreBasketCommandValidator : AbstractValidator<StoreBasketCommand>
         RuleFor(x => x.Cart)
             .NotNull()
             .WithMessage("Cart cannot be null");
-        RuleFor(x => x.Cart.Items)
-            .NotNull()
-            .WithMessage("Items cannot be null");
-        RuleFor(x => x.Cart.Items)
-            .Must(items => items.Count > 0)
-            .WithMessage("Items must have at least one item");
-        RuleFor(x => x.Cart.Items)
-            .Must(items => items.All(x => x.Quantity > 0))
-            .WithMessage("Quantity must be greater than 0");
-        RuleFor(x => x.Cart.Items)
-            .Must(items => items.All(x => x.Price > 0))
-            .WithMessage("Price must be greater than 0");
+
+        When(x => x.Cart != null, () =>
+        {
+            RuleFor(x => x.Cart.Items)
+                .NotNull()
+                .WithMessage("Items cannot be null");
+
+            When(x => x.Cart.Items != null, () =>
+            {
+                RuleFor(x => x.Cart.Items)
+                    .Must(items => items.Count > 0)
+                    .WithMessage("Items must have at least one item");
+
+                RuleFor(x => x.Cart.Items)
+                    .Must(items => items.All(x => x.Quantity > 0))
+                    .WithMessage("Quantity must be greater than 0");
+
+                RuleFor(x => x.Cart.Items)
+                    .Must(items => items.All(x => x.Price > 0))
+                    .WithMessage("Price must be greater than 0");
+            });
+        });
     }
 }
 

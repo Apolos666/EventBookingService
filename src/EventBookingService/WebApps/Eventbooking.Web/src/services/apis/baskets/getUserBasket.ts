@@ -6,5 +6,5 @@ export interface UserCartResponse {
 }
 
 export const getUserBasket = async () => {
-    return (await axiosPrivate.get<UserCartResponse>("/basket-service/basket")).data
+    return (await axiosPrivate.get<UserCartResponse>("/basket-service/baskets")).data
 }

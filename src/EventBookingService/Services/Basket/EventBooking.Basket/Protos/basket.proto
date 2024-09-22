@@ -23,7 +23,8 @@ message EventCartItem {
   string event_id = 2;
   string start_date_time = 3;
   string event_location_id = 4;
-  string event_name = 5;
-  int32 quantity = 6; 
-  double price = 7;   
+  string event_location_name = 5;
+  string event_name = 6;
+  int32 quantity = 7; 
+  double price = 8;   
 }

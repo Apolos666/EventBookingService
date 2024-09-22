@@ -24,6 +24,7 @@ public class BookingCheckoutConsumerHandler
                 bi.EventId,
                 bi.StartDateTime,
                 bi.EventLocationId,
+                bi.EventLocationName,
                 bi.EventName,
                 bi.Quantity,
                 bi.Price

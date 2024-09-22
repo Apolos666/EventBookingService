@@ -8,7 +8,7 @@ public class GetBookings : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapGet("/booking", async ([AsParameters] PaginatedRequest request, [FromServices] ISender sender) =>
+        app.MapGet("/bookings", async ([AsParameters] PaginatedRequest request, [FromServices] ISender sender) =>
         {
             var result = await sender.Send(new GetBookingsQuery(request));
 

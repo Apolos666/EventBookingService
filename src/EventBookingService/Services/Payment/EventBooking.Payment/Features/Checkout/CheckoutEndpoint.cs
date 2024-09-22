@@ -26,8 +26,8 @@ public class CheckoutEndpoint : ICarterModule
                         StartDateTime = item.StartDateTime,
                         EventLocationId = item.EventLocationId
                     }).ToList(),
-                    SuccessUrl = "http://localhost:3000/?success=true",
-                    CancelUrl = "http://localhost:3000/?canceled=true"
+                    SuccessUrl = "http://localhost:3000/checkout/success",
+                    CancelUrl = "http://localhost:3000/checkout/canceled"
                 };
                 
                 var response = await paymentService.CreateCheckoutSessionAsync(checkoutRequest, cancellationToken);

@@ -8,7 +8,7 @@ public class GetBookingsByUserId : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapGet("/booking/user", async ([FromServices] ISender sender, [FromServices] IUserIdentityAccessor userIdentityAccessor) =>
+        app.MapGet("/bookings/user", async ([FromServices] ISender sender, [FromServices] IUserIdentityAccessor userIdentityAccessor) =>
         {
             var query = new GetBookingsByUserIdQuery(Guid.Parse(userIdentityAccessor.UserId));
             

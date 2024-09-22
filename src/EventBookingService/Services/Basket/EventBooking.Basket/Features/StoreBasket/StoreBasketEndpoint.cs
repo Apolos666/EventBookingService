@@ -2,13 +2,13 @@
 
 public record StoreBasketRequest(EventCartDto Cart);
 
-public record StoreBasketResponse(Guid Id);
+public record StoreBasketResponse(EventCart Cart);
 
 public class StoreBasketEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPost("/basket", async (StoreBasketRequest request, ISender sender) =>
+        app.MapPost("/baskets", async (StoreBasketRequest request, ISender sender) =>
         {
             var command = request.Adapt<StoreBasketCommand>();
 

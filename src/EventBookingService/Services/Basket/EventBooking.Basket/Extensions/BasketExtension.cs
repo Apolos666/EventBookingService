@@ -14,7 +14,7 @@ public static class BasketExtension
         return eventCart;
     }
 
-    private static EventCartItem ToEventCartItem(this EventCartItemDto eventCartItemDto)
+    public static EventCartItem ToEventCartItem(this EventCartItemDto eventCartItemDto)
     {
         var eventCartItem = new EventCartItem
         {
@@ -22,6 +22,7 @@ public static class BasketExtension
             EventId = eventCartItemDto.EventId,
             StartDateTime = eventCartItemDto.StartDateTime,
             EventLocationId = eventCartItemDto.EventLocationId,
+            EventLocationName = eventCartItemDto.EventLocationName,
             EventName = eventCartItemDto.EventName,
             Quantity = eventCartItemDto.Quantity,
             Price = eventCartItemDto.Price

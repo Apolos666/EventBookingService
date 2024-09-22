@@ -12,6 +12,7 @@ public static class BookingExtension
                 EventId: bookingItem.EventId.Value,
                 StartDateTime: bookingItem.StartDateTime,
                 EventLocationId: bookingItem.EventLocationId.Value,
+                EventLocationName: bookingItem.EventLocationName,
                 EventName: bookingItem.EventName.Value,
                 Quantity: bookingItem.Quantity,
                 Price: bookingItem.Price

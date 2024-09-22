@@ -28,6 +28,8 @@ public class BookingItemConfiguration : IEntityTypeConfiguration<BookingModel.Bo
                 dbId => EventLocationId.Of(dbId)
             );
 
+        builder.Property(bi => bi.EventLocationName);
+
         // Configure the EventName property as a complex property
         builder.ComplexProperty(
             bi => bi.EventName, nameBuilder =>

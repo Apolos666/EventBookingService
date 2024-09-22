@@ -24,15 +24,38 @@ public class BasketRepository
         return eventCart;
     }
 
-    public async Task<Guid> StoreBasketAsync(EventCartDto cartDto, CancellationToken cancellationToken)
+    public async Task<EventCart> StoreBasketAsync(EventCartDto cartDto, CancellationToken cancellationToken)
     {
-        var eventCart = cartDto.ToEventCart();
-        eventCart.UserId = Guid.Parse(userIdentityAccessor.UserId);
+        var userId = Guid.Parse(userIdentityAccessor.UserId);
+        var existingCart = await session.LoadAsync<EventCart>(userId, cancellationToken);
+
+        if (existingCart is null)
+        {
+            var newCart = cartDto.ToEventCart();
+            newCart.UserId = userId;
+            session.Store(newCart);
+        }
+        else
+        {
+            foreach (var newItem in cartDto.Items)
+            {
+                var exisitingItem = existingCart.Items.FirstOrDefault(x => x.EventLocationId == newItem.EventLocationId);
+                if (exisitingItem is not null)
+                {
+                    exisitingItem.Quantity += newItem.Quantity;
+                }
+                else
+                {
+                    existingCart.Items.Add(newItem.ToEventCartItem());
+                }
+            }
+            
+            existingCart.UpdatedAt = DateTime.UtcNow;
+            session.Update(existingCart);
+        }
         
-        session.Store(eventCart);
         await session.SaveChangesAsync(cancellationToken);
-        
-        return eventCart.UserId;
+        return existingCart; 
     }
 
     public async Task<bool> DeleteBasketAsync(CancellationToken cancellationToken)

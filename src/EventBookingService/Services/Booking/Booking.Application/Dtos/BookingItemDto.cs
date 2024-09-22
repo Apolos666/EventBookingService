@@ -5,6 +5,7 @@ public record BookingItemDto(
     Guid EventId,
     DateTime StartDateTime,
     Guid EventLocationId,
+    string EventLocationName,
     string EventName,
     int Quantity,
     decimal Price);

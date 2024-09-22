@@ -12,11 +12,13 @@ import {
 import CartItem from './CartItem';
 import { useUserCart } from './useUserCart';
 import CartDropdownSkeleton from './CartDropdown.skeleton';
+import { useCheckout } from '../checkout/useCheckout';
 
 const CartDropdown: React.FC = () => {
-  const { data, isPending } = useUserCart();
+  const { data, isPending: userCartPending } = useUserCart();
+  const { mutate, isPending: isCheckoutPending } = useCheckout();
 
-  if (isPending) {
+  if (userCartPending) {
     return <CartDropdownSkeleton />;
   }
 
@@ -33,7 +35,10 @@ const CartDropdown: React.FC = () => {
           <span className="sr-only">Shopping cart</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-80">
+      <DropdownMenuContent
+        className="w-80"
+        onCloseAutoFocus={(event) => isCheckoutPending && event.preventDefault()}
+      >
         <DropdownMenuLabel>Shopping Cart</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {data?.cart.items.map((item) => (
@@ -47,8 +52,14 @@ const CartDropdown: React.FC = () => {
           <span className="font-bold">${data?.cart.totalPrice.toFixed(2)}</span>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <Button className="w-full">Checkout</Button>
+        <DropdownMenuItem onSelect={(event) => event.preventDefault()}>
+          <Button
+            className="w-full"
+            onClick={() => mutate()}
+            disabled={isCheckoutPending}
+          >
+            {isCheckoutPending ? 'Processing...' : 'Checkout'}
+          </Button>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

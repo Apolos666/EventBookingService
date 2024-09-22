@@ -15,6 +15,7 @@ public class InitialData
                 EventId.Of(Guid.Parse("11111111-2222-3333-4444-555555555555")),
                 DateTime.Now.AddSeconds(30),
                 EventLocationId.Of(Guid.Parse("aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee")),
+                "Event Location 1",
                 EventName.Of("Event Name 1"),
                 10,
                 50
@@ -23,6 +24,7 @@ public class InitialData
                 EventId.Of(Guid.Parse("22222222-3333-4444-5555-666666666666")),
                 DateTime.Now.AddSeconds(30),
                 EventLocationId.Of(Guid.Parse("bbbbbbbb-cccc-dddd-eeee-ffffffffffff")),
+                "Event Location 2",
                 EventName.Of("Event Name 1"),
                 10,
                 50
@@ -37,6 +39,7 @@ public class InitialData
                 EventId.Of(Guid.Parse("33333333-4444-5555-6666-777777777777")),
                 DateTime.Now.AddSeconds(30),
                 EventLocationId.Of(Guid.Parse("cccccccc-dddd-eeee-ffff-aaaaaaaaaaaa")),
+                "Event Location 3",
                 EventName.Of("Event Name 2"),
                 10,
                 50
@@ -45,6 +48,7 @@ public class InitialData
                 EventId.Of(Guid.Parse("44444444-5555-6666-7777-888888888888")),
                 DateTime.Now.AddSeconds(30),
                 EventLocationId.Of(Guid.Parse("dddddddd-eeee-ffff-aaaa-bbbbbbbbbbbb")),
+                "Event Location 4",
                 EventName.Of("Event Name 2"),
                 10,
                 50

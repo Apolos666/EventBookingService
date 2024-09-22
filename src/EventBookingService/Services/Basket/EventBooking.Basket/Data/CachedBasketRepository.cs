@@ -41,17 +41,13 @@ public class CachedBasketRepository
         return basket;
     }
 
-    public async Task<Guid> StoreBasketAsync(EventCartDto cartDto, CancellationToken cancellationToken)
+    public async Task<EventCart> StoreBasketAsync(EventCartDto cartDto, CancellationToken cancellationToken)
     {
         var result = await repository.StoreBasketAsync(cartDto, cancellationToken);
         
-        var cacheKey = $"basket_{result}";
+        var cacheKey = $"basket_{result.UserId}";
         
-        // Store the basket in the cache and associate it with the user's ID
-        var eventCart = cartDto.ToEventCart();
-        eventCart.UserId = result;
-        
-        await SetCacheAsync(cacheKey, JsonSerializer.Serialize(eventCart), cancellationToken);
+        await SetCacheAsync(cacheKey, JsonSerializer.Serialize(result), cancellationToken);
         
         return result;
     }

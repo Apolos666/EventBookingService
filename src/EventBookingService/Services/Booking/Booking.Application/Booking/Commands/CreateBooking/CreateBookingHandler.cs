@@ -26,6 +26,7 @@ public class CreateBookingCommandHandler
                 DomainEventId.Of(bookingItem.EventId),
                 bookingItem.StartDateTime,
                 EventLocationId.Of(bookingItem.EventLocationId),
+                eventLocatioName: bookingItem.EventLocationName,
                 EventName.Of(bookingItem.EventName),
                 quantity: bookingItem.Quantity,
                 price: bookingItem.Price);

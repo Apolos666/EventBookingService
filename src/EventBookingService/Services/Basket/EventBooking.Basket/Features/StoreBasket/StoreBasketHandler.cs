@@ -2,7 +2,7 @@
 
 public record StoreBasketCommand(EventCartDto Cart) : ICommand<StoreBasketResult>;
 
-public record StoreBasketResult(Guid Id);
+public record StoreBasketResult(EventCart Cart);
 
 public class StoreBasketCommandHandler
     (IBasketRepository repository, DiscountProtoService.DiscountProtoServiceClient discountProtoClient)
