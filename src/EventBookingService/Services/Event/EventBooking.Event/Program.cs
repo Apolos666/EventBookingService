@@ -1,3 +1,5 @@
+using Event = EventBooking.Event.Models.Event;
+
 var builder = WebApplication.CreateBuilder(args);
 
 var assembly = typeof(Program).Assembly;
@@ -18,7 +20,7 @@ builder.Services.AddScoped<IUserIdentityAccessor, HttpUserIdentityAccessor>();
 builder.Services.AddMarten(config =>
 {
     config.Connection(builder.Configuration.GetConnectionString("Database")!);
-    config.AutoCreateSchemaObjects = AutoCreate.CreateOrUpdate; 
+    config.AutoCreateSchemaObjects = AutoCreate.CreateOrUpdate;
 }).UseLightweightSessions();
 
 builder.Services.AddScoped<IEventRepository, EventRepository>();

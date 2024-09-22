@@ -22,7 +22,7 @@ public class EventRepository
         return @event;
     }
 
-    public async Task<Guid> StoreEventAsync(EventDto eventDto, string imageUrl, CancellationToken cancellationToken = default)
+    public async Task<Models.Event> StoreEventAsync(EventDto eventDto, string imageUrl, CancellationToken cancellationToken = default)
     {
         var @event = eventDto.ToEvent();
 
@@ -32,7 +32,7 @@ public class EventRepository
         session.Store(@event);
         await session.SaveChangesAsync(cancellationToken);
 
-        return @event.Id;
+        return @event;
     }
 
     public async Task<bool> DeleteEventAsync(Guid eventId, CancellationToken cancellationToken = default)

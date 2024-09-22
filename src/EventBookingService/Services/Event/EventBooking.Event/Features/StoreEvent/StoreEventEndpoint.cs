@@ -32,7 +32,7 @@ public record StoreEventRequest(EventDto Event)
     }
 };
 
-public record StoreEventResponse(Guid Id);
+public record StoreEventResponse(Models.Event Event);
 
 public class StoreEventEndpoint : ICarterModule
 {
@@ -46,7 +46,7 @@ public class StoreEventEndpoint : ICarterModule
 
             var response = result.Adapt<StoreEventResponse>();
 
-            return Results.Created($"/events/{response.Id}", response);
+            return Results.Created($"/events/{response.Event.Id}", response);
         })
         .WithName("CreateEvent")
         .Produces<StoreEventResponse>(StatusCodes.Status201Created)

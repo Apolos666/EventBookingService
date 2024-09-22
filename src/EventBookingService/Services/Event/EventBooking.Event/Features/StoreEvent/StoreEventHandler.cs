@@ -2,7 +2,7 @@
 
 public record StoreEventCommand(EventDto Event) : ICommand<StoreEventResult>;
 
-public record StoreEventResult(Guid Id);
+public record StoreEventResult(Models.Event Event);
 
 public class StoreEventHandler
     (IEventRepository repository, IPublishEndpoint publishEndpoint, ImageStorage.ImageStorageClient imageStorageClient)
@@ -11,10 +11,10 @@ public class StoreEventHandler
     public async Task<StoreEventResult> Handle(StoreEventCommand command, CancellationToken cancellationToken)
     {
         var imageUrl = await UploadImageAsync(command.Event.EventImage, cancellationToken);
-        var eventId = await repository.StoreEventAsync(command.Event, imageUrl, cancellationToken);
+        var @event = await repository.StoreEventAsync(command.Event, imageUrl, cancellationToken);
         await PublishEventAsync(command.Event, cancellationToken);
 
-        return new StoreEventResult(eventId);
+        return new StoreEventResult(@event);
     }
 
     private async Task<string> UploadImageAsync(IFormFile eventImage, CancellationToken cancellationToken)

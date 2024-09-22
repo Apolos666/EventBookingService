@@ -23,8 +23,8 @@ const EventSidebar: React.FC<EventSidebarProps> = ({ eventLocations }) => {
             <SelectValue placeholder="Select ticket type" />
           </SelectTrigger>
           <SelectContent>
-            {eventLocations.map((location, index) => (
-              <SelectItem key={index} value={index.toString()}>
+            {eventLocations.map((location) => (
+              <SelectItem key={location.id} value={location.id}>
                 {`${location.location.address}, ${location.location.city}, ${location.location.country}`} - ${location.price}
               </SelectItem>
             ))}

@@ -43,16 +43,16 @@ const EventContent: React.FC<EventContentProps> = ({ event }) => {
             </div>
             <div className="mb-6">
                 <h2 className="text-lg font-semibold mb-2">Location</h2>
-                <Tabs defaultValue={"0"}>
+                <Tabs defaultValue={event.eventLocations[0].id}>
                     <TabsList>
-                        {event.eventLocations?.map((location, index) => (
-                            <TabsTrigger key={index} value={index.toString()}>
+                        {event.eventLocations?.map((location) => (
+                            <TabsTrigger key={location.id} value={location.id}>
                                 {location.location.name}
                             </TabsTrigger>
                         ))}
                     </TabsList>
-                    {event.eventLocations?.map((location, index) => (
-                        <TabsContent key={index} value={index.toString()}>
+                    {event.eventLocations?.map((location) => (
+                        <TabsContent key={location.id} value={location.id}>
                             <p className="flex items-center text-gray-600">
                                 <MapPinIcon className="mr-2 h-5 w-5" />
                                 {`${location.location.address}, ${location.location.city}, ${location.location.state} ${location.location.zipCode}, ${location.location.country}`}

@@ -62,17 +62,12 @@ public class CachedEventRepository(IEventRepository eventRepository, IDistribute
     }
 
     // Stores an event and invalidates the cache
-    public async Task<Guid> StoreEventAsync(EventDto eventDto, string imageUrl, CancellationToken cancellationToken = default)
+    public async Task<Models.Event> StoreEventAsync(EventDto eventDto, string imageUrl, CancellationToken cancellationToken = default)
     {
         var result = await eventRepository.StoreEventAsync(eventDto, imageUrl, cancellationToken);
-        var cachedKey = $"event_{result}";
+        var cachedKey = $"event_{result.Id}";
         
-        var @event = eventDto.ToEvent();
-        @event.Id = result;
-        @event.EventImageUrl = imageUrl;
-        @event.HostId = Guid.Parse(userIdentityAccessor.UserId);
-        
-        await SetCacheAsync(cachedKey, JsonSerializer.Serialize(@event), cancellationToken);
+        await SetCacheAsync(cachedKey, JsonSerializer.Serialize(result), cancellationToken);
 
         await InvalidateCacheAsync(cancellationToken);
 
