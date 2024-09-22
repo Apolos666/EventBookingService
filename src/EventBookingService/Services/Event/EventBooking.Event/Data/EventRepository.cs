@@ -12,9 +12,9 @@ public class EventRepository
         return events;
     }
 
-    public async Task<Models.Event> GetEventById(Guid eventId)
+    public async Task<Models.Event> GetEventById(Guid eventId, CancellationToken cancellationToken = default)
     {
-        var @event = await session.LoadAsync<Models.Event>(eventId);
+        var @event = await session.LoadAsync<Models.Event>(eventId, cancellationToken);
 
         if (@event == null)
             throw new EventNotFoundException(eventId);

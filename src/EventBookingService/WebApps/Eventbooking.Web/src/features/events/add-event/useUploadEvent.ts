@@ -1,4 +1,6 @@
-import { EventDto, uploadEvent } from "@/services/apis/events/uploadEvent";
+
+import { EventDto } from "@/services/apis/events/types";
+import { uploadEvent } from "@/services/apis/events/uploadEvent";
 import { useMutation } from "@tanstack/react-query";
 
 export interface UploadEventParams {

@@ -1,6 +1,6 @@
 ﻿namespace EventBooking.Event.Data;
 
-public class CachedEventRepository(IEventRepository eventRepository, IDistributedCache cache)
+public class CachedEventRepository(IEventRepository eventRepository, IDistributedCache cache, IUserIdentityAccessor userIdentityAccessor)
     : IEventRepository
 {
     private const string VERSION_KEY = "events_version";
@@ -49,15 +49,15 @@ public class CachedEventRepository(IEventRepository eventRepository, IDistribute
     }
 
     // Retrieves a specific event by ID from the cache or the repository if not cached
-    public async Task<Models.Event> GetEventById(Guid eventId)
+    public async Task<Models.Event> GetEventById(Guid eventId, CancellationToken cancellationToken)
     {
         var cachedKey = $"event_{eventId}";
-        var cachedEvent = await cache.GetStringAsync(cachedKey);
+        var cachedEvent = await cache.GetStringAsync(cachedKey, cancellationToken);
         if (!string.IsNullOrEmpty(cachedEvent))
             return JsonSerializer.Deserialize<Models.Event>(cachedEvent)!;
 
-        var @event = await eventRepository.GetEventById(eventId);
-        await SetCacheAsync(cachedKey, JsonSerializer.Serialize(@event));
+        var @event = await eventRepository.GetEventById(eventId, cancellationToken);
+        await SetCacheAsync(cachedKey, JsonSerializer.Serialize(@event), cancellationToken);
         return @event;
     }
 
@@ -66,7 +66,13 @@ public class CachedEventRepository(IEventRepository eventRepository, IDistribute
     {
         var result = await eventRepository.StoreEventAsync(eventDto, imageUrl, cancellationToken);
         var cachedKey = $"event_{result}";
-        await SetCacheAsync(cachedKey, JsonSerializer.Serialize(eventDto.ToEvent()), cancellationToken);
+        
+        var @event = eventDto.ToEvent();
+        @event.Id = result;
+        @event.EventImageUrl = imageUrl;
+        @event.HostId = Guid.Parse(userIdentityAccessor.UserId);
+        
+        await SetCacheAsync(cachedKey, JsonSerializer.Serialize(@event), cancellationToken);
 
         await InvalidateCacheAsync(cancellationToken);
 

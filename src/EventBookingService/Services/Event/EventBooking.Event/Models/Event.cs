@@ -7,6 +7,8 @@ public sealed class Event
     public string Name { get; set; } = default!;
     public string Description { get; set; } = default!;
     public string EventImageUrl { get; set; }
+    public string RefundPolicy { get; set; }
+    public string AboutThisEvent { get; set; }
     public DateTime StartDateTime { get; set; } = default!;
     public DateTime EndDateTime { get; set; } = default!;
     public List<EventLocation> EventLocations { get; set; } = [];

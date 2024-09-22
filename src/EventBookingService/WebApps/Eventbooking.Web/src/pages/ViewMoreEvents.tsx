@@ -5,9 +5,10 @@ import EventCard from '../features/events/shared/EventCard';
 import Pagination from '../components/Pagination';
 import EventFilters from '@/features/events/browsing-event/EventFilters';
 import { useEvents } from '@/features/events/shared/queries/useEvents';
+import EventCardSkeleton from '@/features/events/shared/EventCard.skeleton';
 
 const ViewMoreEvents: React.FC = () => {
-  const { data } = useEvents({ pageNumber: 1, pageSize: 6 });
+  const { data, isPending } = useEvents({ pageNumber: 1, pageSize: 6 });
 
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 5;
@@ -39,7 +40,12 @@ const ViewMoreEvents: React.FC = () => {
 
         <div className="w-full md:w-3/4">
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {data?.events && data.events.map((event) => (
+          {isPending ? (
+            Array.from({ length: 6}).map((_, index) => (
+              <EventCardSkeleton key={index} />
+            ))
+          ) : (
+            data?.events && data.events.map((event) => (
               <EventCard
                 key={event.id}
                 startDate={new Date(event.startDateTime)}
@@ -48,7 +54,8 @@ const ViewMoreEvents: React.FC = () => {
                 imageUrl={event.eventImageUrl}
                 {...event}
               />
-            ))}
+            ))
+          )}
           </div>
 
           <Pagination

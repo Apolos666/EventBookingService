@@ -2,8 +2,13 @@ import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { PlusIcon, MinusIcon } from "lucide-react";
+import { EventLocation } from '../shared/event.types';
 
-const EventSidebar: React.FC = () => {
+interface EventSidebarProps {
+  eventLocations: EventLocation[];
+}
+
+const EventSidebar: React.FC<EventSidebarProps> = ({ eventLocations }) => {
   const [quantity, setQuantity] = useState(1);
 
   const increaseQuantity = () => setQuantity(prev => prev + 1);
@@ -18,9 +23,11 @@ const EventSidebar: React.FC = () => {
             <SelectValue placeholder="Select ticket type" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="general">General Admission - $150</SelectItem>
-            <SelectItem value="vip">VIP Pass - $300</SelectItem>
-            <SelectItem value="backstage">Backstage Pass - $500</SelectItem>
+            {eventLocations.map((location, index) => (
+              <SelectItem key={index} value={index.toString()}>
+                {`${location.location.address}, ${location.location.city}, ${location.location.country}`} - ${location.price}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
         <div className="flex items-center justify-between mt-4 mb-6">

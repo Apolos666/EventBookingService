@@ -2,14 +2,20 @@ import React from 'react';
 import { CalendarIcon, MapPinIcon } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Event } from "../../../features/events/shared/event.types";
+import { formatDate } from '@/utils/dateUtils';
 
-const EventContent: React.FC = () => {
+interface EventContentProps {
+    event: Event;
+}
+
+const EventContent: React.FC<EventContentProps> = ({ event }) => {
     return (
         <div className="w-full lg:w-2/3">
-            <h1 className="text-3xl font-bold mb-4">Summer Music Festival 2023</h1>
+            <h1 className="text-3xl font-bold mb-4">{event.name}</h1>
             <div className="mb-6">
                 <img
-                    src="/placeholder.svg?height=400&width=800&text=Event+Image"
+                    src={event.eventImageUrl}
                     alt="Summer Music Festival 2023"
                     width={800}
                     height={400}
@@ -17,50 +23,46 @@ const EventContent: React.FC = () => {
                 />
             </div>
             <p className="text-gray-600 mb-4">
-                Join us for the biggest music festival of the summer, featuring top artists from around the world.
+                {event.description}
             </p>
             <div className="grid grid-cols-2 gap-4 mb-6">
                 <div>
                     <h2 className="text-lg font-semibold mb-2">Start Date</h2>
                     <p className="flex items-center text-gray-600">
                         <CalendarIcon className="mr-2 h-5 w-5" />
-                        July 15, 2023 at 12:00 PM
+                        {formatDate(new Date(event.startDateTime))}
                     </p>
                 </div>
                 <div>
                     <h2 className="text-lg font-semibold mb-2">End Date</h2>
                     <p className="flex items-center text-gray-600">
                         <CalendarIcon className="mr-2 h-5 w-5" />
-                        July 17, 2023 at 11:59 PM
+                        {formatDate(new Date(event.endDateTime))}
                     </p>
                 </div>
             </div>
             <div className="mb-6">
                 <h2 className="text-lg font-semibold mb-2">Location</h2>
-                <Tabs defaultValue="location1">
+                <Tabs defaultValue={"0"}>
                     <TabsList>
-                        <TabsTrigger value="location1">Main Stage</TabsTrigger>
-                        <TabsTrigger value="location2">Second Stage</TabsTrigger>
-                        <TabsTrigger value="location3">Acoustic Tent</TabsTrigger>
+                        {event.eventLocations?.map((location, index) => (
+                            <TabsTrigger key={index} value={index.toString()}>
+                                {location.location.name}
+                            </TabsTrigger>
+                        ))}
                     </TabsList>
-                    <TabsContent value="location1">
-                        <p className="flex items-center text-gray-600">
-                            <MapPinIcon className="mr-2 h-5 w-5" />
-                            Sunset Park, 123 Festival Road, Music City
-                        </p>
-                    </TabsContent>
-                    <TabsContent value="location2">
-                        <p className="flex items-center text-gray-600">
-                            <MapPinIcon className="mr-2 h-5 w-5" />
-                            Riverside Arena, 456 Melody Lane, Music City
-                        </p>
-                    </TabsContent>
-                    <TabsContent value="location3">
-                        <p className="flex items-center text-gray-600">
-                            <MapPinIcon className="mr-2 h-5 w-5" />
-                            Green Meadows, 789 Harmony Avenue, Music City
-                        </p>
-                    </TabsContent>
+                    {event.eventLocations?.map((location, index) => (
+                        <TabsContent key={index} value={index.toString()}>
+                            <p className="flex items-center text-gray-600">
+                                <MapPinIcon className="mr-2 h-5 w-5" />
+                                {`${location.location.address}, ${location.location.city}, ${location.location.state} ${location.location.zipCode}, ${location.location.country}`}
+                            </p>
+                            <p className="mt-2">
+                                Price: ${location.price.toFixed(2)} |
+                                Capacity: {location.registeredAttendees}/{location.maxAttendees}
+                            </p>
+                        </TabsContent>
+                    ))}
                 </Tabs>
             </div>
             <div className="mb-6">

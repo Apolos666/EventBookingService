@@ -3,6 +3,8 @@
 public sealed record EventDto(
     string Name, 
     string Description,
+    string RefundPolicy,
+    string AboutThisEvent,
     DateTime StartDateTime, 
     DateTime EndDateTime,
     IFormFile EventImage,

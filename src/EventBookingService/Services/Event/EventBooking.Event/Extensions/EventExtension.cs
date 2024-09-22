@@ -8,6 +8,8 @@ public static class EventExtension
         {
             Name = eventDto.Name,
             Description = eventDto.Description,
+            RefundPolicy = eventDto.RefundPolicy,
+            AboutThisEvent = eventDto.AboutThisEvent,
             StartDateTime = eventDto.StartDateTime,
             EndDateTime = eventDto.EndDateTime,
             EventLocations = eventDto.EventLocationDtos.Select(el => el.ToEventLocation()).ToList()

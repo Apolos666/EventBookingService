@@ -3,6 +3,8 @@ export type Event = {
     hostId: string; 
     name: string;
     description: string;
+    refundPolicy: string;
+    aboutThisEvent: string;
     eventImageUrl: string;
     startDateTime: Date;
     endDateTime: Date;

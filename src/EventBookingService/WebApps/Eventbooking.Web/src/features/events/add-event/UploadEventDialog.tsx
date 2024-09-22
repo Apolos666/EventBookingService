@@ -5,9 +5,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
 import { PlusIcon, XIcon, ImageIcon } from "lucide-react";
-import { EventDto, EventLocationDto, LocationDto } from '@/services/apis/events/uploadEvent';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useUploadEvent } from './useUploadEvent';
+import { EventDto, EventLocationDto, LocationDto } from '@/services/apis/events/types';
 
 const UploadEventDialog: React.FC = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);

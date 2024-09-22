@@ -5,9 +5,10 @@ import { SearchIcon } from "lucide-react";
 import EventCard from '../features/events/shared/EventCard';
 import { Link } from 'react-router-dom';
 import { useEvents } from '@/features/events/shared/queries/useEvents';
+import EventCardSkeleton from '@/features/events/shared/EventCard.skeleton';
 
 const Homepage: React.FC = () => {
-  const { data } = useEvents({ pageNumber: 1, pageSize: 3 });
+  const { data, isPending } = useEvents({ pageNumber: 1, pageSize: 3 });
 
   return (
     <main className="container mx-auto px-4 py-8">
@@ -30,16 +31,22 @@ const Homepage: React.FC = () => {
       <section>
         <h2 className="text-2xl font-semibold mb-4">Upcoming Events</h2>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {data?.events && data.events.map((event) => (
-            <EventCard
-              key={event.id}
-              startDate={new Date(event.startDateTime)}
-              endDate={new Date(event.endDateTime)}
-              location={`${event.eventLocations[0].location.address}, ${event.eventLocations[0].location.city}, ${event.eventLocations[0].location.country}`}
-              imageUrl={event.eventImageUrl}
-              {...event}
-            />
-          ))}
+          {isPending ? (
+            Array.from({ length: 3}).map((_, index) => (
+              <EventCardSkeleton key={index} />
+            ))
+          ) : (
+            data?.events && data.events.map((event) => (
+              <EventCard
+                key={event.id}
+                startDate={new Date(event.startDateTime)}
+                endDate={new Date(event.endDateTime)}
+                location={`${event.eventLocations[0].location.address}, ${event.eventLocations[0].location.city}, ${event.eventLocations[0].location.country}`}
+                imageUrl={event.eventImageUrl}
+                {...event}
+              />
+            ))
+          )}
         </div>
         <div className="text-center mt-8">
           <Link to={"/events"}>
