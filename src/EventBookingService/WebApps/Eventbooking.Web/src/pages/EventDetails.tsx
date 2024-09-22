@@ -26,7 +26,7 @@ const EventDetails: React.FC = () => {
           data && (
             <>
               <EventContent event={data.event} />
-              <EventSidebar eventLocations={data.event.eventLocations}/>
+              <EventSidebar event={data.event}/>
             </>
           )
         )}

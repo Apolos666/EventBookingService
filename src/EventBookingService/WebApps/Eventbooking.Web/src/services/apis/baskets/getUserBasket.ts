@@ -1,6 +1,10 @@
+import { EventCart } from "@/features/shopping-cart/shopping-cart.types"
 import { axiosPrivate } from "../shared/axiosPrivate"
-import { EventCart } from "./types"
+
+export interface UserCartResponse {
+    cart: EventCart
+}
 
 export const getUserBasket = async () => {
-    return (await axiosPrivate.get<EventCart>("/basket-service/basket")).data
+    return (await axiosPrivate.get<UserCartResponse>("/basket-service/basket")).data
 }
