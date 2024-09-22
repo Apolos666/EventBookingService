@@ -37,7 +37,9 @@ const UploadEventDialog: React.FC = () => {
       description: formData.get('description') as string,
       startDateTime: new Date(formData.get('startDate') as string),
       endDateTime: new Date(formData.get('endDate') as string),
-      eventLocationDtos: locations
+      eventLocationDtos: locations,
+      refundPolicy: formData.get('refundPolicy') as string,
+      aboutThisEvent: formData.get('aboutThisEvent') as string,
     };
 
     if (imageFile) {
@@ -242,6 +244,18 @@ const UploadEventDialog: React.FC = () => {
                   )}
                 </div>
               </div>
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="refundPolicy" className="text-right">
+                Refund Policy
+              </Label>
+              <Textarea id="refundPolicy" name="refundPolicy" className="col-span-3" rows={3} required />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="aboutThisEvent" className="text-right">
+                About This Event
+              </Label>
+              <Textarea id="aboutThisEvent" name="aboutThisEvent" className="col-span-3" rows={4} required />
             </div>
           </form>
         </ScrollArea>

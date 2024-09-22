@@ -68,13 +68,13 @@ const EventContent: React.FC<EventContentProps> = ({ event }) => {
             <div className="mb-6">
                 <h2 className="text-lg font-semibold mb-2">Refund Policy</h2>
                 <p className="text-gray-600">
-                    Full refunds available up to 7 days before the event. 50% refund available between 7 days and 24 hours before the event. No refunds within 24 hours of the event.
+                    {event.refundPolicy}
                 </p>
             </div>
             <div className="mb-6">
                 <h2 className="text-lg font-semibold mb-2">About this event</h2>
                 <p className="text-gray-600">
-                    The Summer Music Festival 2023 is a three-day extravaganza featuring over 50 artists across multiple genres. From rock to pop, jazz to electronic, there's something for every music lover. Enjoy food from local vendors, interactive art installations, and a vibrant festival atmosphere. Don't miss out on the biggest musical event of the year!
+                    {event.aboutThisEvent}
                 </p>
             </div>
             <div>
