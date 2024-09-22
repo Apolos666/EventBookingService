@@ -1,5 +1,3 @@
-using Event = EventBooking.Event.Models.Event;
-
 var builder = WebApplication.CreateBuilder(args);
 
 var assembly = typeof(Program).Assembly;

@@ -1,9 +1,9 @@
 import React from 'react';
-import { CartItem as CartItemType } from './shopping-cart.types';
 import { formatDate } from '@/utils/dateUtils';
+import { EventCartItem } from '@/services/apis/baskets/types';
 
 interface CartItemProps {
-  item: CartItemType;
+  item: EventCartItem;
 }
 
 const CartItem: React.FC<CartItemProps> = ({ item }) => {
@@ -14,7 +14,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
         <span>${(item.price * item.quantity).toFixed(2)}</span>
       </div>
       <div className="text-sm text-gray-500">
-        Start: {formatDate(item.startTime)}
+        Start: {formatDate(new Date(item.startDateTime))}
       </div>
       <div className="text-sm text-gray-500">
         Quantity: {item.quantity}
