@@ -24,7 +24,8 @@ public class CheckoutEndpoint : ICarterModule
                         Quantity = item.Quantity,
                         EventId = item.EventId,
                         StartDateTime = item.StartDateTime,
-                        EventLocationId = item.EventLocationId
+                        EventLocationId = item.EventLocationId,
+                        EventLocationName = item.EventLocationName
                     }).ToList(),
                     SuccessUrl = "http://localhost:3000/checkout/success",
                     CancelUrl = "http://localhost:3000/checkout/canceled"
