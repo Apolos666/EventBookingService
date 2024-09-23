@@ -8,7 +8,7 @@ import { useGetEventById } from '@/features/events/event-detail/useGetEventById'
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-const EventDetails: React.FC = () => {
+const EventDetail: React.FC = () => {
   const { id } = useParams<string>();
 
   const { data, isPending } = useGetEventById(id!);
@@ -36,4 +36,4 @@ const EventDetails: React.FC = () => {
   );
 };
 
-export default EventDetails;
+export default EventDetail;

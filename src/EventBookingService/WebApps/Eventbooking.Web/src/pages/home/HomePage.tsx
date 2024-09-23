@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { SearchIcon } from "lucide-react";
-import EventCard from '../features/events/shared/EventCard';
+import EventCard from '../../features/events/shared/EventCard';
 import { Link } from 'react-router-dom';
 import { useEvents } from '@/features/events/shared/queries/useEvents';
 import EventCardSkeleton from '@/features/events/shared/EventCard.skeleton';

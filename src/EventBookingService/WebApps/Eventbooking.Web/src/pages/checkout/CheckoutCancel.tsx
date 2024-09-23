@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button"
 import { XCircle } from "lucide-react"
 import { Link } from 'react-router-dom'
 
-const CheckoutCancelPage: React.FC = () => {
+const CheckoutCancel: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
@@ -46,4 +46,4 @@ const CheckoutCancelPage: React.FC = () => {
   )
 }
 
-export default CheckoutCancelPage
+export default CheckoutCancel

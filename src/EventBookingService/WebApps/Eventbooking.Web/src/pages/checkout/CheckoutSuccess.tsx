@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button"
 import { CheckCircle } from "lucide-react"
 import { Link } from "react-router-dom"
 
-const CheckoutSuccessPage: React.FC = () => {
+const CheckoutSuccess: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center items-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
@@ -27,4 +27,4 @@ const CheckoutSuccessPage: React.FC = () => {
   )
 }
 
-export default CheckoutSuccessPage
+export default CheckoutSuccess

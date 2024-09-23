@@ -1,11 +1,11 @@
 // src/pages/ViewMoreEvents.tsx
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import EventCard from '../features/events/shared/EventCard';
-import Pagination from '../components/Pagination';
 import EventFilters from '@/features/events/browsing-event/EventFilters';
 import { useEvents } from '@/features/events/shared/queries/useEvents';
 import EventCardSkeleton from '@/features/events/shared/EventCard.skeleton';
+import EventCard from '@/features/events/shared/EventCard';
+import Pagination from '@/components/Pagination';
 
 const ViewMoreEvents: React.FC = () => {
   const { data, isPending } = useEvents({ pageNumber: 1, pageSize: 6 });
