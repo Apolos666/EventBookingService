@@ -1,10 +1,10 @@
 ﻿namespace Booking.Application.Booking.Queries.GetBookings;
 
-// Todo: Fix it for better optimization
 public class GetBookingsQueryHandler
     (IApplicationDbContext context)
     : IQueryHandler<GetBookingsQuery, GetBookingsResult>
 {
+    // This is garbage. Refactor this to use a dapper
     public async Task<GetBookingsResult> Handle(GetBookingsQuery query, CancellationToken cancellationToken)
     {
         var pageSize = query.PaginatedRequest.PageSize;

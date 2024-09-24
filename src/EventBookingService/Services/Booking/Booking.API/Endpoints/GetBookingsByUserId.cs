@@ -2,7 +2,7 @@
 
 // public record GetBookingsByUserIdRequest(Guid UserId);
 
-public record GetBookingsByUserIdResponse(IEnumerable<BookingDto> Bookings);
+public record GetBookingsByUserIdResponse(IEnumerable<GetBookingDto> Bookings);
 
 public class GetBookingsByUserId : ICarterModule
 {

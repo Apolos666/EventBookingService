@@ -2,24 +2,20 @@
 
 public class Booking : Aggregate<BookingId>
 {
+    private readonly List<BookingItem> _bookingItems = [];
+    public IReadOnlyList<BookingItem> BookingItems => _bookingItems.AsReadOnly();
+    
     public UserId UserId { get; private set; } = default!;
     public BookingStatus BookingStatus { get; private set; } = BookingStatus.Pending;
     public int TotalQuantity { 
         get => _bookingItems.Sum(x => x.Quantity); 
         private set {} 
     }
-    public decimal TotalPrice { 
-        get => _bookingItems.Sum(x => x.TotalPrice); 
-        private set {} 
-    }
-    
-    private readonly List<BookingItem> _bookingItems = [];
-    public IReadOnlyList<BookingItem> BookingItems => _bookingItems.AsReadOnly();
 
-    // EF Core
-    public Booking()
+    public decimal TotalPrice
     {
-        
+        get => _bookingItems.Sum(x => x.TotalPrice);
+        private set { }
     }
     
     public static Booking Create(BookingId id, UserId userId)
@@ -36,14 +32,22 @@ public class Booking : Aggregate<BookingId>
         return booking;
     }
     
-    // public void Update();
-    
     public void Add(EventId eventId, DateTime startDateTime, EventLocationId eventLocationId, string eventLocatioName, EventName eventName, int quantity, decimal price)
     {
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(quantity);
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(price);
         
         var bookingItem = new BookingItem(Id, eventId, startDateTime, eventLocationId, eventLocatioName, eventName, quantity, price);
+        _bookingItems.Add(bookingItem);
+    }
+    
+    // Todo: This is garbage. Refactor this to use a dapper
+    public void Add(BookingItemId id, BookingId bookingId, EventId eventId, DateTime startDateTime, EventLocationId eventLocationId, string eventLocationName, EventName eventName, int quantity, decimal price, ConfirmationCode code)
+    {
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(quantity);
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(price);
+        
+        var bookingItem = new BookingItem(id, bookingId, eventId, startDateTime, eventLocationId, eventLocationName, eventName, quantity, price, code);
         _bookingItems.Add(bookingItem);
     }
     

@@ -2,4 +2,4 @@
 
 public record GetBookingsByUserIdQuery(Guid UserId) : IQuery<GetBookingsByUserIdResult>;
 
-public record GetBookingsByUserIdResult(IEnumerable<BookingDto> Bookings);
+public record GetBookingsByUserIdResult(IEnumerable<GetBookingDto> Bookings);

@@ -2,6 +2,7 @@ import React from 'react'
 import { Button } from "@/components/ui/button"
 import { XCircle } from "lucide-react"
 import { Link } from 'react-router-dom'
+import { pathKeys } from '../config.route'
 
 const CheckoutCancel: React.FC = () => {
   return (
@@ -34,10 +35,10 @@ const CheckoutCancel: React.FC = () => {
 
           <div className="mt-6 flex flex-col space-y-4">
             <Button asChild>
-              <Link to="/cart">Return to Cart</Link>
+              <Link to={pathKeys.home()}>Return to Cart</Link>
             </Button>
             <Button variant="outline" asChild>
-              <Link to="/">Continue Shopping</Link>
+              <Link to={pathKeys.view_more_events()}>Continue Shopping</Link>
             </Button>
           </div>
         </div>

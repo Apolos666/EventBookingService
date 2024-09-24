@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { UserIcon, SettingsIcon, LogOutIcon } from "lucide-react";
+import { UserIcon, SettingsIcon, LogOutIcon, CalendarIcon, UploadIcon } from "lucide-react";
 import { IdTokenClaims } from 'oidc-client-ts';
+import { Link } from 'react-router-dom';
+import { pathKeys } from '@/pages/config.route';
 
 interface UserPopoverProps {
   profile: IdTokenClaims;
   onSignOut: () => void;
-}
+} 
 
 const UserPopover: React.FC<UserPopoverProps> = ({ profile, onSignOut }) => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
@@ -36,6 +38,18 @@ const UserPopover: React.FC<UserPopoverProps> = ({ profile, onSignOut }) => {
               Settings
             </Button>
           </div>
+          <Link to={pathKeys.bookings()}>
+            <Button variant="outline" size="sm" className="w-full justify-start">
+              <CalendarIcon className="mr-2 h-4 w-4" />
+              My Booked Events
+            </Button>
+          </Link>
+          <Link to="/my-uploaded-events">
+            <Button variant="outline" size="sm" className="w-full justify-start">
+              <UploadIcon className="mr-2 h-4 w-4" />
+              My Uploaded Events
+            </Button>
+          </Link>
           <Button
             variant="outline"
             size="sm"

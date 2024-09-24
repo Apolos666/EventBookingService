@@ -1,5 +1,6 @@
 import { MainLayout } from "@/layouts/MainLayout";
 import { TempLayout } from "@/layouts/TempLayout";
+import { BookingsPageRoute } from "@/pages/bookings/BookingsPage.route";
 import { CheckoutRoute } from "@/pages/checkout/Checkout.route";
 import { EventDetailRoute } from "@/pages/event-detail/EventDetail.route";
 import { HomePageRoute } from "@/pages/home/HomePage.route";
@@ -16,7 +17,7 @@ const browserRouter = createBrowserRouter([
         children: [
             {
                 element: <MainLayout />,
-                children: [HomePageRoute, ViewMoreEventsRoute, EventDetailRoute]
+                children: [HomePageRoute, ViewMoreEventsRoute, EventDetailRoute, BookingsPageRoute]
             },
             {
                 element: <TempLayout />,

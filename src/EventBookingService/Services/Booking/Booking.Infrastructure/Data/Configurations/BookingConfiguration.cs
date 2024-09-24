@@ -26,9 +26,7 @@ public class BookingConfiguration : IEntityTypeConfiguration<BookingModel.Bookin
             .HasConversion(
                 bookingStatus => bookingStatus.ToString(),
                 bookingStatusDb => (BookingStatus)Enum.Parse(typeof(BookingStatus), bookingStatusDb)
-            )
-            .HasMaxLength(20)
-            .IsRequired();
+            );
 
         builder.Property(b => b.TotalQuantity);
         builder.Property(b => b.TotalPrice);

@@ -22,5 +22,7 @@ global using Booking.Domain.ValueObjects;
 global using DomainEventId = Booking.Domain.ValueObjects.EventId;
 global using Microsoft.Extensions.Logging;
 global using BuildingBlocks.Messaging.Events.Payments;
+global using System.Data;
+global using Microsoft.EntityFrameworkCore.Infrastructure;
 
 

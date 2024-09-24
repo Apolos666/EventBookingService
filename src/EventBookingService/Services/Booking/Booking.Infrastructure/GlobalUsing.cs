@@ -15,6 +15,10 @@ global using Booking.Domain.Enums;
 global using Booking.Application.Data;
 global using Microsoft.AspNetCore.Builder;
 global using System.Text.Json.Serialization;
+global using System.Data;
+global using MySql.Data.MySqlClient;
+global using Dapper;
+
 
 
 

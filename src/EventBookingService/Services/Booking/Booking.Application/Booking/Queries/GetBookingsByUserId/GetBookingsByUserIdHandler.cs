@@ -1,38 +1,65 @@
-﻿namespace Booking.Application.Booking.Queries.GetBookingsByUserId;
+﻿using MassTransit.Util;
 
-public class GetBookingsByUserIdQueryHandler
-    (IApplicationDbContext context, ILogger<GetBookingsByUserIdQueryHandler> logger)
+namespace Booking.Application.Booking.Queries.GetBookingsByUserId;
+
+public class GetBookingsByUserIdQueryHandler(
+    IApplicationReadDbConnection context,
+    ILogger<GetBookingsByUserIdQueryHandler> logger)
     : IQueryHandler<GetBookingsByUserIdQuery, GetBookingsByUserIdResult>
 {
-    public async Task<GetBookingsByUserIdResult> Handle(GetBookingsByUserIdQuery query, CancellationToken cancellationToken)
+    public async Task<GetBookingsByUserIdResult> Handle(GetBookingsByUserIdQuery query,
+        CancellationToken cancellationToken)
     {
-        logger.LogInformation("Get bookings by user id {query.UserId}", query.UserId);
-        
-        var userIdValue = UserId.Of(query.UserId);
+        const string sql = $"""
+                              SELECT 
+                                  b.Id as {nameof(GetBookingDto.Id)},
+                                  b.UserId as {nameof(GetBookingDto.UserId)},
+                                  b.CreatedAt as {nameof(GetBookingDto.CreatedAt)},
+                                  b.BookingStatus as {nameof(GetBookingDto.BookingStatus)},
+                                  b.TotalQuantity as {nameof(GetBookingDto.TotalQuantity)},
+                                  b.TotalPrice as {nameof(GetBookingDto.TotalPrice)},
+                                  bi.BookingId as {nameof(GetBookingItemDto.BookingId)},
+                                  bi.EventId as {nameof(GetBookingItemDto.EventId)},
+                                  bi.StartDateTime as {nameof(GetBookingItemDto.StartDateTime)},
+                                  bi.EventLocationId as {nameof(GetBookingItemDto.EventLocationId)},
+                                  bi.EventLocationName as {nameof(GetBookingItemDto.EventLocationName)},
+                                  bi.EventName as {nameof(GetBookingItemDto.EventName)},
+                                  bi.Quantity as {nameof(GetBookingItemDto.Quantity)},
+                                  bi.Price as {nameof(GetBookingItemDto.Price)},
+                                  bi.TotalPrice as {nameof(GetBookingItemDto.TotalPrice)},
+                                  bi.Code as {nameof(GetBookingItemDto.Code)}
+                              FROM Bookings as b
+                              LEFT JOIN BookingItems as bi ON b.Id = bi.BookingId
+                              WHERE b.UserId = @UserId
+                            """;
 
-        var bookings = await context.Bookings
-            .AsNoTracking()
-            .Where(b => b.UserId == userIdValue)
-            .ToListAsync(cancellationToken);
-        
-        var bookingIds = bookings.Select(b => b.Id).ToList();
-        
-        var bookingItems = await context.BookingItems
-            .AsNoTracking()
-            .Where(bi => bookingIds.Contains(bi.BookingId))
-            .ToListAsync(cancellationToken);
-        
-        foreach (var booking in bookings)
-        {
-            var items = bookingItems.Where(bi => bi.BookingId == booking.Id).ToList();
-            foreach (var item in items)
+        var bookingDictionary = new Dictionary<Guid, GetBookingDto>();
+
+        var bookings = await context.QueryAsync<GetBookingDto, GetBookingItemDto, GetBookingDto>(
+            sql,
+            (getBooking, getBookingItem) =>
             {
-                booking.Add(item.EventId, item.StartDateTime, item.EventLocationId, item.EventLocationName, item.EventName, item.Quantity, item.Price);
-            }
-        }
-        
-        var bookingDtos = bookings.ToBookingDtoList();
-        
-        return new GetBookingsByUserIdResult(bookingDtos);
+                if (bookingDictionary.TryGetValue(getBooking.Id, out var existingBooking))
+                {
+                    getBooking = existingBooking;
+                }
+                else
+                {
+                    bookingDictionary.Add(getBooking.Id, getBooking);
+                }
+                
+                getBooking.BookingItems.Add(getBookingItem);
+                
+                return getBooking;
+            },
+            new
+            { 
+                query.UserId
+            },
+            SplitOn: nameof(GetBookingItemDto.BookingId), 
+            cancellationToken: cancellationToken
+        );
+
+        return new GetBookingsByUserIdResult(bookings.Distinct().ToList());
     }
 }

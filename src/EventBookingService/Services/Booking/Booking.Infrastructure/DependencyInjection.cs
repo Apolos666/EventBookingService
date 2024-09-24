@@ -12,12 +12,13 @@ public static class DependencyInjection
         
         service.AddDbContext<ApplicationDbContext>((sp, config) =>
         {
-            // Add Interceptors
             config.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
             config.UseMySQL(connectionString!);
         });
 
         service.AddScoped<IApplicationDbContext, ApplicationDbContext>();
+        service.AddScoped<IApplicationWriteDbConnection, ApplicationWriteDbConnection>();
+        service.AddScoped<IApplicationReadDbConnection, ApplicationReadDbConnection>();
         
         return service;
     }

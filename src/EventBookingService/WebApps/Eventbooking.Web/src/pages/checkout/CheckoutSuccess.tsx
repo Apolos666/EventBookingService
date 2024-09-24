@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { CheckCircle } from "lucide-react"
 import { Link } from "react-router-dom"
+import { pathKeys } from "../config.route"
 
 const CheckoutSuccess: React.FC = () => {
   return (
@@ -16,10 +17,10 @@ const CheckoutSuccess: React.FC = () => {
 
         <div className="mt-8 space-y-4">
           <Button asChild className="w-full">
-            <Link to="/booking">View My Booking</Link>
+            <Link to={pathKeys.bookings()}>View My Booking</Link>
           </Button>
           <Button variant="outline" asChild className="w-full">
-            <Link to="/">Return to Homepage</Link>
+            <Link to={pathKeys.home()}>Return to Homepage</Link>
           </Button>
         </div>
       </div>

@@ -34,7 +34,7 @@ services:
     ports:
       - "3307:3306"
     volumes:
-      - mysql_booking:/var/lib/mysql
+      - mysql_booking:/var/lib/mysql    
 
   distributedcache:
     container_name: distributedcache

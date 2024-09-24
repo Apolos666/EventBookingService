@@ -7,5 +7,6 @@ export const pathKeys = {
         root: "/checkout",
         success: () => pathKeys.checkout.root.concat("/success"),
         canceled: () => pathKeys.checkout.root.concat("/canceled"),
-    }
+    },
+    bookings: () => pathKeys.root.concat("bookings"),
 }
