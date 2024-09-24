@@ -10,7 +10,7 @@ public class BookingCreatedEventHandler
         {
             var @event = await session.LoadAsync<Models.Event>(eventId);
 
-            if (@event is null)
+            if (@event is null || @event.UserRegistedId.Contains(context.Message.UserId))
                 continue;
                 //throw new EventNotFoundException(eventId);
             

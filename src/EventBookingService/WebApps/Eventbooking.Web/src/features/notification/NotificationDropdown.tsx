@@ -44,7 +44,7 @@ const NotificationDropdown: React.FC = () => {
                 <DropdownMenuItem key={notification.id} className="flex flex-col items-start cursor-pointer" onSelect={() => markNotificationAsRead(notification.id)}>
                   <div className="font-medium">{notification.title}</div>
                   <div className="text-sm text-gray-500">{notification.message}</div>
-                  <div className="text-xs text-gray-400">{formatDate(notification.createdAt)}</div>
+                  <div className="text-xs text-gray-400">{formatDate(new Date(notification.createdAt))}</div>
                 </DropdownMenuItem>
               ))}
             </ScrollArea>
@@ -55,7 +55,7 @@ const NotificationDropdown: React.FC = () => {
                 <DropdownMenuItem key={notification.id} className="flex flex-col items-start">
                   <div className="font-medium">{notification.title}</div>
                   <div className="text-sm text-gray-500">{notification.message}</div>
-                  <div className="text-xs text-gray-400">{formatDate(notification.createdAt)}</div>
+                  <div className="text-xs text-gray-400">{formatDate(new Date(notification.createdAt))}</div>
                 </DropdownMenuItem>
               ))}
             </ScrollArea>

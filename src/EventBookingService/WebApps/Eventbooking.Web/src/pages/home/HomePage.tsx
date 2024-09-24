@@ -6,9 +6,10 @@ import EventCard from '../../features/events/shared/EventCard';
 import { Link } from 'react-router-dom';
 import { useEvents } from '@/features/events/shared/queries/useEvents';
 import EventCardSkeleton from '@/features/events/shared/EventCard.skeleton';
+import { homePageConfig } from "./HomePage.config"
 
 const Homepage: React.FC = () => {
-  const { data, isPending } = useEvents({ pageNumber: 1, pageSize: 3 });
+  const { data, isPending } = useEvents({ pageNumber: homePageConfig.pagination.pageNumber, pageSize: homePageConfig.pagination.pageSize });
 
   return (
     <main className="container mx-auto px-4 py-8">
@@ -32,7 +33,7 @@ const Homepage: React.FC = () => {
         <h2 className="text-2xl font-semibold mb-4">Upcoming Events</h2>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {isPending ? (
-            Array.from({ length: 3}).map((_, index) => (
+            Array.from({ length: 3 }).map((_, index) => (
               <EventCardSkeleton key={index} />
             ))
           ) : (
