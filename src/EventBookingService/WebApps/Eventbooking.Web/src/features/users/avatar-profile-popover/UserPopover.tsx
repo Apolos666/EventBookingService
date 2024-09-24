@@ -44,7 +44,7 @@ const UserPopover: React.FC<UserPopoverProps> = ({ profile, onSignOut }) => {
               My Booked Events
             </Button>
           </Link>
-          <Link to="/my-uploaded-events">
+          <Link to={pathKeys.my_uploaded_events()}>
             <Button variant="outline" size="sm" className="w-full justify-start">
               <UploadIcon className="mr-2 h-4 w-4" />
               My Uploaded Events

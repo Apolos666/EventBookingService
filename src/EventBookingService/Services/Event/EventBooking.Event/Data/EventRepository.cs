@@ -12,6 +12,18 @@ public class EventRepository
         return events;
     }
 
+    public async Task<IEnumerable<Models.Event>> GetEventsUserAsync(CancellationToken cancellationToken = default)
+    {
+        var events = await session.Query<Models.Event>()
+            .Where(x => x.HostId == Guid.Parse(userIdentityAccessor.UserId))
+            .ToListAsync(cancellationToken);
+        
+        if (events is null)
+            throw new EventNotFoundException(Guid.Parse(userIdentityAccessor.UserId));
+        
+        return events;
+    }
+
     public async Task<Models.Event> GetEventById(Guid eventId, CancellationToken cancellationToken = default)
     {
         var @event = await session.LoadAsync<Models.Event>(eventId, cancellationToken);

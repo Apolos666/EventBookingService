@@ -20,12 +20,12 @@ public class GetEventsEndpoint : ICarterModule
 
                 return Results.Ok(response);
             })
-            .WithName("GetOrders")
+            .WithName("GetEvents")
             .Produces<GetEventsResponse>(StatusCodes.Status200OK)
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .ProducesProblem(StatusCodes.Status404NotFound)
-            .WithSummary("Get Orders")
-            .WithDescription("Gets a list of orders.")
+            .WithSummary("Get Events")
+            .WithDescription("Gets a list of Events.")
             .WithTags(nameof(Models.Event))
             .AllowAnonymous();
     }

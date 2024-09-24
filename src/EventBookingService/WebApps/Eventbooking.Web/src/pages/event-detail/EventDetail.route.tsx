@@ -6,7 +6,7 @@ import EventDetailSkeleton from "./EventDetail.skeleton";
 const EventDetail = lazy(() => import("./EventDetail"));
 
 export const EventDetailRoute: RouteObject = {
-    path: pathKeys.event_detail(),
+    path: pathKeys.event_details.set_up(),
     element: (
         <Suspense fallback={<EventDetailSkeleton />}>
             <EventDetail />

@@ -4,6 +4,7 @@ import { BookingsPageRoute } from "@/pages/bookings/BookingsPage.route";
 import { CheckoutRoute } from "@/pages/checkout/Checkout.route";
 import { EventDetailRoute } from "@/pages/event-detail/EventDetail.route";
 import { HomePageRoute } from "@/pages/home/HomePage.route";
+import { MyEventsRoute } from "@/pages/my-upload-events/MyEvents.route";
 import { ViewMoreEventsRoute } from "@/pages/view-more-events/ViewMoreEvents.route";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -17,7 +18,7 @@ const browserRouter = createBrowserRouter([
         children: [
             {
                 element: <MainLayout />,
-                children: [HomePageRoute, ViewMoreEventsRoute, EventDetailRoute, BookingsPageRoute]
+                children: [HomePageRoute, ViewMoreEventsRoute, EventDetailRoute, BookingsPageRoute, MyEventsRoute]
             },
             {
                 element: <TempLayout />,

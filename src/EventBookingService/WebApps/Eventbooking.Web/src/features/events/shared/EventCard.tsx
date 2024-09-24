@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { CalendarIcon, MapPinIcon } from "lucide-react";
 import { Link } from 'react-router-dom';
 import { formatDate } from '@/utils/dateUtils';
+import { pathKeys } from '@/pages/config.route';
 
 interface EventCardProps {
   id: string;
@@ -16,7 +17,7 @@ interface EventCardProps {
 
 const EventCard: React.FC<EventCardProps> = ({ id, name, startDate, endDate, location, description, imageUrl }) => {
   return (
-    <Link to={`/events/${id}`} className="border rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+    <Link to={pathKeys.event_details.get_detail_path(id)} className="border rounded-lg overflow-hidden hover:shadow-md transition-shadow">
       <div className="relative h-48">
         <img
           src={imageUrl}

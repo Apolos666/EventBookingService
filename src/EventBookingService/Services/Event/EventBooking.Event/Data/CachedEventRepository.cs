@@ -48,6 +48,18 @@ public class CachedEventRepository(IEventRepository eventRepository, IDistribute
         return events;
     }
 
+    public async Task<IEnumerable<Models.Event>> GetEventsUserAsync(CancellationToken cancellationToken = default)
+    {
+        var cachedKey = $"events_user_{userIdentityAccessor.UserId}";
+        var cachedEvents = await cache.GetStringAsync(cachedKey, cancellationToken);
+        if (!string.IsNullOrEmpty(cachedEvents))
+            return JsonSerializer.Deserialize<IEnumerable<Models.Event>>(cachedEvents)!;
+        
+        var events = await eventRepository.GetEventsUserAsync(cancellationToken);
+        await SetCacheAsync(cachedKey, JsonSerializer.Serialize(events), cancellationToken);
+        return events;
+    }
+
     // Retrieves a specific event by ID from the cache or the repository if not cached
     public async Task<Models.Event> GetEventById(Guid eventId, CancellationToken cancellationToken)
     {
