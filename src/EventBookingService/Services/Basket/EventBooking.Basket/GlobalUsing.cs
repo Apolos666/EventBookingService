@@ -32,6 +32,7 @@ global using Microsoft.AspNetCore.Authorization;
 global using EventBooking.Basket.Services;
 global using BuildingBlocks.Messaging.Events.Payments;
 global using System.Reflection;
+global using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 
 

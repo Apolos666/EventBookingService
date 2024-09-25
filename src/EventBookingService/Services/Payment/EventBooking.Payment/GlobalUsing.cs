@@ -11,4 +11,5 @@ global using System.Reflection;
 global using BuildingBlocks.Messaging.MassTransit;
 global using MassTransit;
 global using BuildingBlocks.Messaging.Events.Payments;
+global using EventBooking.Payment.Extensions;
 
