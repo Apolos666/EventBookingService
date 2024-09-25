@@ -9,6 +9,7 @@
 ## The Goals of the Project
 
 - [x] Building a cloud-native application with .NET Core
+- [x] `Docker` and `Docker Compose` for containerization
 - [x] Using `Vertical Slice Architecture` and `Clean Architecture` for organizing the codebase
 - [x] Using `Domain-Driven Design` to design the domain model
 - [x] Implementing the `CQRS` pattern with `MediatR` (including Pipelines for validation and logging)
@@ -22,9 +23,7 @@
 - [x] Using `Minimal API` with `Carter`
 - [x] Input validation using `FluentValidation`
 - [x] Payments integration with `Stripe`
-- [x] Notifications using `SignalR`
-- [x] `Docker` and `Docker Compose` for containerization
-- [] Testing
+- [x] Notifications using `SignalR` and `Background Service`.
 
 ## Frontend Stack
 
@@ -36,8 +35,21 @@
 - [x] Payment processing with `Stripe.js`
 - [x] Real-time notifications with `SignalR.js`
 
-- [eShop](https://github.com/dotnet/eShop)
-- [practical-dotnet-aspire](https://github.com/thangchung/practical-dotnet-aspire)
+## Domain Business & Bounded Contexts - Services Boundaries
+
+- **Basket**: Manages user shopping cart information.
+- **Booking**: Handles user order information and processing.
+- **Discount**: Provides discount information for events and applies discounts to orders.
+- **Event**: Stores and manages event information, including creator, venue, start time, maximum attendees, etc.
+- **Notification**: Sends notifications to users using a background service..
+- **Payment**: Processes one-time payments using Stripe.
+- **Storage**: Manages static files such as images and videos.
+
+## Project References
+
+- [eShopMicroservice](https://github.com/mehmetozkaya/EShopMicroservices)
+- [practical-dotnet-aspire](https://github.com/foxminchan/BookWorm)
+- [vertical-slice-react](https://github.com/yurisldk/realworld-react-fsd)
 
 ## License
 
